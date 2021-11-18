@@ -1,0 +1,22 @@
+{
+  "name": "health-log",
+  "version": "1.0.0",
+  "description": "A web app to log health stats",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"yarn server\" \"yarn client\""
+  },
+  "author": "kkvanonymous",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "concurrently": "^6.4.0",
+    "nodemon": "^2.0.15"
+  }
+}
