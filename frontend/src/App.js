@@ -6,8 +6,8 @@ function App() {
     <Router>
       <main>
         <Routes>
-          <Route path='/' element={<HomeScreen />} />
-          <Route path='/patient/auth' element={<PatientAuthScreen />} />
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/patient/auth" element={<PatientAuthScreen />} />
         </Routes>
       </main>
     </Router>
