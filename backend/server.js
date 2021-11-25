@@ -4,6 +4,7 @@ import colors from 'colors'
 import morgan from 'morgan'
 import connectDB from './config/database.js'
 import { errorHandler, notFoundHandler } from './middleware/errorMiddleware.js'
+import userAuthRoutes from './routes/auth/userAuthRoutes.js'
 
 dotenv.config()
 
@@ -16,6 +17,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(express.json())
+app.use('/api/auth', userAuthRoutes)
 
 app.get('/', (req, res) => {
   res.send('App is running...')

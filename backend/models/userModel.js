@@ -4,9 +4,10 @@ const UserSchema = mongoose.Schema(
   {
     phoneNumber: {
       type: Number,
-      required: true,
       unique: true,
     },
+
+    phoneOtp: String,
   },
   {
     timestamps: true,
