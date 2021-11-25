@@ -20,7 +20,8 @@
     "express-async-handler": "^1.2.0",
     "fast-two-sms": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.0.13"
+    "mongoose": "^6.0.13",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "concurrently": "^6.4.0",
