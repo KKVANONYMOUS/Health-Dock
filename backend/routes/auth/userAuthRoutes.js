@@ -1,4 +1,3 @@
-/*User Routes*/
 import { Router } from 'express'
 import { authUser, verifyOTP } from '../../controllers/auth/userControllers.js'
 const route = Router()

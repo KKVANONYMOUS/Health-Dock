@@ -7,7 +7,7 @@ import generateToken from '../../utils/generateToken.js'
 // @desc   Auth user & generate token
 // @route  POST /api/auth/user
 // @access Public
-const authUser = asyncHandler(async (req, res, next) => {
+const authUser = asyncHandler(async (req, res) => {
   const { phoneNumber } = req.body
 
   let user = await User.findOne({ phoneNumber })

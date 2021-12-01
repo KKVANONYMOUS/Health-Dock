@@ -5,8 +5,15 @@ const UserSchema = mongoose.Schema(
     phoneNumber: {
       type: Number,
       unique: true,
+      required: true,
     },
-
+    patients: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'Patient',
+      },
+    ],
     phoneOtp: String,
   },
   {
