@@ -1,8 +1,8 @@
 import fast2sms from 'fast-two-sms'
 import asyncHandler from 'express-async-handler'
-import User from '../../models/userModel.js'
-import generateOTP from '../../utils/generateOTP.js'
-import generateToken from '../../utils/generateToken.js'
+import User from '../models/userModel.js'
+import generateOTP from '../utils/generateOTP.js'
+import generateToken from '../utils/generateToken.js'
 
 // @desc   Auth user & generate token
 // @route  POST /api/auth/user

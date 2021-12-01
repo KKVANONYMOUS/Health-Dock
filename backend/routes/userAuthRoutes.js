@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { authUser, verifyOTP } from '../../controllers/auth/userControllers.js'
+import { authUser, verifyOTP } from '../controllers/userControllers.js'
 const route = Router()
 
 route.post('/user', authUser)
