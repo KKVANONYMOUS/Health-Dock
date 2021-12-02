@@ -35,4 +35,35 @@ const addPatient = asyncHandler(async (req, res) => {
   res.json(patient)
 })
 
-export { addPatient }
+// @desc   Edit patient
+// @route  POST /api/patient/:id
+// @access Private
+const editPatient = asyncHandler(async (req, res) => {
+  const { name, gender, age, bloodGroup, dob } = req.body
+
+  const patient = await Patient.findById(req.params.id)
+
+  if (patient) {
+    const user = await User.findById(req.user._id)
+    const checkPatient = user.patients.filter((val) => val == req.params.id)
+
+    if (checkPatient.length != 0) {
+      patient.name = name
+      patient.gender = gender
+      patient.age = age
+      patient.bloodGroup = bloodGroup
+      patient.dob = dob
+
+      const updatedPatient = await patient.save()
+      res.json(updatedPatient)
+    } else {
+      res.status(401)
+      res.json('Not authorised, token failed')
+    }
+  } else {
+    res.status(404)
+    res.json('Patient not found')
+  }
+})
+
+export { addPatient, editPatient }
