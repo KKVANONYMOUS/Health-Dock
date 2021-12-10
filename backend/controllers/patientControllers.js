@@ -66,4 +66,41 @@ const editPatient = asyncHandler(async (req, res) => {
   }
 })
 
-export { addPatient, editPatient }
+const getPatient = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+  if(!user){
+    res.status(404)
+    res.json('no user')
+  }
+  const patientsList = user.patients
+  // console.log(Patients.length)
+  if(patientsList.length==0){
+    res.status(200).json({
+      message: 'No User Registered',
+      
+    })
+  } 
+  else{
+    var patientDetails= []
+    for (let i = 0; i < patientsList.length; i++) {
+       const patient = await Patient.findById(patientsList[i])
+       patientDetails.push({
+          
+            "aadharNumber": patient.aadharNumber,
+            "name": patient.name,
+            "gender": patient.gender,
+            "age": patient.age,
+            "bloodGroup": patient.bloodGroup,
+            "dob": patient.dob,
+        
+        })
+    }
+     res.status(200).json({
+      message: 'All users',
+      data: {
+        patients : patientDetails
+      },
+    })   
+  }
+})
+export { addPatient, editPatient , getPatient}
