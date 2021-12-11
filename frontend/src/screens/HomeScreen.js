@@ -1,7 +1,12 @@
+import styled from 'styled-components'
+
+const Heading = styled.h3`
+  font-family: 'Poppins';
+`
 const HomeScreen = () => {
   return (
     <div>
-      <h1>Home Screen</h1>
+      <Heading>Home Screen</Heading>
     </div>
   )
 }
