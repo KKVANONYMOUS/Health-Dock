@@ -1,12 +1,9 @@
-import styled from 'styled-components'
+import Navbar from '../components/Navbar'
 
-const Heading = styled.h3`
-  font-family: 'Poppins';
-`
 const HomeScreen = () => {
   return (
     <div>
-      <Heading>Home Screen</Heading>
+      <Navbar />
     </div>
   )
 }
