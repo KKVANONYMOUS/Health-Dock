@@ -8,7 +8,7 @@ const Nav = styled.nav`
   position: fixed;
   top: 0;
   left: 0;
-  height: 80px;
+  height: 10vh;
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -20,12 +20,12 @@ const NavContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 80px;
+  height: 10vh;
   width: 100%;
   //background-color: red;
   padding: 0 50px;
 
-  @media (max-width: 400px) {
+  @media (max-width: 1000px) {
     padding: 0;
   }
 `
@@ -58,7 +58,7 @@ const NavList = styled.ul`
   align-items: center;
   //justify-content: center;
   //background-color: green;
-  height: 80px;
+  height: 10vh;
   padding: 0 20px;
 
   @media (max-width: 1000px) {
@@ -69,7 +69,7 @@ const NavList = styled.ul`
     padding: 0;
     top: 65px;
     left: ${({ toggleNav }) => (toggleNav ? '0' : '-150%')};
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.9);
     transition: 0.5s ease-in-out;
   }
 `
@@ -83,7 +83,7 @@ const NavListItem = styled.li`
   @media (max-width: 1000px) {
     //background-color: pink;
     width: 100%;
-    height: 80px;
+    height: 10vh;
     margin-bottom: 2px;
     &:hover {
       border: none;
@@ -109,6 +109,7 @@ const NavLink = styled(Link)`
     //display: block;
     //align-items: center;
     //text-align: center;
+    color: #ccc;
     padding: 1.5rem;
   }
 `
