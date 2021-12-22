@@ -150,8 +150,8 @@ const Hero = () => {
             <HeroButton color='#496BF2' to='/hospital/login'>
               Hospital
             </HeroButton>
-            <HeroButton color='#2DD6C1' to='/user/login'>
-              Patient
+            <HeroButton color='#2DD6C1' to='/user/auth'>
+              User
             </HeroButton>
           </HeroButtonContainer>
         </HeroContentContainer>

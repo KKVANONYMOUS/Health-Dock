@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomeScreen from './screens/HomeScreen'
-import PatientAuthScreen from './screens/PatientAuthScreen'
+import UserAuthScreen from './screens/UserAuthScreen'
 import GlobalStyle from './styles/GlobalStyle'
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <main>
         <Routes>
           <Route path='/' element={<HomeScreen />} />
-          <Route path='/patient/auth' element={<PatientAuthScreen />} />
+          <Route path='/user/auth' element={<UserAuthScreen />} />
         </Routes>
       </main>
     </Router>
