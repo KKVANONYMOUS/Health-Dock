@@ -5,7 +5,7 @@ const UpperContainer = styled.div`
   ${'' /* display: flex; */}
   justify-content: space-between; 
   align-items: center;
-  height: 40%;
+  height: 50%;
   width: 100%;
   ${'' /* background-color: red; */}
   padding: 0 75px 0px;
@@ -16,28 +16,37 @@ const UpperContainer = styled.div`
   }
 `
 const Container = styled.div`
-  position: absolute;
-  top: 70px;
-  left: 0;
+  ${'' /* position: absolute;
+  top: 100vh;
+  left: 0; */}
+  margin-top : 10vh;
   display: flex;
   flex-direction: column;
   ${'' /* align-items: center; */}
   justify-content: start;
-  ${'' /* background-color: cyan; */}
+  ${'' /* background-color: red; */}
   height: 90vh;
   width: 100%;
 
   @media (max-width: 767px) {
-    padding-top: 50px;
+    ${'' /* padding-top: 5px; */}
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
   @media (width: 768px) and (height: 1024px) {
     //background-color: red;
     height: 55vh;
+    ${'' /* padding-top: 5px; */}
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
     justify-content: center;
+    ${'' /* padding-top: 5px; */}
+    padding-left: 15px;
+    padding-right: 15px;
   }
 `
 const AboutContainer = styled.div`
@@ -51,13 +60,14 @@ const AboutContainer = styled.div`
   width: 100%;
   @media (max-width: 1000px) {
     //align-items: start;
+     
   }
 `
 const AboutContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  ${'' /* align-items: flex-start; */}
-  justify-content: center;
+  align-items: flex-start;
+  ${'' /* justify-content: center; */}
   ${'' /* background-color: yellow; */}
   height: 80%;
   width: 50%;
@@ -136,9 +146,12 @@ const List = styled.ul`
 const ListItem = styled.li`
   ${'' /* list-style: none; */}
   height: 34px;
-  
-  //background-color: cyan;
-  //margin-right: 2rem;
+  padding-bottom : 20px;
+  ${'' /* background-color: cyan; */}
+  @media (max-width: 1000px) {
+    height: 50px;
+    padding-bottom : 25px;
+  }
 
   
 ` 
@@ -146,7 +159,7 @@ const UnderLine = styled.u`
   text-decoration-line: underline;
   box-sizing: border-box;
   text-decoration-color: #2DD6C1;
-  text-underline-offset: 0.4em;
+  text-underline-offset: 0.2em;
   text-decoration-thickness: 5px;
   
 `        
@@ -175,7 +188,7 @@ const About = () => {
             <List>
               <ListItem>
                   <Info>
-                  Easy sign up / sign 
+                  Easy sign up / sign in
                   </Info>
               </ListItem>
               <ListItem>
@@ -185,7 +198,7 @@ const About = () => {
               </ListItem>
               <ListItem>
                   <Info>
-                  Creating safer and efficient health records for you and your family  
+                  Efficiently manage your family's health data  
                   </Info>
               </ListItem>
             </List>

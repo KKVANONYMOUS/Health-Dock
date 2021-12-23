@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import DownArrow from './DownArrow'
 
 const Container = styled.div`
-  position: absolute;
+  position: relative;
   top: 70px;
   left: 0;
   display: flex;
