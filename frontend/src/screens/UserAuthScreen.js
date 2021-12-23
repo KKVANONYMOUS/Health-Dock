@@ -1,6 +1,10 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { sendOtp, verifyOtp } from '../redux/user/userActions'
+import Spinner from '../components/Spinner'
+//import toast, { Toaster } from 'react-hot-toast'
 
 const Container = styled.div`
   height: 100vh;
@@ -134,7 +138,7 @@ const AuthFormSubmitButton = styled.button`
   padding: 10px 20px;
   border: none;
   outline: none;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'no-drop' : 'pointer')};
 `
 
 const AuthCardCopyright = styled.div`
@@ -164,36 +168,70 @@ const ErrorMessage = styled.h6`
   margin-bottom: 5px;
 `
 const UserAuthScreen = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [mobileNum, setMobileNum] = useState('')
   const [otp, setOtp] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [errorOTPMessage, setOTPErrorMessage] = useState('')
-  const [isverifyOTP, setIsverifyOTP] = useState(false)
+  //const [isverifyOTP, setIsverifyOTP] = useState(false)
+
+  const userSendOtp = useSelector((state) => state.userSendOtp)
+  const {
+    loading: userSendOtpLoading,
+    data: userSendOtpData,
+    error: userSendOtpError,
+  } = userSendOtp
+
+  const userVerifyOtp = useSelector((state) => state.userLogin)
+  const {
+    loading: userVerifyOtpLoading,
+    userInfo,
+    error: userVerifyOtpError,
+  } = userVerifyOtp
 
   const handleMobileSubmit = (e) => {
     e.preventDefault()
 
     const num = mobileNum.trim()
+
     setErrorMessage('')
-    setIsverifyOTP(false)
-    if (num.length < 10) {
+    //setIsverifyOTP(false)
+
+    if (num.length < 10 || num.length > 10) {
       setErrorMessage('Please enter valid Mobile Number!')
       return
     }
-    setIsverifyOTP(true)
+
+    dispatch(sendOtp(num))
+    //if (!userSendOtpLoading && !userSendOtpError) setIsverifyOTP(true)
   }
 
   const handleOTPSubmit = (e) => {
     e.preventDefault()
     setOTPErrorMessage('')
     const otpInput = otp.trim()
+
     if (otpInput.length < 6) {
       setOTPErrorMessage('Please enter valid otp')
       return
     }
+    setOTPErrorMessage('')
+
+    if (!userSendOtpError && userSendOtpData.userId)
+      dispatch(verifyOtp(userSendOtpData.userId, otpInput))
   }
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate('/user/dashboard')
+    }
+  }, [userInfo, navigate])
   return (
     <Container>
+      {/*<div>
+        <Toaster />
+      </div>*/}
       <AuthCard>
         <AuthCardImage src='../../images/CardImage.png' />
         <AuthCardInfo>
@@ -202,7 +240,7 @@ const UserAuthScreen = () => {
           <AuthCardSubHeadingInfo>
             Register or Sign In to access your personalized health performa
           </AuthCardSubHeadingInfo>
-          {isverifyOTP ? (
+          {!userSendOtpLoading && !userSendOtpError && userSendOtpData ? (
             <AuthForm onSubmit={handleOTPSubmit}>
               <AuthFormLabel>VERIFY OTP</AuthFormLabel>
               <AuthFormInputContainer errorMessage={errorOTPMessage}>
@@ -218,7 +256,14 @@ const UserAuthScreen = () => {
               {errorOTPMessage && (
                 <ErrorMessage>{errorOTPMessage}</ErrorMessage>
               )}
-              <AuthFormSubmitButton>Verify OTP</AuthFormSubmitButton>
+              {/*{userVerifyOtpError && toast.error(userVerifyOtpError)}*/}
+              <AuthFormSubmitButton disabled={userVerifyOtpLoading}>
+                {userVerifyOtpLoading ? (
+                  <Spinner width={18} height={18} />
+                ) : (
+                  'Verify OTP'
+                )}
+              </AuthFormSubmitButton>
             </AuthForm>
           ) : (
             <AuthForm onSubmit={handleMobileSubmit}>
@@ -234,10 +279,16 @@ const UserAuthScreen = () => {
                 />
               </AuthFormInputContainer>
               {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-              <AuthFormSubmitButton>Get OTP</AuthFormSubmitButton>
+              {/*{userSendOtpError && setErrorMessage(userSendOtpError)}*/}
+              <AuthFormSubmitButton disabled={userSendOtpLoading}>
+                {userSendOtpLoading ? (
+                  <Spinner width={18} height={18} />
+                ) : (
+                  'Get OTP'
+                )}
+              </AuthFormSubmitButton>
             </AuthForm>
           )}
-
           <AuthCardCopyright>
             ©2021 Health Dock All rights reserved
           </AuthCardCopyright>

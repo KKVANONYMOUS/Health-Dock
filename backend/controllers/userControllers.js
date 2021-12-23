@@ -29,14 +29,12 @@ const authUser = asyncHandler(async (req, res) => {
     user.phoneOtp = otp
     await user.save()
     res.status(200).json({
-      message: 'OTP sent successfully',
-      data: {
-        otp: otp,
-        userId: user._id,
-      },
+      otp: otp,
+      userId: user._id,
     })
   } else {
-    res.status(resData.status_code).json({ message: resData.message })
+    res.status(resData.status_code)
+    throw new Error(res.message)
   }
 })
 
@@ -50,15 +48,13 @@ const verifyOTP = asyncHandler(async (req, res, next) => {
 
   if (!user) {
     res.status(400)
-    res.json({ message: 'User Not Found' })
-    return
+    throw new Error('User not found')
   }
 
   if (user.phoneOtp !== otp) {
-    res.status(401)
-    res.json({ message: 'Invalid OTP' })
     await user.deleteOne()
-    return
+    res.status(401)
+    throw new Error('Invalid OTP')
   }
 
   const token = generateToken({ userId })
@@ -67,11 +63,8 @@ const verifyOTP = asyncHandler(async (req, res, next) => {
   await user.save()
 
   res.status(200).json({
-    message: 'OTP verified successully',
-    data: {
-      token,
-      userId,
-    },
+    token,
+    userId,
   })
 })
 
