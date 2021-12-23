@@ -1,35 +1,28 @@
 import styled from 'styled-components'
 
-
 const UpperContainer = styled.div`
   ${'' /* display: flex; */}
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   height: 50%;
   width: 100%;
-  ${'' /* background-color: red; */}
   padding: 0 75px 0px;
-  
+
   @media (max-width: 1000px) {
     padding: 0;
-    height : 65%;
+    height: 65%;
   }
 `
+
 const Container = styled.div`
-  ${'' /* position: absolute;
-  top: 100vh;
-  left: 0; */}
-  margin-top : 10vh;
+  margin-top: 10vh;
   display: flex;
   flex-direction: column;
-  ${'' /* align-items: center; */}
   justify-content: start;
-  ${'' /* background-color: red; */}
   height: 90vh;
   width: 100%;
 
   @media (max-width: 767px) {
-    ${'' /* padding-top: 5px; */}
     padding-left: 15px;
     padding-right: 15px;
   }
@@ -37,38 +30,33 @@ const Container = styled.div`
   @media (width: 768px) and (height: 1024px) {
     //background-color: red;
     height: 55vh;
-    ${'' /* padding-top: 5px; */}
     padding-left: 15px;
     padding-right: 15px;
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
     justify-content: center;
-    ${'' /* padding-top: 5px; */}
     padding-left: 15px;
     padding-right: 15px;
   }
 `
+
 const AboutContainer = styled.div`
   display: flex;
-  ${'' /* position: relative; */}
   align-items: center;
   justify-content: center;
-  ${'' /* background-color: grey; */}
   margin-bottom: 50px;
   height: 70%;
   width: 100%;
   @media (max-width: 1000px) {
     //align-items: start;
-     
   }
 `
+
 const AboutContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  ${'' /* justify-content: center; */}
-  ${'' /* background-color: yellow; */}
   height: 80%;
   width: 50%;
   padding-left: 80px;
@@ -80,32 +68,28 @@ const AboutContentContainer = styled.div`
   }
 `
 
-
-
 const UpperTitle = styled.h1`
   font-family: 'Poppins';
   color: #2d2d3a;
   font-size: 2.5rem;
   margin-top: 50px;
   margin-bottom: 20px;
-  //background-color: pink;
 
   @media (max-width: 1000px) {
     font-size: 2rem;
   }
 `
+
 const LowerTitle = styled.h1`
   font-family: 'Poppins';
-  color: #496BF2;
+  color: #496bf2;
   font-size: 2rem;
   margin-bottom: 30px;
-  //background-color: pink;
 
   @media (max-width: 1000px) {
     font-size: 1.5rem;
   }
 `
-
 
 const AboutSlogan = styled.p`
   font-family: 'Montserrat';
@@ -118,10 +102,12 @@ const AboutSlogan = styled.p`
     font-size: 1rem;
   }
 `
+
 const AboutInfoContainer = styled.div`
   width: 75%;
   margin-bottom: 20px;
 `
+
 const Info = styled.p`
   font-family: 'Poppins';
   color: #212121;
@@ -132,74 +118,68 @@ const Info = styled.p`
     font-size: 0.7rem;
   }
 `
+
 const List = styled.ul`
-  
   align-items: center;
   justify-content: center;
-  ${'' /* background-color: green; */}
   height: 15vh;
-  ${'' /* padding: 0 20px; */}
-
-  
 `
 
 const ListItem = styled.li`
-  ${'' /* list-style: none; */}
   height: 34px;
-  padding-bottom : 20px;
-  ${'' /* background-color: cyan; */}
+  padding-bottom: 20px;
   @media (max-width: 1000px) {
     height: 50px;
-    padding-bottom : 25px;
+    padding-bottom: 25px;
   }
-
-  
-` 
+`
 const UnderLine = styled.u`
   text-decoration-line: underline;
   box-sizing: border-box;
-  text-decoration-color: #2DD6C1;
+  text-decoration-color: #2dd6c1;
   text-underline-offset: 0.2em;
   text-decoration-thickness: 5px;
-  
-`        
+`
 
 const About = () => {
   return (
-    
     <Container>
       <UpperContainer>
         <UpperTitle>Who are we?</UpperTitle>
-        <AboutSlogan>We provide digital record of health information such as medical history, diagnoses, medications, immunization dates, and allergies.
-        Making the health information available, reducing duplication of tests, reducing delays in treatment, and patients well informed to take better decisions.</AboutSlogan>
+        <AboutSlogan>
+          We provide digital record of health information such as medical
+          history, diagnoses, medications, immunization dates, and allergies.
+          Making the health information available, reducing duplication of
+          tests, reducing delays in treatment, and patients well informed to
+          take better decisions.
+        </AboutSlogan>
       </UpperContainer>
       <AboutContainer>
         <AboutContentContainer>
-          <LowerTitle><UnderLine>Our Vision</UnderLine></LowerTitle>
+          <LowerTitle>
+            <UnderLine>Our Vision</UnderLine>
+          </LowerTitle>
           <AboutInfoContainer>
             <Info>
-            Our vision is to enhance Nation's Health IT Infrastructure and strengthen the relationship between patients and clinicians.
+              Our vision is to enhance Nation's Health IT Infrastructure and
+              strengthen the relationship between patients and clinicians.
             </Info>
           </AboutInfoContainer>
         </AboutContentContainer>
         <AboutContentContainer>
-          <LowerTitle><UnderLine>Key Features</UnderLine></LowerTitle>
+          <LowerTitle>
+            <UnderLine>Key Features</UnderLine>
+          </LowerTitle>
           <AboutInfoContainer>
             <List>
               <ListItem>
-                  <Info>
-                  Easy sign up / sign in
-                  </Info>
+                <Info>Easy sign up / sign in</Info>
               </ListItem>
               <ListItem>
-                  <Info>
-                  Digitally secure Health Record  
-                  </Info>
+                <Info>Digitally secure Health Record</Info>
               </ListItem>
               <ListItem>
-                  <Info>
-                  Efficiently manage your family's health data  
-                  </Info>
+                <Info>Efficiently manage your family's health data</Info>
               </ListItem>
             </List>
           </AboutInfoContainer>
