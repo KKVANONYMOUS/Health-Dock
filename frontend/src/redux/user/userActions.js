@@ -9,7 +9,6 @@ import {
   USER_SEND_OTP_SUCCESS,
   USER_SEND_OTP_FAILURE,
   USER_SEND_OTP_RESET,
-  USER_VERIFY_OTP_RESET,
 } from './userTypes'
 
 const userSendOtpRequest = () => {

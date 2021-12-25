@@ -7,7 +7,6 @@ import {
   USER_VERIFY_OTP_SUCCESS,
   USER_LOGOUT,
   USER_SEND_OTP_RESET,
-  USER_VERIFY_OTP_RESET,
 } from './userTypes'
 
 export const userSendOtpReducer = (state = {}, action) => {
