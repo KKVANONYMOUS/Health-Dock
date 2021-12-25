@@ -2,9 +2,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { sendOtp, verifyOtp } from '../redux/user/userActions'
+import { sendOtp, userSendOtpReset, verifyOtp } from '../redux/user/userActions'
 import Spinner from '../components/Spinner'
-//import toast, { Toaster } from 'react-hot-toast'
+import Alert from '../components/Alert'
 
 const Container = styled.div`
   height: 100vh;
@@ -174,7 +174,6 @@ const UserAuthScreen = () => {
   const [otp, setOtp] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [errorOTPMessage, setOTPErrorMessage] = useState('')
-  //const [isverifyOTP, setIsverifyOTP] = useState(false)
 
   const userSendOtp = useSelector((state) => state.userSendOtp)
   const {
@@ -196,7 +195,6 @@ const UserAuthScreen = () => {
     const num = mobileNum.trim()
 
     setErrorMessage('')
-    //setIsverifyOTP(false)
 
     if (num.length < 10 || num.length > 10) {
       setErrorMessage('Please enter valid Mobile Number!')
@@ -204,7 +202,6 @@ const UserAuthScreen = () => {
     }
 
     dispatch(sendOtp(num))
-    //if (!userSendOtpLoading && !userSendOtpError) setIsverifyOTP(true)
   }
 
   const handleOTPSubmit = (e) => {
@@ -225,16 +222,20 @@ const UserAuthScreen = () => {
   useEffect(() => {
     if (userInfo) {
       navigate('/user/dashboard')
+    } else {
+      dispatch(userSendOtpReset())
     }
-  }, [userInfo, navigate])
+  }, [userInfo, navigate, dispatch])
+
   return (
     <Container>
-      {/*<div>
-        <Toaster />
-      </div>*/}
       <AuthCard>
         <AuthCardImage src='../../images/CardImage.png' />
         <AuthCardInfo>
+          {userSendOtpError && (
+            <Alert error message={'Invalid Mobile Number'} />
+          )}
+          {userVerifyOtpError && <Alert error message={userVerifyOtpError} />}
           <AuthCardHeading>Health Dock.</AuthCardHeading>
           <AuthCardSubHeading>Register/Sign In</AuthCardSubHeading>
           <AuthCardSubHeadingInfo>
@@ -256,7 +257,6 @@ const UserAuthScreen = () => {
               {errorOTPMessage && (
                 <ErrorMessage>{errorOTPMessage}</ErrorMessage>
               )}
-              {/*{userVerifyOtpError && toast.error(userVerifyOtpError)}*/}
               <AuthFormSubmitButton disabled={userVerifyOtpLoading}>
                 {userVerifyOtpLoading ? (
                   <Spinner width={18} height={18} />
@@ -279,8 +279,7 @@ const UserAuthScreen = () => {
                 />
               </AuthFormInputContainer>
               {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-              {/*{userSendOtpError && setErrorMessage(userSendOtpError)}*/}
-              <AuthFormSubmitButton disabled={userSendOtpLoading}>
+              <AuthFormSubmitButton disabled={userSendOtpLoading} type='submit'>
                 {userSendOtpLoading ? (
                   <Spinner width={18} height={18} />
                 ) : (

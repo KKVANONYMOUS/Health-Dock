@@ -2,9 +2,9 @@ import '../styles/downArrow.css'
 const DownArrow = () => {
   return (
     <>
-      <div class='chevron'></div>
-      <div class='chevron'></div>
-      <div class='chevron'></div>
+      <div className='chevron'></div>
+      <div className='chevron'></div>
+      <div className='chevron'></div>
     </>
   )
 }
