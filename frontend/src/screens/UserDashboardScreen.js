@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import styled from 'styled-components'
-import { UilSignOutAlt } from '@iconscout/react-unicons'
+import { UilSignOutAlt, UilPlusCircle } from '@iconscout/react-unicons'
 
 const DashboardContainer = styled.div`
   position: relative;
@@ -50,6 +50,7 @@ const LogoutButton = styled.button`
   background-color: transparent;
   color: #2d2d3a;
   border: 2px solid #2d2d3a;
+  outline: none;
   padding: 8px 40px;
   font-weight: 700;
   cursor: pointer;
@@ -64,11 +65,55 @@ const DashboardUserPhone = styled.h4`
   font-family: 'Montserrat';
   color: #000;
   font-weight: 600;
+  margin-bottom: 40px;
 `
 
 const PhoneNumber = styled.span`
   color: #212121;
 `
+
+const MemberDetailsHeading = styled.h2`
+  font-family: 'Poppins';
+  font-weight: 700;
+  color: #54586a;
+  margin-bottom: 10px;
+`
+
+const MemberCardList = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  //background-color: yellow;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`
+
+const MemberCard = styled.div`
+  width: 49%;
+  border: 2px solid #54586a;
+  padding: 5px;
+  margin: 10px 5px;
+`
+const AddMemberButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Quicksand';
+  background-color: #2dd6c1;
+  color: #fff;
+  border: 2px solid #2dd6c1;
+  outline: none;
+  padding: 6px 20px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    color: #2dd6c1;
+    background-color: transparent;
+  }
+`
+
 const UserDashboardScreen = () => {
   const navigate = useNavigate()
   const userLogin = useSelector((state) => state.userLogin)
@@ -101,6 +146,13 @@ const UserDashboardScreen = () => {
               userInfo.phoneNumber.toString().substring(7)}
           </PhoneNumber>
         </DashboardUserPhone>
+        <MemberDetailsHeading>Member Details</MemberDetailsHeading>
+        <MemberCardList>
+          <MemberCard>To be Decided</MemberCard>
+        </MemberCardList>
+        <AddMemberButton>
+          Add Member <UilPlusCircle size='25' />
+        </AddMemberButton>
       </DashboardContainer>
     </>
   )
