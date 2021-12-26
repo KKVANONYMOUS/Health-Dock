@@ -63,6 +63,7 @@ const verifyOTP = asyncHandler(async (req, res, next) => {
   await user.save()
 
   res.status(200).json({
+    phoneNumber: user.phoneNumber,
     token,
     userId,
   })
