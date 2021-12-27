@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { resetPatientsList } from '../patient/patientActions'
 
 import {
   USER_VERIFY_OTP_FAILURE,
@@ -110,5 +111,6 @@ export const verifyOtp = (userId, otp) => async (dispatch) => {
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem('userInfo')
   dispatch(userLogout())
+  dispatch(resetPatientsList())
   document.location.href = '/user/auth'
 }

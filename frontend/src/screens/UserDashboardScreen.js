@@ -1,10 +1,14 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import styled from 'styled-components'
 import { UilSignOutAlt, UilPlusCircle } from '@iconscout/react-unicons'
 import MemberCard from '../components/MemberCard'
+import { fetchPatientsList } from '../redux/patient/patientActions'
+import Alert from '../components/Alert'
+import Spinner from '../components/Spinner'
+import { logoutUser } from '../redux/user/userActions'
 
 const DashboardContainer = styled.div`
   position: relative;
@@ -154,16 +158,38 @@ const AddMemberButton = styled.button`
     background-color: transparent;
   }
 `
+const UtilityContainer = styled.div`
+  width: 100%;
+  text-align: center;
+`
 
+const Message = styled.div`
+  width: 100%;
+  color: #4b464b;
+  padding: 20px 20px;
+  border: 1px solid #4b464b;
+  background-color: #e2e2e4;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  text-align: center;
+`
 const UserDashboardScreen = () => {
   const navigate = useNavigate()
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  const dispatch = useDispatch()
+
+  const patientList = useSelector((state) => state.patientList)
+  const { loading, error, patients } = patientList
+
   useEffect(() => {
     if (!userInfo) {
       navigate('/user/auth')
+    } else {
+      dispatch(fetchPatientsList())
     }
-  }, [navigate, userInfo])
+  }, [navigate, userInfo, dispatch])
   return (
     <>
       <Navbar />
@@ -173,7 +199,7 @@ const UserDashboardScreen = () => {
             <DashboardHeading>Dashboard</DashboardHeading>
             <DashboardHeadingUnderline />
           </DashboardHeadingContainer>
-          <LogoutButton>
+          <LogoutButton onClick={() => dispatch(logoutUser())}>
             <UilSignOutAlt size='25' />
             Logout
           </LogoutButton>
@@ -189,30 +215,27 @@ const UserDashboardScreen = () => {
         </DashboardUserPhone>
         <MemberDetailsHeading>Member Details</MemberDetailsHeading>
         <MemberCardList>
-          <MemberCard
-            fullName='Kunal Kumar Verma'
-            gender='Male'
-            dob='10/10/2001'
-            bloodGroup='O+'
-            aadharNum='789654123652'
-            age='20'
-          />
-          <MemberCard
-            fullName='Chamma Sarraf'
-            gender='Female'
-            dob='12/07/2000'
-            bloodGroup='O+'
-            aadharNum='785448652158'
-            age='21'
-          />
-          <MemberCard
-            fullName='Hermione Granger'
-            gender='Female'
-            dob='9/05/1990'
-            bloodGroup='B+'
-            aadharNum='759614562875'
-            age='31'
-          />
+          {loading && (
+            <UtilityContainer>
+              <Spinner width={60} height={60} color='#212121' />
+            </UtilityContainer>
+          )}
+          {error && <Alert error message={error} />}
+          {patients &&
+            (patients.length === 0 ? (
+              <Message>No members to display!</Message>
+            ) : (
+              patients.map((patient) => (
+                <MemberCard
+                  fullName={patient.name}
+                  gender={patient.gender}
+                  dob={patient.dob}
+                  bloodGroup={patient.bloodGroup}
+                  aadharNum={patient.aadharNumber.toString()}
+                  age={patient.age}
+                />
+              ))
+            ))}
         </MemberCardList>
         <AddMemberButton>
           Add Member <UilPlusCircle size='25' />

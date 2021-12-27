@@ -7,7 +7,7 @@ const StyledSpinner = styled.svg`
   height: ${({ height }) => height + 'px'};
 
   & .path {
-    stroke: #fff;
+    stroke: ${({ color }) => color};
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }
@@ -33,8 +33,13 @@ const StyledSpinner = styled.svg`
   }
 `
 
-const Spinner = ({ width, height }) => (
-  <StyledSpinner viewBox='0 0 50 50' width={width} height={height}>
+const Spinner = ({ width, height, color = '#fff' }) => (
+  <StyledSpinner
+    viewBox='0 0 50 50'
+    width={width}
+    height={height}
+    color={color}
+  >
     <circle
       className='path'
       cx='25'

@@ -10,10 +10,14 @@ const AlertBox = styled.div`
   transition: opacity 0.15s linear;
   font-family: 'Quicksand';
   font-size: 12px;
-  width: 85%;
+  width: ${({ width }) => width};
 `
-const Alert = ({ error, message }) => {
-  return <AlertBox error={error}>{message}</AlertBox>
+const Alert = ({ error, message, width = '100%' }) => {
+  return (
+    <AlertBox error={error} width={width}>
+      {message}
+    </AlertBox>
+  )
 }
 
 export default Alert

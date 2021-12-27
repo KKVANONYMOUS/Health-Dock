@@ -233,9 +233,11 @@ const UserAuthScreen = () => {
         <AuthCardImage src='../../images/CardImage.png' />
         <AuthCardInfo>
           {userSendOtpError && (
-            <Alert error message={'Invalid Mobile Number'} />
+            <Alert error width='85%' message={'Invalid Mobile Number'} />
           )}
-          {userVerifyOtpError && <Alert error message={userVerifyOtpError} />}
+          {userVerifyOtpError && (
+            <Alert error width='85%' message={userVerifyOtpError} />
+          )}
           <AuthCardHeading>Health Dock.</AuthCardHeading>
           <AuthCardSubHeading>Register/Sign In</AuthCardSubHeading>
           <AuthCardSubHeadingInfo>
