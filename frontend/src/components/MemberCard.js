@@ -3,16 +3,33 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const CardContainer = styled.div`
-  width: 49%;
+  width: 48%;
   border: 2px solid #54586a;
   padding: 5px;
   margin: 10px 5px;
   display: flex;
   //  justify-content: space-between;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    margin: 10px 0;
+    padding: 3px;
+    //width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `
 
 const AvatarImage = styled.img`
   width: 30%;
+
+  @media (max-width: 1000px) {
+    width: auto;
+    margin: 0 20px;
+    //height: 50%;
+  }
 `
 
 const CardInfo = styled.div`
@@ -23,6 +40,10 @@ const CardInfo = styled.div`
   width: 70%;
   //  background-color: yellow;
   padding: 20px;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `
 
 const Name = styled.h3`
@@ -72,7 +93,7 @@ const Button = styled(Link)`
     color: ${({ color }) => color};
   }
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1024px) {
     padding: 5px 25px;
     font-size: 0.6rem;
   }

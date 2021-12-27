@@ -32,6 +32,7 @@ const NavContainer = styled.div`
 
 const NavLogo = styled(Link)`
   text-decoration: none;
+  outline: none;
   //background-color: orange;
   width: 220px;
   //height: 100px;
@@ -93,6 +94,7 @@ const NavListItem = styled.li`
 const NavLink = styled(Link)`
   display: flex;
   flex-direction: column;
+  outline: none;
   //justify-content: space-between;
   align-items: center;
   text-decoration: none;

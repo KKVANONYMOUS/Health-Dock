@@ -14,6 +14,24 @@ const DashboardContainer = styled.div`
   width: 100%;
   padding: 20px 75px 20px;
   //background-color: cyan;
+
+  @media (max-width: 767px) {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  @media (width: 768px) and (height: 1024px) {
+    //background-color: red;
+    height: 55vh;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1024px) {
+    justify-content: center;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 `
 const DashboardContainerFirstRow = styled.div`
   display: flex;
@@ -22,10 +40,19 @@ const DashboardContainerFirstRow = styled.div`
   align-items: center;
   //background-color: yellow;
   margin-bottom: 20px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    align-items: start;
+  }
 `
 
 const DashboardHeadingContainer = styled.div`
   width: 25%;
+
+  @media (max-width: 1000px) {
+    margin-bottom: 10px;
+  }
 `
 const DashboardHeading = styled.h1`
   color: #496bf2;
@@ -41,6 +68,14 @@ const DashboardHeadingUnderline = styled.hr`
   width: 40%;
   text-align: left;
   margin-left: 0;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
+
+  @media (max-width: 426px) {
+    width: 200%;
+  }
 `
 
 const LogoutButton = styled.button`
@@ -60,6 +95,11 @@ const LogoutButton = styled.button`
   &:hover {
     background-color: #2d2d3a;
     color: #fff;
+  }
+
+  @media (max-width: 1000px) {
+    padding: 2px 10px;
+    font-size: 12px;
   }
 `
 const DashboardUserPhone = styled.h4`
@@ -83,10 +123,16 @@ const MemberDetailsHeading = styled.h2`
 const MemberCardList = styled.div`
   display: flex;
   flex-wrap: wrap;
-  //background-color: yellow;
+  //background-color: pink;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+  }
 `
 
 const AddMemberButton = styled.button`
@@ -164,7 +210,7 @@ const UserDashboardScreen = () => {
             gender='Female'
             dob='9/05/1990'
             bloodGroup='B+'
-            aadharNum='7596145628735'
+            aadharNum='759614562875'
             age='31'
           />
         </MemberCardList>
