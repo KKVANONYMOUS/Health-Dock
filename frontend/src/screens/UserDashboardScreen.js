@@ -4,14 +4,15 @@ import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import styled from 'styled-components'
 import { UilSignOutAlt, UilPlusCircle } from '@iconscout/react-unicons'
+import MemberCard from '../components/MemberCard'
 
 const DashboardContainer = styled.div`
   position: relative;
   top: 70px;
   left: 0;
-  height: 90vh;
+  //height: 90vh;
   width: 100%;
-  padding: 20px 75px 0px;
+  padding: 20px 75px 20px;
   //background-color: cyan;
 `
 const DashboardContainerFirstRow = styled.div`
@@ -88,12 +89,6 @@ const MemberCardList = styled.div`
   margin-bottom: 20px;
 `
 
-const MemberCard = styled.div`
-  width: 49%;
-  border: 2px solid #54586a;
-  padding: 5px;
-  margin: 10px 5px;
-`
 const AddMemberButton = styled.button`
   display: flex;
   justify-content: center;
@@ -148,7 +143,30 @@ const UserDashboardScreen = () => {
         </DashboardUserPhone>
         <MemberDetailsHeading>Member Details</MemberDetailsHeading>
         <MemberCardList>
-          <MemberCard>To be Decided</MemberCard>
+          <MemberCard
+            fullName='Kunal Kumar Verma'
+            gender='Male'
+            dob='10/10/2001'
+            bloodGroup='O+'
+            aadharNum='789654123652'
+            age='20'
+          />
+          <MemberCard
+            fullName='Chamma Sarraf'
+            gender='Female'
+            dob='12/07/2000'
+            bloodGroup='O+'
+            aadharNum='785448652158'
+            age='21'
+          />
+          <MemberCard
+            fullName='Hermione Granger'
+            gender='Female'
+            dob='9/05/1990'
+            bloodGroup='B+'
+            aadharNum='7596145628735'
+            age='31'
+          />
         </MemberCardList>
         <AddMemberButton>
           Add Member <UilPlusCircle size='25' />
