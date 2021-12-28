@@ -8,6 +8,7 @@ const CardContainer = styled.div`
   padding: 5px;
   margin: 10px 5px;
   display: flex;
+  background-color: #fff;
   //  justify-content: space-between;
 
   @media (max-width: 1000px) {

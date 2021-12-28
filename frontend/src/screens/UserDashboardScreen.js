@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
@@ -9,14 +9,16 @@ import { fetchPatientsList } from '../redux/patient/patientActions'
 import Alert from '../components/Alert'
 import Spinner from '../components/Spinner'
 import { logoutUser } from '../redux/user/userActions'
+import AddMemberModal from '../components/AddMemberModal/AddMemberModal'
 
 const DashboardContainer = styled.div`
   position: relative;
   top: 70px;
   left: 0;
-  //height: 90vh;
+  //height: 100%;
   width: 100%;
   padding: 20px 75px 20px;
+  background-color: #fff;
   //background-color: cyan;
 
   @media (max-width: 767px) {
@@ -174,6 +176,8 @@ const Message = styled.div`
   text-align: center;
 `
 const UserDashboardScreen = () => {
+  const [showModal, setShowModal] = useState(false)
+
   const navigate = useNavigate()
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
@@ -182,6 +186,10 @@ const UserDashboardScreen = () => {
 
   const patientList = useSelector((state) => state.patientList)
   const { loading, error, patients } = patientList
+
+  const openModal = () => {
+    setShowModal((prev) => !prev)
+  }
 
   useEffect(() => {
     if (!userInfo) {
@@ -193,6 +201,7 @@ const UserDashboardScreen = () => {
   return (
     <>
       <Navbar />
+      <AddMemberModal showModal={showModal} setShowModal={setShowModal} />
       <DashboardContainer>
         <DashboardContainerFirstRow>
           <DashboardHeadingContainer>
@@ -237,7 +246,7 @@ const UserDashboardScreen = () => {
               ))
             ))}
         </MemberCardList>
-        <AddMemberButton>
+        <AddMemberButton onClick={openModal}>
           Add Member <UilPlusCircle size='25' />
         </AddMemberButton>
       </DashboardContainer>

@@ -2,12 +2,16 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userSendOtpReducer, userVerifyOtpReducer } from './user/userReducers'
-import { patientListReducer } from './patient/patientReducers'
+import {
+  patientCreateReducer,
+  patientListReducer,
+} from './patient/patientReducers'
 
 const reducer = combineReducers({
   userSendOtp: userSendOtpReducer,
   userLogin: userVerifyOtpReducer,
   patientList: patientListReducer,
+  patientCreate: patientCreateReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
