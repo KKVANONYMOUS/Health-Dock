@@ -234,8 +234,9 @@ const UserDashboardScreen = () => {
             (patients.length === 0 ? (
               <Message>No members to display!</Message>
             ) : (
-              patients.map((patient) => (
+              patients.map((patient, index) => (
                 <MemberCard
+                  key={index}
                   fullName={patient.name}
                   gender={patient.gender}
                   dob={patient.dob}

@@ -1,8 +1,10 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
 import { UilMultiply } from '@iconscout/react-unicons'
 import AddMemberImage from './AddMemberImage.png'
+import { createPatient } from '../../redux/patient/patientActions'
 
 const Background = styled.div`
   width: 100%;
@@ -133,13 +135,22 @@ const FormSubmitButton = styled.button`
 const UtilityContainer = styled.div`
   display: flex;
 `
+const ErrorMessage = styled.h6`
+  color: red;
+  font-style: italic;
+  margin-bottom: 5px;
+`
+
 const AddMemberModal = ({ showModal, setShowModal }) => {
   const [name, setName] = useState('')
-  const [aadharNum, setAadharNum] = useState('')
+  const [aadharNumber, setAadharNumber] = useState('')
   const [gender, setGender] = useState('')
   const [dob, setDob] = useState('')
   const [bloodGroup, setBloodGroup] = useState('')
   const [age, setAge] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+
+  const dispatch = useDispatch()
 
   const modalRef = useRef()
 
@@ -161,7 +172,6 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
     (e) => {
       if (e.key === 'Escape' && showModal) {
         setShowModal(false)
-        console.log('I pressed')
       }
     },
     [setShowModal, showModal]
@@ -169,7 +179,23 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    setErrorMessage('')
+    if (
+      name === '' ||
+      aadharNumber === '' ||
+      dob === '' ||
+      age === '' ||
+      bloodGroup === '' ||
+      gender === ''
+    ) {
+      setErrorMessage('Fill all fields')
+      return
+    }
+
+    dispatch(createPatient(name, aadharNumber, dob, age, bloodGroup, gender))
   }
+
   useEffect(() => {
     document.addEventListener('keydown', keyPress)
     return () => document.removeEventListener('keydown', keyPress)
@@ -199,8 +225,8 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
                     <FormInput
                       type='number'
                       placeholder='Enter aadhar number'
-                      value={aadharNum}
-                      onChange={(e) => setAadharNum(e.target.value)}
+                      value={aadharNumber}
+                      onChange={(e) => setAadharNumber(e.target.value)}
                     />
                   </FormInputContainer>
                   <UtilityContainer>
@@ -227,6 +253,7 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
                     <FormInputContainer className='rightMargin'>
                       <FormLabel>GENDER</FormLabel>
                       <FormSelectInput
+                        name='Gender'
                         value={gender}
                         onChange={(e) => setGender(e.target.value)}
                       >
@@ -246,6 +273,7 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
                       />
                     </FormInputContainer>
                   </UtilityContainer>
+                  {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
                   <FormSubmitButton>Add Member</FormSubmitButton>
                 </Form>
               </ModalContent>

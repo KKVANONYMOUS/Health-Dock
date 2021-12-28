@@ -88,31 +88,37 @@ export const fetchPatientsList = () => async (dispatch, getState) => {
   }
 }
 
-export const createPatient = (patient) => async (dispatch, getState) => {
-  try {
-    dispatch(createPatientsRequest())
+export const createPatient =
+  (name, aadharNumber, dob, age, bloodGroup, gender) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch(createPatientsRequest())
 
-    const {
-      userLogin: { userInfo },
-    } = getState()
+      const {
+        userLogin: { userInfo },
+      } = getState()
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.post(
+        '/api/patient',
+        { name, aadharNumber, dob, age, bloodGroup, gender },
+        config
+      )
+
+      dispatch(createPatientsSuccess(data))
+    } catch (err) {
+      const errMsg =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      if (errMsg === 'Not authorized, token failed') {
+        dispatch(logoutUser())
+      }
+      dispatch(createPatientsFailure(errMsg))
     }
-
-    const { data } = await axios.post(`/api/patient`, patient, config)
-
-    dispatch(createPatientsSuccess(data))
-  } catch (err) {
-    const errMsg =
-      err.response && err.response.data.message
-        ? err.response.data.message
-        : err.message
-    if (errMsg === 'Not authorized, token failed') {
-      dispatch(logoutUser())
-    }
-    dispatch(createPatientsFailure(errMsg))
   }
-}
