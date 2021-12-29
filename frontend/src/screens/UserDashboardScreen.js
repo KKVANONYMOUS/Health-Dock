@@ -187,6 +187,9 @@ const UserDashboardScreen = () => {
   const patientList = useSelector((state) => state.patientList)
   const { loading, error, patients } = patientList
 
+  const patientCreate = useSelector((state) => state.patientCreate)
+  const { success: patientCreateSuccess } = patientCreate
+
   const openModal = () => {
     setShowModal((prev) => !prev)
   }
@@ -197,7 +200,7 @@ const UserDashboardScreen = () => {
     } else {
       dispatch(fetchPatientsList())
     }
-  }, [navigate, userInfo, dispatch])
+  }, [navigate, userInfo, dispatch, patientCreateSuccess])
   return (
     <>
       <Navbar />
@@ -230,6 +233,9 @@ const UserDashboardScreen = () => {
             </UtilityContainer>
           )}
           {error && <Alert error message={error} />}
+          {patientCreateSuccess && (
+            <Alert message={'Member added Successfully'} />
+          )}
           {patients &&
             (patients.length === 0 ? (
               <Message>No members to display!</Message>

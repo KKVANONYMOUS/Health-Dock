@@ -1,10 +1,16 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
 import { UilMultiply } from '@iconscout/react-unicons'
 import AddMemberImage from './AddMemberImage.png'
-import { createPatient } from '../../redux/patient/patientActions'
+import {
+  createPatient,
+  resetCreatePatient,
+} from '../../redux/patient/patientActions'
+import Spinner from '../Spinner'
+import { useNavigate } from 'react-router-dom'
+import Alert from '../Alert'
 
 const Background = styled.div`
   width: 100%;
@@ -28,6 +34,12 @@ const ModalWrapper = styled.div`
   position: relative;
   z-index: 10;
   border-radius: 10px;
+
+  @media (max-width: 800px) {
+    width: 100vw;
+    height: 70vh;
+    grid-template-columns: none;
+  }
 `
 
 const ModalImg = styled.img`
@@ -36,7 +48,7 @@ const ModalImg = styled.img`
   border-radius: 10px 0 0 10px;
   background: #fff;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 800px) {
     display: none;
   }
 `
@@ -47,9 +59,12 @@ const ModalContent = styled.div`
   justify-content: center;
   align-items: start;
   line-height: 1.8;
-  //padding: 5px;
   //background-color: yellow;
   color: #141414;
+
+  @media (max-width: 800px) {
+    align-items: center;
+  }
 `
 
 const CloseModalButton = styled(UilMultiply)`
@@ -62,6 +77,7 @@ const CloseModalButton = styled(UilMultiply)`
   padding: 0;
   z-index: 10;
 `
+
 const Form = styled.form`
   width: 85%;
   margin-bottom: 30px;
@@ -80,7 +96,6 @@ const FormInputContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  //margin-right: 10px;
   margin-bottom: 10px;
 
   &.rightMargin {
@@ -121,7 +136,7 @@ const FormSelectInput = styled.select`
 `
 
 const FormSubmitButton = styled.button`
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? 'no-drop' : 'pointer')};
   background-color: #2dd6c1;
   color: #fff;
   font-family: 'Quicksand';
@@ -130,27 +145,34 @@ const FormSubmitButton = styled.button`
   padding: 10px 20px;
   border: none;
   outline: none;
-  margin-top: 20px;
+  margin-top: ${({ errorMessage }) => (errorMessage ? '5px' : '20px')};
 `
+
 const UtilityContainer = styled.div`
   display: flex;
 `
 const ErrorMessage = styled.h6`
   color: red;
   font-style: italic;
-  margin-bottom: 5px;
 `
 
 const AddMemberModal = ({ showModal, setShowModal }) => {
   const [name, setName] = useState('')
   const [aadharNumber, setAadharNumber] = useState('')
-  const [gender, setGender] = useState('')
+  const [gender, setGender] = useState('Male')
   const [dob, setDob] = useState('')
   const [bloodGroup, setBloodGroup] = useState('')
   const [age, setAge] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
 
+  const navigate = useNavigate()
   const dispatch = useDispatch()
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
+  const patientCreate = useSelector((state) => state.patientCreate)
+  const { loading, error, success } = patientCreate
 
   const modalRef = useRef()
 
@@ -193,22 +215,39 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
       return
     }
 
+    if (aadharNumber.toString().length !== 12) {
+      setErrorMessage('Fill Valid Aadhar Number')
+      return
+    }
+    setErrorMessage('')
+
     dispatch(createPatient(name, aadharNumber, dob, age, bloodGroup, gender))
   }
 
   useEffect(() => {
+    if (showModal) {
+      setErrorMessage('')
+      dispatch(resetCreatePatient())
+    }
+
+    if (!userInfo) {
+      navigate('/user/auth')
+    }
     document.addEventListener('keydown', keyPress)
     return () => document.removeEventListener('keydown', keyPress)
-  }, [keyPress])
+  }, [keyPress, dispatch, navigate, userInfo, showModal])
 
   return (
     <>
       {showModal ? (
         <Background onClick={closeModal} ref={modalRef}>
+          {success && setShowModal(false)}
+
           <animated.div style={animation}>
             <ModalWrapper showModal={showModal}>
               <ModalImg src={AddMemberImage} alt='Add Member Image' />
               <ModalContent>
+                {error && <Alert error width='85%' message={error} />}
                 <Form onSubmit={handleSubmit}>
                   <FormInputContainer>
                     <FormLabel>FULL NAME</FormLabel>
@@ -274,7 +313,17 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
                     </FormInputContainer>
                   </UtilityContainer>
                   {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-                  <FormSubmitButton>Add Member</FormSubmitButton>
+                  <FormSubmitButton
+                    disabled={loading}
+                    errorMessage={errorMessage}
+                    type='submit'
+                  >
+                    {loading ? (
+                      <Spinner width={18} height={18} />
+                    ) : (
+                      'Add Member'
+                    )}
+                  </FormSubmitButton>
                 </Form>
               </ModalContent>
               <CloseModalButton

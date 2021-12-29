@@ -9,13 +9,11 @@ const CardContainer = styled.div`
   margin: 10px 5px;
   display: flex;
   background-color: #fff;
-  //  justify-content: space-between;
 
   @media (max-width: 1000px) {
     flex-direction: column;
     margin: 10px 0;
     padding: 3px;
-    //width: 100%;
   }
 
   @media (max-width: 767px) {
@@ -24,12 +22,11 @@ const CardContainer = styled.div`
 `
 
 const AvatarImage = styled.img`
-  width: 30%;
+  width: 45%;
 
   @media (max-width: 1000px) {
     width: auto;
     margin: 0 20px;
-    //height: 50%;
   }
 `
 
@@ -51,6 +48,7 @@ const Name = styled.h3`
   font-family: 'Poppins';
   font-weight: 700;
 `
+
 const CardField = styled.div`
   display: flex;
   align-items: center;
@@ -63,6 +61,7 @@ const CardFieldLabel = styled.h5`
   color: #54586a;
   margin-right: 3px;
 `
+
 const CardFieldContent = styled.h5`
   font-family: 'Quicksand';
   font-weight: 400;
@@ -99,8 +98,10 @@ const Button = styled(Link)`
     font-size: 0.6rem;
   }
 `
+
 const MemberCard = ({ fullName, aadharNum, dob, age, gender, bloodGroup }) => {
   const [avatarImageUrl, setAvatarImageUrl] = useState('')
+  const formatDob = new Date(dob)
   useEffect(() => {
     if (fullName) {
       setAvatarImageUrl(
@@ -121,11 +122,17 @@ const MemberCard = ({ fullName, aadharNum, dob, age, gender, bloodGroup }) => {
         </CardField>
         <CardField>
           <CardFieldLabel>DOB:</CardFieldLabel>
-          <CardFieldContent>{dob}</CardFieldContent>
+          <CardFieldContent>
+            {formatDob.toLocaleDateString('en-US')}
+          </CardFieldContent>
         </CardField>
         <CardField>
           <CardFieldLabel>Gender:</CardFieldLabel>
           <CardFieldContent>{gender}</CardFieldContent>
+        </CardField>
+        <CardField>
+          <CardFieldLabel>Age:</CardFieldLabel>
+          <CardFieldContent>{age}</CardFieldContent>
         </CardField>
         <CardField>
           <CardFieldLabel>Blood Group:</CardFieldLabel>
