@@ -7,6 +7,10 @@ import {
   PATIENT_CREATE_SUCCESS,
   PATIENT_CREATE_RESET,
   PATIENT_CREATE_FAILURE,
+  PATIENT_UPDATE_REQUEST,
+  PATIENT_UPDATE_SUCCESS,
+  PATIENT_UPDATE_FAILURE,
+  PATIENT_UPDATE_RESET,
 } from './patientTypes'
 
 export const patientListReducer = (state = { patients: [] }, action) => {
@@ -37,6 +41,21 @@ export const patientCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload }
     case PATIENT_CREATE_RESET:
       return {}
+    default:
+      return state
+  }
+}
+
+export const patientUpdateReducer = (state = { patient: {} }, action) => {
+  switch (action.type) {
+    case PATIENT_UPDATE_REQUEST:
+      return { loading: true }
+    case PATIENT_UPDATE_SUCCESS:
+      return { loading: false, success: true, patient: action.payload }
+    case PATIENT_UPDATE_FAILURE:
+      return { loading: false, error: action.payload }
+    case PATIENT_UPDATE_RESET:
+      return { patient: {} }
     default:
       return state
   }

@@ -5,6 +5,7 @@ import { userSendOtpReducer, userVerifyOtpReducer } from './user/userReducers'
 import {
   patientCreateReducer,
   patientListReducer,
+  patientUpdateReducer,
 } from './patient/patientReducers'
 
 const reducer = combineReducers({
@@ -12,6 +13,7 @@ const reducer = combineReducers({
   userLogin: userVerifyOtpReducer,
   patientList: patientListReducer,
   patientCreate: patientCreateReducer,
+  patientUpdate: patientUpdateReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
