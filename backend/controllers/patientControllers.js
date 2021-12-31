@@ -66,7 +66,10 @@ const editPatient = asyncHandler(async (req, res) => {
   }
 })
 
-const getPatient = asyncHandler(async (req, res) => {
+// @desc   Fetch patients list
+// @route  GET /api/patient/
+// @access Private
+const getPatientsList = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id)
   if (!user) {
     res.status(404)
@@ -78,6 +81,7 @@ const getPatient = asyncHandler(async (req, res) => {
   for (let i = 0; i < patientsList.length; i++) {
     const patient = await Patient.findById(patientsList[i])
     patientDetails.push({
+      id: patient._id,
       aadharNumber: patient.aadharNumber,
       name: patient.name,
       gender: patient.gender,
@@ -90,4 +94,18 @@ const getPatient = asyncHandler(async (req, res) => {
     patientDetails,
   })
 })
-export { addPatient, editPatient, getPatient }
+
+// @desc   Fetch patient details
+// @route  GET /api/patient/:id
+// @access Private
+const getPatientDetails = asyncHandler(async (req, res) => {
+  const patient = await Patient.findById(req.params.id)
+
+  if (patient) {
+    res.json(patient)
+  } else {
+    res.status(404)
+    throw new Error('Patient not found')
+  }
+})
+export { addPatient, editPatient, getPatientsList, getPatientDetails }

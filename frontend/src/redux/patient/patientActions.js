@@ -9,6 +9,9 @@ import {
   PATIENT_CREATE_REQUEST,
   PATIENT_CREATE_RESET,
   PATIENT_CREATE_SUCCESS,
+  PATIENT_DETAILS_FAILURE,
+  PATIENT_DETAILS_REQUEST,
+  PATIENT_DETAILS_SUCCESS,
   PATIENT_UPDATE_FAILURE,
   PATIENT_UPDATE_REQUEST,
   PATIENT_UPDATE_RESET,
@@ -87,6 +90,26 @@ const updatePatientFailure = (error) => {
   }
 }
 
+const fetchPatientDetailsRequest = () => {
+  return {
+    type: PATIENT_DETAILS_REQUEST,
+  }
+}
+
+const fetchPatientDetailsSuccess = (data) => {
+  return {
+    type: PATIENT_DETAILS_SUCCESS,
+    payload: data,
+  }
+}
+
+const fetchPatientDetailsFailure = (error) => {
+  return {
+    type: PATIENT_DETAILS_FAILURE,
+    payload: error,
+  }
+}
+
 export const resetUpdatePatient = () => {
   return {
     type: PATIENT_UPDATE_RESET,
@@ -153,6 +176,32 @@ export const createPatient =
       dispatch(createPatientFailure(errMsg))
     }
   }
+
+export const fetchPatientDetails = (id) => async (dispatch, getState) => {
+  try {
+    dispatch(fetchPatientDetailsRequest())
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/patients/${id}`, config)
+
+    dispatch(fetchPatientDetailsSuccess(data))
+  } catch (err) {
+    const errorMsg =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message
+    dispatch(fetchPatientDetailsFailure(errorMsg))
+  }
+}
 
 export const updatePatient =
   (name, aadharNumber, dob, age, bloodGroup, gender, id) =>

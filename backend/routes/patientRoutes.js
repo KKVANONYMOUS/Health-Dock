@@ -1,10 +1,17 @@
 import { Router } from 'express'
-import { addPatient, editPatient , getPatient} from '../controllers/patientControllers.js'
+import {
+  addPatient,
+  editPatient,
+  getPatientDetails,
+  getPatientsList,
+} from '../controllers/patientControllers.js'
 import { checkAuth } from '../middleware/authMiddleware.js'
 const router = Router()
 
-router.route('/').post(checkAuth, addPatient)
-router.route('/:id').put(checkAuth, editPatient)
-router.route('/').get(checkAuth, getPatient)
+router.route('/').get(checkAuth, getPatientsList).post(checkAuth, addPatient)
+router
+  .route('/:id')
+  .get(checkAuth, getPatientDetails)
+  .put(checkAuth, editPatient)
 
 export default router
