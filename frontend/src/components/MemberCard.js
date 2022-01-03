@@ -123,7 +123,7 @@ const MemberCard = ({ fullName, aadharNum, dob, age, gender, bloodGroup }) => {
         <CardField>
           <CardFieldLabel>DOB:</CardFieldLabel>
           <CardFieldContent>
-            {formatDob.toLocaleDateString('en-US')}
+            {formatDob.toLocaleDateString('en-UK')}
           </CardFieldContent>
         </CardField>
         <CardField>

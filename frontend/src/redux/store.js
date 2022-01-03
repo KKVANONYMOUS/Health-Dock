@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { userSendOtpReducer, userVerifyOtpReducer } from './user/userReducers'
 import {
   patientCreateReducer,
+  patientDetailsReducer,
   patientListReducer,
   patientUpdateReducer,
 } from './patient/patientReducers'
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   userLogin: userVerifyOtpReducer,
   patientList: patientListReducer,
   patientCreate: patientCreateReducer,
+  patientDetails: patientDetailsReducer,
   patientUpdate: patientUpdateReducer,
 })
 

@@ -14,6 +14,7 @@ import {
   PATIENT_DETAILS_REQUEST,
   PATIENT_DETAILS_SUCCESS,
   PATIENT_DETAILS_FAILURE,
+  PATIENT_DETAILS_RESET,
 } from './patientTypes'
 
 export const patientListReducer = (state = { patients: [] }, action) => {
@@ -57,6 +58,8 @@ export const patientDetailsReducer = (state = { patient: {} }, action) => {
       return { loading: false, patient: action.payload }
     case PATIENT_DETAILS_FAILURE:
       return { loading: false, error: action.payload }
+    case PATIENT_DETAILS_RESET:
+      return { patient: {} }
     default:
       return state
   }

@@ -11,6 +11,7 @@ import {
   PATIENT_CREATE_SUCCESS,
   PATIENT_DETAILS_FAILURE,
   PATIENT_DETAILS_REQUEST,
+  PATIENT_DETAILS_RESET,
   PATIENT_DETAILS_SUCCESS,
   PATIENT_UPDATE_FAILURE,
   PATIENT_UPDATE_REQUEST,
@@ -90,6 +91,12 @@ const updatePatientFailure = (error) => {
   }
 }
 
+export const resetUpdatePatient = () => {
+  return {
+    type: PATIENT_UPDATE_RESET,
+  }
+}
+
 const fetchPatientDetailsRequest = () => {
   return {
     type: PATIENT_DETAILS_REQUEST,
@@ -103,16 +110,16 @@ const fetchPatientDetailsSuccess = (data) => {
   }
 }
 
+export const resetfetchPatientDetails = () => {
+  return {
+    type: PATIENT_DETAILS_RESET,
+  }
+}
+
 const fetchPatientDetailsFailure = (error) => {
   return {
     type: PATIENT_DETAILS_FAILURE,
     payload: error,
-  }
-}
-
-export const resetUpdatePatient = () => {
-  return {
-    type: PATIENT_UPDATE_RESET,
   }
 }
 
@@ -191,7 +198,7 @@ export const fetchPatientDetails = (id) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/api/patients/${id}`, config)
+    const { data } = await axios.get(`/api/patient/${id}`, config)
 
     dispatch(fetchPatientDetailsSuccess(data))
   } catch (err) {
