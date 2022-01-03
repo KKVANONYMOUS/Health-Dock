@@ -99,7 +99,15 @@ const Button = styled(Link)`
   }
 `
 
-const MemberCard = ({ fullName, aadharNum, dob, age, gender, bloodGroup }) => {
+const MemberCard = ({
+  fullName,
+  aadharNum,
+  dob,
+  age,
+  gender,
+  bloodGroup,
+  patientId,
+}) => {
   const [avatarImageUrl, setAvatarImageUrl] = useState('')
   const formatDob = new Date(dob)
   useEffect(() => {
@@ -139,7 +147,7 @@ const MemberCard = ({ fullName, aadharNum, dob, age, gender, bloodGroup }) => {
           <CardFieldContent>{bloodGroup}</CardFieldContent>
         </CardField>
         <ButtonList>
-          <Button color='#496BF2' to='/patient'>
+          <Button color='#496BF2' to={`/user/patient/${patientId}/edit`}>
             Edit Profile
           </Button>
           <Button color='#2DD6C1' to='/patient'>

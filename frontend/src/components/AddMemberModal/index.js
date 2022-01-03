@@ -242,7 +242,6 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
       {showModal ? (
         <Background onClick={closeModal} ref={modalRef}>
           {success && setShowModal(false)}
-
           <animated.div style={animation}>
             <ModalWrapper showModal={showModal}>
               <ModalImg src={AddMemberImage} alt='Add Member Image' />

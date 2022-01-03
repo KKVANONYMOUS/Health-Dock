@@ -9,7 +9,7 @@ import { fetchPatientsList } from '../redux/patient/patientActions'
 import Alert from '../components/Alert'
 import Spinner from '../components/Spinner'
 import { logoutUser } from '../redux/user/userActions'
-import AddMemberModal from '../components/AddMemberModal/AddMemberModal'
+import AddMemberModal from '../components/AddMemberModal'
 
 const DashboardContainer = styled.div`
   position: relative;
@@ -227,31 +227,31 @@ const UserDashboardScreen = () => {
         </DashboardUserPhone>
         <MemberDetailsHeading>Member Details</MemberDetailsHeading>
         <MemberCardList>
-          {loading && (
-            <UtilityContainer>
-              <Spinner width={60} height={60} color='#212121' />
-            </UtilityContainer>
-          )}
-          {error && <Alert error message={error} />}
           {patientCreateSuccess && (
             <Alert message={'Member added Successfully'} />
           )}
-          {patients &&
-            (patients.length === 0 ? (
-              <Message>No members to display!</Message>
-            ) : (
-              patients.map((patient, index) => (
-                <MemberCard
-                  key={index}
-                  fullName={patient.name}
-                  gender={patient.gender}
-                  dob={patient.dob}
-                  bloodGroup={patient.bloodGroup}
-                  aadharNum={patient.aadharNumber.toString()}
-                  age={patient.age}
-                />
-              ))
-            ))}
+          {loading ? (
+            <UtilityContainer>
+              <Spinner width={60} height={60} color='#212121' />
+            </UtilityContainer>
+          ) : error ? (
+            <Alert error message={error} />
+          ) : patients.length > 0 ? (
+            patients.map((patient, index) => (
+              <MemberCard
+                key={index}
+                patientId={patient.id}
+                fullName={patient.name}
+                gender={patient.gender}
+                dob={patient.dob}
+                bloodGroup={patient.bloodGroup}
+                aadharNum={patient.aadharNumber.toString()}
+                age={patient.age}
+              />
+            ))
+          ) : (
+            <Message>No members to display!</Message>
+          )}
         </MemberCardList>
         <AddMemberButton onClick={openModal}>
           Add Member <UilPlusCircle size='25' />
