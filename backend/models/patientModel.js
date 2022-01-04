@@ -27,6 +27,10 @@ const PatientSchema = mongoose.Schema(
       type: Date,
       required: true,
     },
+    image: {
+      type: String,
+      default: '',
+    },
   },
   {
     timestamps: true,

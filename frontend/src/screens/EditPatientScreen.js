@@ -10,6 +10,7 @@ import {
   resetUpdatePatient,
   updatePatient,
 } from '../redux/patient/patientActions'
+import axios from 'axios'
 
 const Container = styled.div`
   position: relative;
@@ -144,7 +145,9 @@ const EditPatientScreen = ({ match }) => {
   const [dob, setDob] = useState('')
   const [bloodGroup, setBloodGroup] = useState('')
   const [age, setAge] = useState('')
+  const [image, setImage] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [uploading, setUploading] = useState(false)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -186,6 +189,28 @@ const EditPatientScreen = ({ match }) => {
     dispatch(
       updatePatient(name, aadharNumber, dob, age, bloodGroup, gender, patientId)
     )
+  }
+
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append('image', file)
+    setUploading(true)
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      }
+
+      const { data } = await axios.post('/api/upload', formData, config)
+
+      setImage(data)
+      setUploading(false)
+    } catch (error) {
+      setUploading(false)
+    }
   }
 
   useEffect(() => {
@@ -241,6 +266,15 @@ const EditPatientScreen = ({ match }) => {
                 onChange={(e) => setAadharNumber(e.target.value)}
                 disabled
               />
+            </FormInputContainer>
+            <FormInputContainer>
+              <FormLabel>PROFILE PICTURE</FormLabel>
+              <FormInput
+                type='text'
+                value={image}
+                onChange={uploadFileHandler}
+              />
+              {uploading && <Spinner width={18} height={18} color='#000' />}
             </FormInputContainer>
             <UtilityContainer>
               <FormInputContainer className='rightMargin'>
