@@ -107,16 +107,20 @@ const MemberCard = ({
   gender,
   bloodGroup,
   patientId,
+  image,
 }) => {
   const [avatarImageUrl, setAvatarImageUrl] = useState('')
   const formatDob = new Date(dob)
   useEffect(() => {
-    if (fullName) {
-      setAvatarImageUrl(
-        `https://ui-avatars.com/api/?name=${fullName}&background=eee&color=007bff&bold=true&format=svg`
-      )
+    if (image) setAvatarImageUrl(image)
+    else {
+      if (fullName) {
+        setAvatarImageUrl(
+          `https://ui-avatars.com/api/?name=${fullName}&background=eee&color=007bff&bold=true&format=svg`
+        )
+      }
     }
-  }, [fullName])
+  }, [fullName, image])
   return (
     <CardContainer>
       <AvatarImage src={avatarImageUrl} />

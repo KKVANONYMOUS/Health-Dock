@@ -211,7 +211,7 @@ export const fetchPatientDetails = (id) => async (dispatch, getState) => {
 }
 
 export const updatePatient =
-  (name, aadharNumber, dob, age, bloodGroup, gender, id) =>
+  (name, aadharNumber, dob, age, bloodGroup, gender, id, image) =>
   async (dispatch, getState) => {
     try {
       dispatch(updatePatientRequest())
@@ -229,7 +229,7 @@ export const updatePatient =
 
       const { data } = await axios.put(
         `/api/patient/${id}`,
-        { name, aadharNumber, dob, age, bloodGroup, gender },
+        { name, aadharNumber, dob, age, bloodGroup, gender, image },
         config
       )
 

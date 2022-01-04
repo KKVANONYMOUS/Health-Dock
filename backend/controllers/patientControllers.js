@@ -39,7 +39,7 @@ const addPatient = asyncHandler(async (req, res) => {
 // @route  POST /api/patient/:id
 // @access Private
 const editPatient = asyncHandler(async (req, res) => {
-  const { name, gender, age, bloodGroup, dob } = req.body
+  const { name, gender, age, bloodGroup, dob, image } = req.body
 
   const patient = await Patient.findById(req.params.id)
 
@@ -53,6 +53,7 @@ const editPatient = asyncHandler(async (req, res) => {
       patient.age = age
       patient.bloodGroup = bloodGroup
       patient.dob = dob
+      patient.image = image
 
       const updatedPatient = await patient.save()
       res.json(updatedPatient)
@@ -88,6 +89,7 @@ const getPatientsList = asyncHandler(async (req, res) => {
       age: patient.age,
       bloodGroup: patient.bloodGroup,
       dob: patient.dob,
+      image: patient.image,
     })
   }
   res.status(200).json({

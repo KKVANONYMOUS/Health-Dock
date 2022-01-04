@@ -7,6 +7,7 @@ import Alert from '../components/Alert'
 import Spinner from '../components/Spinner'
 import {
   fetchPatientDetails,
+  resetfetchPatientDetails,
   resetUpdatePatient,
   updatePatient,
 } from '../redux/patient/patientActions'
@@ -61,9 +62,13 @@ const BackButton = styled(Link)`
   }
 `
 const Form = styled.form`
-  width: 85%;
+  width: 50%;
   margin-bottom: 30px;
   //background-color: pink;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `
 
 const FormLabel = styled.h5`
@@ -133,10 +138,36 @@ const FormSubmitButton = styled.button`
 const UtilityContainer = styled.div`
   display: flex;
 `
+
 const ErrorMessage = styled.h6`
   color: red;
   font-style: italic;
 `
+
+const InputFile = styled.input`
+  font-family: 'Poppins';
+  margin-top: 5px;
+
+  ::-webkit-file-upload-button {
+    font-family: 'Poppins';
+    background-color: #fff;
+    cursor: pointer;
+    border: 2px solid #54586a;
+    color: #54586a;
+    padding: 5px 10px;
+    transition: all 0.15s linear;
+    &:hover {
+      background-color: #54586a;
+      color: #fff;
+    }
+  }
+`
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
 const EditPatientScreen = ({ match }) => {
   const { id: patientId } = useParams()
   const [name, setName] = useState('')
@@ -187,7 +218,16 @@ const EditPatientScreen = ({ match }) => {
     setErrorMessage('')
 
     dispatch(
-      updatePatient(name, aadharNumber, dob, age, bloodGroup, gender, patientId)
+      updatePatient(
+        name,
+        aadharNumber,
+        dob,
+        age,
+        bloodGroup,
+        gender,
+        patientId,
+        image
+      )
     )
   }
 
@@ -219,6 +259,7 @@ const EditPatientScreen = ({ match }) => {
     } else {
       if (successUpdate) {
         dispatch(resetUpdatePatient())
+        dispatch(resetfetchPatientDetails())
         navigate('/user/dashboard')
       } else {
         if (!patient.name || patient._id !== patientId) {
@@ -230,6 +271,7 @@ const EditPatientScreen = ({ match }) => {
           setBloodGroup(patient.bloodGroup)
           setGender(patient.gender)
           setDob(patient.dob.substring(0, 10))
+          setImage(patient.image)
         }
       }
     }
@@ -241,99 +283,106 @@ const EditPatientScreen = ({ match }) => {
         <BackButton to='/user/dashboard'>{'< '}Back</BackButton>
         <Heading>Edit Patient</Heading>
         {errorUpdate && <Alert error message={errorUpdate} />}
-        {loadingDetails ? (
-          <Spinner width={50} height={50} color='#000' />
-        ) : errorDetails ? (
-          <Alert error message={errorDetails} />
-        ) : (
-          <Form onSubmit={handleSubmit}>
-            <FormInputContainer>
-              <FormLabel>FULL NAME</FormLabel>
-              <FormInput
-                type='text'
-                placeholder='Enter full name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </FormInputContainer>
-
-            <FormInputContainer>
-              <FormLabel>AADHAR NUMBER</FormLabel>
-              <FormInput
-                type='number'
-                placeholder='Enter aadhar number'
-                value={aadharNumber}
-                onChange={(e) => setAadharNumber(e.target.value)}
-                disabled
-              />
-            </FormInputContainer>
-            <FormInputContainer>
-              <FormLabel>PROFILE PICTURE</FormLabel>
-              <FormInput
-                type='text'
-                value={image}
-                onChange={uploadFileHandler}
-              />
-              {uploading && <Spinner width={18} height={18} color='#000' />}
-            </FormInputContainer>
-            <UtilityContainer>
-              <FormInputContainer className='rightMargin'>
-                <FormLabel>DOB</FormLabel>
-                <FormInput
-                  type='date'
-                  value={dob}
-                  onChange={(e) => setDob(e.target.value)}
-                />
-              </FormInputContainer>
-
+        <Wrapper>
+          {loadingDetails ? (
+            <Spinner width={60} height={60} color='#000' />
+          ) : errorDetails ? (
+            <Alert error message={errorDetails} />
+          ) : (
+            <Form onSubmit={handleSubmit}>
               <FormInputContainer>
-                <FormLabel>AGE</FormLabel>
-                <FormInput
-                  type='number'
-                  placeholder='Enter age'
-                  value={age}
-                  onChange={(e) => setAge(e.target.value)}
-                />
-              </FormInputContainer>
-            </UtilityContainer>
-            <UtilityContainer>
-              <FormInputContainer className='rightMargin'>
-                <FormLabel>GENDER</FormLabel>
-                <FormSelectInput
-                  name='Gender'
-                  value={gender}
-                  onChange={(e) => setGender(e.target.value)}
-                >
-                  <option value='Male'>Male</option>
-                  <option value='Female'>Female</option>
-                  <option value='Other'>Other</option>
-                </FormSelectInput>
-              </FormInputContainer>
-
-              <FormInputContainer>
-                <FormLabel>BLOOD GROUP</FormLabel>
+                <FormLabel>FULL NAME</FormLabel>
                 <FormInput
                   type='text'
-                  placeholder='Enter blood group'
-                  value={bloodGroup}
-                  onChange={(e) => setBloodGroup(e.target.value)}
+                  placeholder='Enter full name'
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
               </FormInputContainer>
-            </UtilityContainer>
-            {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-            <FormSubmitButton
-              disabled={loadingUpdate}
-              errorMessage={errorMessage}
-              type='submit'
-            >
-              {loadingUpdate ? (
-                <Spinner width={18} height={18} />
-              ) : (
-                'Update Member'
-              )}
-            </FormSubmitButton>
-          </Form>
-        )}
+
+              <FormInputContainer>
+                <FormLabel>AADHAR NUMBER</FormLabel>
+                <FormInput
+                  type='number'
+                  placeholder='Enter aadhar number'
+                  value={aadharNumber}
+                  onChange={(e) => setAadharNumber(e.target.value)}
+                  disabled
+                />
+              </FormInputContainer>
+              <FormInputContainer>
+                <FormLabel>PROFILE PICTURE</FormLabel>
+                <FormInput
+                  type='text'
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                />
+                <InputFile
+                  type='file'
+                  label='Choose File'
+                  onChange={uploadFileHandler}
+                />
+                {uploading && <Spinner width={18} height={18} color='#000' />}
+              </FormInputContainer>
+              <UtilityContainer>
+                <FormInputContainer className='rightMargin'>
+                  <FormLabel>DOB</FormLabel>
+                  <FormInput
+                    type='date'
+                    value={dob}
+                    onChange={(e) => setDob(e.target.value)}
+                  />
+                </FormInputContainer>
+
+                <FormInputContainer>
+                  <FormLabel>AGE</FormLabel>
+                  <FormInput
+                    type='number'
+                    placeholder='Enter age'
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                </FormInputContainer>
+              </UtilityContainer>
+              <UtilityContainer>
+                <FormInputContainer className='rightMargin'>
+                  <FormLabel>GENDER</FormLabel>
+                  <FormSelectInput
+                    name='Gender'
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                  >
+                    <option value='Male'>Male</option>
+                    <option value='Female'>Female</option>
+                    <option value='Other'>Other</option>
+                  </FormSelectInput>
+                </FormInputContainer>
+
+                <FormInputContainer>
+                  <FormLabel>BLOOD GROUP</FormLabel>
+                  <FormInput
+                    type='text'
+                    placeholder='Enter blood group'
+                    value={bloodGroup}
+                    onChange={(e) => setBloodGroup(e.target.value)}
+                  />
+                </FormInputContainer>
+              </UtilityContainer>
+              {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+              <FormSubmitButton
+                disabled={loadingUpdate}
+                errorMessage={errorMessage}
+                type='submit'
+              >
+                {loadingUpdate ? (
+                  <Spinner width={18} height={18} />
+                ) : (
+                  'Update Member'
+                )}
+              </FormSubmitButton>
+            </Form>
+          )}
+        </Wrapper>
       </Container>
     </>
   )
