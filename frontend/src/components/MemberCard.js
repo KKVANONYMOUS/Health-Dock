@@ -154,7 +154,7 @@ const MemberCard = ({
           <Button color='#496BF2' to={`/user/patient/${patientId}/edit`}>
             Edit Profile
           </Button>
-          <Button color='#2DD6C1' to='/patient'>
+          <Button color='#2DD6C1' to={`/user/patient/${patientId}`}>
             View Profile
           </Button>
         </ButtonList>
