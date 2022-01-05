@@ -168,7 +168,7 @@ const Wrapper = styled.div`
   justify-content: center;
 `
 
-const EditPatientScreen = ({ match }) => {
+const EditPatientScreen = () => {
   const { id: patientId } = useParams()
   const [name, setName] = useState('')
   const [aadharNumber, setAadharNumber] = useState('')
