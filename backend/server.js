@@ -8,6 +8,7 @@ import { errorHandler, notFoundHandler } from './middleware/errorMiddleware.js'
 import userAuthRoutes from './routes/userAuthRoutes.js'
 import patientRoutes from './routes/patientRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
+import hospitalRoutes from './routes/hospitalRoutes.js'
 
 dotenv.config()
 
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json())
 app.use('/api/auth', userAuthRoutes)
 app.use('/api/patient', patientRoutes)
+app.use('/api/hospital', hospitalRoutes)
 app.use('/api/upload', uploadRoutes)
 
 const __dirname = path.resolve()
