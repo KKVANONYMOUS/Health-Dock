@@ -4,8 +4,8 @@ import {
   registerHospital,
 } from '../controllers/hospitalControllers.js'
 
-const route = Router()
-route.post('/register', registerHospital)
-route.post('/login', loginHospital)
+const router = Router()
+router.route('/register').post(registerHospital)
+router.route('/login').post(loginHospital)
 
-export default route
+export default router

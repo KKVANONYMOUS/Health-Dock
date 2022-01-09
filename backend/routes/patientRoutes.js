@@ -5,13 +5,16 @@ import {
   getPatientDetails,
   getPatientsList,
 } from '../controllers/patientControllers.js'
-import { checkAuth } from '../middleware/authMiddleware.js'
+import { checkUserAuth } from '../middleware/authMiddleware.js'
 const router = Router()
 
-router.route('/').get(checkAuth, getPatientsList).post(checkAuth, addPatient)
+router
+  .route('/')
+  .get(checkUserAuth, getPatientsList)
+  .post(checkUserAuth, addPatient)
 router
   .route('/:id')
-  .get(checkAuth, getPatientDetails)
-  .put(checkAuth, editPatient)
+  .get(checkUserAuth, getPatientDetails)
+  .put(checkUserAuth, editPatient)
 
 export default router
