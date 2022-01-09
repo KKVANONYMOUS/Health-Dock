@@ -1,7 +1,11 @@
 import { Router } from 'express'
-import { registerHospital } from '../controllers/hospitalControllers.js'
+import {
+  loginHospital,
+  registerHospital,
+} from '../controllers/hospitalControllers.js'
 
-const router = Router()
-router.post('/register', registerHospital)
+const route = Router()
+route.post('/register', registerHospital)
+route.post('/login', loginHospital)
 
-export default router
+export default route

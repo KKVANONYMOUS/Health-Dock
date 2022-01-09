@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import { authUser, verifyOTP } from '../controllers/userControllers.js'
-const router = Router()
+const route = Router()
 
-router.post('/user', authUser)
-router.post('/user/verify_otp', verifyOTP)
+route.post('/user', authUser)
+route.post('/user/verify_otp', verifyOTP)
 
-export default router
+export default route
