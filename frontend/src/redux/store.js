@@ -8,7 +8,10 @@ import {
   patientListReducer,
   patientUpdateReducer,
 } from './patient/patientReducers'
-import { hospitalLoginReducer } from './hospital/hospitalReducers'
+import {
+  hospitalLoginReducer,
+  hospitalRegisterReducer,
+} from './hospital/hospitalReducers'
 
 const reducer = combineReducers({
   userSendOtp: userSendOtpReducer,
@@ -18,6 +21,7 @@ const reducer = combineReducers({
   patientDetails: patientDetailsReducer,
   patientUpdate: patientUpdateReducer,
   hospitalLogin: hospitalLoginReducer,
+  hospitalRegister: hospitalRegisterReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
