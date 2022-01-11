@@ -8,6 +8,7 @@ import {
   patientListReducer,
   patientUpdateReducer,
 } from './patient/patientReducers'
+import { hospitalLoginReducer } from './hospital/hospitalReducers'
 
 const reducer = combineReducers({
   userSendOtp: userSendOtpReducer,
@@ -16,13 +17,21 @@ const reducer = combineReducers({
   patientCreate: patientCreateReducer,
   patientDetails: patientDetailsReducer,
   patientUpdate: patientUpdateReducer,
+  hospitalLogin: hospitalLoginReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
   : null
 
-const initialState = { userLogin: { userInfo: userInfoFromStorage } }
+const hospitalInfoFromStorage = localStorage.getItem('hospitalInfo')
+  ? JSON.parse(localStorage.getItem('hospitalInfo'))
+  : null
+
+const initialState = {
+  userLogin: { userInfo: userInfoFromStorage },
+  hospitalLogin: { hospitalInfo: hospitalInfoFromStorage },
+}
 
 const middleware = [thunk]
 const store = createStore(
