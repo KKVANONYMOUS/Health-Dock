@@ -43,7 +43,7 @@ export const loginHospital =
 
       dispatch(hospitalLoginSuccess(data))
 
-      localStorage.setItem('userInfo', JSON.stringify(data))
+      localStorage.setItem('hospitalInfo', JSON.stringify(data))
     } catch (err) {
       const errMsg =
         err.response && err.response.data.message

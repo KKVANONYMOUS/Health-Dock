@@ -291,7 +291,7 @@ const UserAuthScreen = () => {
             </AuthForm>
           )}
           <AuthCardCopyright>
-            ©2021 Health Dock All rights reserved
+            ©2022 Health Dock All rights reserved
           </AuthCardCopyright>
           <BackButton to='/'>{'< '}Back</BackButton>
         </AuthCardInfo>
