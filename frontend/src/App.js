@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import EditPatientScreen from './screens/EditPatientScreen'
 import HomeScreen from './screens/HomeScreen'
+import HospitalDashboardScreen from './screens/HospitalDashboardScreen'
 import HospitalLoginScreen from './screens/HospitalLoginScreen'
 import HospitalRegisterScreen from './screens/HospitalRegisterScreen'
 import PatientDetailsScreen from './screens/PatientDetailsScreen'
@@ -26,6 +27,10 @@ function App() {
           <Route
             path='/hospital/register'
             element={<HospitalRegisterScreen />}
+          />
+          <Route
+            path='/hospital/dashboard'
+            element={<HospitalDashboardScreen />}
           />
         </Routes>
       </main>
