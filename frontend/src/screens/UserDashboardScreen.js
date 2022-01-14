@@ -227,9 +227,6 @@ const UserDashboardScreen = () => {
         </DashboardUserPhone>
         <MemberDetailsHeading>Member Details</MemberDetailsHeading>
         <MemberCardList>
-          {/*{patientCreateSuccess && (
-            <Alert message={'Member added Successfully'} />
-          )}*/}
           {loading ? (
             <UtilityContainer>
               <Spinner width={60} height={60} color='#212121' />
