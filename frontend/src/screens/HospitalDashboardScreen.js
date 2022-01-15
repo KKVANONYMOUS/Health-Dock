@@ -9,6 +9,9 @@ import HospitalIcon from '../icons/HospitalIcon.png'
 import InfoIcon from '../icons/InfoIcon.png'
 import ManageProfileIcon from '../icons/ManageProfileIcon.svg'
 import ImportantInstructionsIcon from '../icons/ImportantInstructionsIcon.svg'
+import { fetchHospitalPatientDetails } from '../redux/hospital/hospitalActions'
+import Spinner from '../components/Spinner'
+import Alert from '../components/Alert'
 
 const DashboardContainer = styled.div`
   position: relative;
@@ -284,12 +287,17 @@ const ErrorMessage = styled.h6`
 `
 const HospitalDashboardScreen = () => {
   const [aadharNumber, setAadharNumber] = useState('')
-  const [action, setAction] = useState('Add Data')
+  const [action, setAction] = useState('New Data')
   const [errorMessage, setErrorMessage] = useState('')
 
   const navigate = useNavigate()
   const hospitalLogin = useSelector((state) => state.hospitalLogin)
   const { hospitalInfo } = hospitalLogin
+
+  const hospitalPatientDetails = useSelector(
+    (state) => state.hospitalPatientDetails
+  )
+  const { error, loading, success } = hospitalPatientDetails
 
   const dispatch = useDispatch()
 
@@ -303,18 +311,22 @@ const HospitalDashboardScreen = () => {
     }
 
     setErrorMessage('')
-    if (action === 'Add Data') {
-      navigate(`/hospital/dashboard/${aadharNumber}/add`)
-    } else {
-      navigate(`/hospital/dashboard/${aadharNumber}/edit`)
-    }
+    dispatch(fetchHospitalPatientDetails(aadharNumber))
   }
 
   useEffect(() => {
     if (!hospitalInfo) {
       navigate('/hospital/login')
+    } else {
+      if (success) {
+        if (action === 'New Data') {
+          navigate(`/hospital/dashboard/${aadharNumber}/new`)
+        } else {
+          navigate(`/hospital/dashboard/${aadharNumber}/edit`)
+        }
+      }
     }
-  }, [hospitalInfo, navigate])
+  }, [hospitalInfo, navigate, success, action, aadharNumber])
 
   return (
     <>
@@ -356,7 +368,7 @@ const HospitalDashboardScreen = () => {
               </HospitalInfoFieldOutput>
             </HospitalInfoItem>
             <HospitalInfoItem>
-              <HospitalInfoLabel>ADDRESS</HospitalInfoLabel>
+              <HospitalInfoLabel>NewRESS</HospitalInfoLabel>
               <HospitalInfoFieldOutput>
                 {hospitalInfo.address}
               </HospitalInfoFieldOutput>
@@ -378,6 +390,7 @@ const HospitalDashboardScreen = () => {
               />
               <HospitalPatientHeading>Manage Profile</HospitalPatientHeading>
             </HospitalPatientHeadingContainer>
+            {error && <Alert error message={error} />}
             <Form onSubmit={handleSubmit}>
               <FormInputContainer>
                 <FormLabel>AADHAR NUMBER</FormLabel>
@@ -395,12 +408,18 @@ const HospitalDashboardScreen = () => {
                   value={action}
                   onChange={(e) => setAction(e.target.value)}
                 >
-                  <option value='Add Data'>Add Data</option>
+                  <option value='New Data'>New Data</option>
                   <option value='Edit/Delete Data'>Edit/Delete Data</option>
                 </FormSelectInput>
               </FormInputContainer>
               {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-              <FormSubmitButton>PROCEED {' >'}</FormSubmitButton>
+              <FormSubmitButton
+                disabled={loading}
+                errorMessage={errorMessage}
+                type='submit'
+              >
+                {loading ? <Spinner width={18} height={18} /> : 'PROCEED >'}
+              </FormSubmitButton>
             </Form>
           </HospitalPatientContainer>
         </DashboardContainerSecondRow>
@@ -415,17 +434,17 @@ const HospitalDashboardScreen = () => {
             <InstructionHeading>Important Instructions</InstructionHeading>
           </InstructionHeadingContainer>
           <ListContainer>
-            <ListItem>Patient must have Aadhar Number</ListItem>
+            <ListItem>Patient must have a valid Aadhar Number</ListItem>
             <ListItem>
-              Patient’s Aadhar number must be registered on Health Dock through
+              Patient's Aadhar number must be registered on Health Dock through
               a valid phone number
             </ListItem>
             <ListItem>Documents must be in .png or .pdf format</ListItem>
             <ListItem>
-              Document will not be recovered if deleted or edited
+              Document will not be recovered if once edited or deleted
             </ListItem>
             <ListItem>
-              Patient will be notified through SMS if any changes is done in
+              Patient will be notified through SMS if any changes are done in
               their records
             </ListItem>
           </ListContainer>

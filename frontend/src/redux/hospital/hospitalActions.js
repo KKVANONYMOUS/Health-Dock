@@ -4,6 +4,9 @@ import {
   HOSPITAL_LOGIN_REQUEST,
   HOSPITAL_LOGIN_SUCCESS,
   HOSPITAL_LOGOUT,
+  HOSPITAL_PATIENT_DETAILS_FAILURE,
+  HOSPITAL_PATIENT_DETAILS_REQUEST,
+  HOSPITAL_PATIENT_DETAILS_SUCCESS,
   HOSPITAL_REGISTER_FAILURE,
   HOSPITAL_REGISTER_REQUEST,
   HOSPITAL_REGISTER_SUCCESS,
@@ -52,6 +55,26 @@ export const hospitalLogout = () => {
     type: HOSPITAL_LOGOUT,
   }
 }
+
+const fetchHospitalPatientDetailsRequest = () => {
+  return {
+    type: HOSPITAL_PATIENT_DETAILS_REQUEST,
+  }
+}
+const fetchHospitalPatientDetailsSuccess = (data) => {
+  return {
+    type: HOSPITAL_PATIENT_DETAILS_SUCCESS,
+    payload: data,
+  }
+}
+
+const fetchHospitalPatientDetailsFailure = (error) => {
+  return {
+    type: HOSPITAL_PATIENT_DETAILS_FAILURE,
+    payload: error,
+  }
+}
+
 export const loginHospital =
   (registrationNumber, password) => async (dispatch) => {
     try {
@@ -110,5 +133,35 @@ export const registerHospital =
           ? err.response.data.message
           : err.message
       dispatch(hospitalRegisterFailure(errMsg))
+    }
+  }
+
+export const fetchHospitalPatientDetails =
+  (aadharNumber) => async (dispatch, getState) => {
+    try {
+      dispatch(fetchHospitalPatientDetailsRequest())
+
+      const {
+        hospitalLogin: { hospitalInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${hospitalInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(
+        `/api/hospital/dashboard/${aadharNumber}`,
+        config
+      )
+
+      dispatch(fetchHospitalPatientDetailsSuccess(data))
+    } catch (err) {
+      const errorMsg =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      dispatch(fetchHospitalPatientDetailsFailure(errorMsg))
     }
   }
