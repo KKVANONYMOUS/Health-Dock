@@ -118,12 +118,22 @@ const DashboardContainerSecondRow = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    justify-content: center;
+  }
 `
 const HospitalInfoContainer = styled.div`
   background-color: #fff;
   width: 40%;
   border-radius: 30px;
   padding: 20px;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 `
 const HospitalInfoHeadingContainer = styled.div`
   display: flex;
@@ -135,15 +145,12 @@ const HospitalInfoHeading = styled.h2`
   font-weight: 700;
   color: #54586a;
 `
-const HospitalPatientHeading = styled(HospitalInfoHeading)``
-
 const HospitalInfoIcon = styled.img`
   margin-right: 10px;
-`
-const HospitalPatientIcon = styled(HospitalInfoIcon)``
 
-const HospitalPatientHeadingContainer = styled(HospitalInfoHeadingContainer)`
-  margin-bottom: 30px;
+  @media (max-width: 1000px) {
+    margin-right: 0;
+  }
 `
 const HospitalInfoItem = styled.div`
   padding: 20px;
@@ -166,7 +173,19 @@ const HospitalPatientContainer = styled.div`
   width: 45%;
   border-radius: 30px;
   padding: 40px 80px;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    padding: 40px 30px;
+  }
 `
+const HospitalPatientIcon = styled(HospitalInfoIcon)``
+
+const HospitalPatientHeadingContainer = styled(HospitalInfoHeadingContainer)`
+  margin-bottom: 30px;
+`
+const HospitalPatientHeading = styled(HospitalInfoHeading)``
+
 const Form = styled.form`
   margin-bottom: 30px;
   //background-color: pink;
@@ -278,12 +297,17 @@ const HospitalDashboardScreen = () => {
     e.preventDefault()
     setErrorMessage('')
 
-    if (aadharNumber === '') {
+    if (aadharNumber === '' || aadharNumber.trim().length !== 12) {
       setErrorMessage('Please give valid input')
       return
     }
 
     setErrorMessage('')
+    if (action === 'Add Data') {
+      navigate(`/hospital/dashboard/${aadharNumber}/add`)
+    } else {
+      navigate(`/hospital/dashboard/${aadharNumber}/edit`)
+    }
   }
 
   useEffect(() => {
