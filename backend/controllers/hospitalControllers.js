@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Hospital from '../models/hospitalModel.js'
+import Patient from '../models/patientModel.js'
 import generateToken from '../utils/generateToken.js'
 
 // @desc    Register a new hospital
@@ -78,4 +79,25 @@ const getHospitalDashboard = asyncHandler(async (req, res) => {
   }
 })
 
-export { registerHospital, loginHospital, getHospitalDashboard }
+// @desc   Fetch patient details through Hospital Dashboard
+// @route  GET /api/hospital/dashboard/:aadharNumber
+// @access Private
+const getPatientDetailsThroughHospital = asyncHandler(async (req, res) => {
+  const patient = await Patient.findOne({
+    aadharNumber: req.params.aadharNumber,
+  })
+
+  if (patient) {
+    res.json(patient)
+  } else {
+    res.status(404)
+    throw new Error('Patient not found')
+  }
+})
+
+export {
+  registerHospital,
+  loginHospital,
+  getHospitalDashboard,
+  getPatientDetailsThroughHospital,
+}

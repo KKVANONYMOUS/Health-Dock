@@ -298,7 +298,7 @@ const HospitalDashboardScreen = () => {
     setErrorMessage('')
 
     if (aadharNumber === '' || aadharNumber.trim().length !== 12) {
-      setErrorMessage('Please give valid input')
+      setErrorMessage('Please give a valid input')
       return
     }
 
