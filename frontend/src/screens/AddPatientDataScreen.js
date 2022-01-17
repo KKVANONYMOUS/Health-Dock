@@ -15,6 +15,7 @@ const Container = styled.div`
   padding: 20px 75px 20px;
   background-color: #f8f8fa;
   //  background-color: cyan;
+  height: calc(100vh - 70px);
 
   @media (max-width: 767px) {
     padding-left: 15px;
@@ -51,6 +52,81 @@ const BackButton = styled(Link)`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 20px;
+  //  height: 100%;
+`
+
+const FirstColumn = styled.div`
+  width: 30%;
+  //  height: 500px;
+  //  background-color: cyan;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+`
+
+const SecondColumn = styled.div`
+  width: 70%;
+  //  background-color: green;
+`
+
+const FirstContainer = styled.div`
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  text-align: center;
+  margin-bottom: 20px;
+`
+
+const AvatarImage = styled.img`
+  width: 45%;
+  border-radius: 20px;
+  margin-bottom: 15px;
+
+  @media (max-width: 1000px) {
+    width: auto;
+    margin: 0 20px;
+  }
+`
+
+const ProfileName = styled.h2`
+  color: #496bf2;
+  font-family: 'Montserrat';
+  font-weight: 800;
+`
+
+const SecondContainer = styled(FirstContainer)`
+  text-align: left;
+  padding: 20px;
+  margin-bottom: 0;
+`
+
+const ContainerHeading = styled.h4`
+  color: #35484e;
+  font-family: 'Poppins';
+  font-weight: 800;
+  margin-bottom: 10px;
+`
+
+const InfoField = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`
+
+const InfoFieldLabel = styled.h5`
+  color: #35484e;
+  font-family: 'Quicksand';
+  font-weight: 800;
+  width: 50%;
+`
+
+const InfoFieldData = styled.p`
+  color: #7c7f8c;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  width: 50%;
+  font-size: 13px;
 `
 
 const AddPatientDataScreen = () => {
@@ -63,6 +139,9 @@ const AddPatientDataScreen = () => {
   const hospitalPatientDetails = useSelector(
     (state) => state.hospitalPatientDetails
   )
+
+  const [avatarImageUrl, setAvatarImageUrl] = useState('')
+
   const {
     loading: loadingDetails,
     error: errorDetails,
@@ -80,14 +159,29 @@ const AddPatientDataScreen = () => {
         patient.aadharNumber !== Number(patientAadharNumber)
       ) {
         dispatch(fetchHospitalPatientDetails(patientAadharNumber))
+      } else {
+        if (patient.image) {
+          setAvatarImageUrl(patient.image)
+        } else {
+          //  setAvatarImageUrl(
+          //    `https://ui-avatars.com/api/?name=${patient.name}&background=eee&color=007bff&bold=true&format=svg`
+          //  )
+          setAvatarImageUrl('https://randomuser.me/api/portraits/men/81.jpg')
+        }
       }
     }
   }, [hospitalInfo, navigate, dispatch, patient, patientAadharNumber])
+
+  const toDate = (dob) => {
+    const formatDOB = new Date(dob)
+    return formatDOB
+  }
+
   return (
     <>
       <Navbar />
       <Container>
-        <BackButton to='/user/dashboard'>{'< '}Back</BackButton>
+        <BackButton to='/hospital/dashboard'>{'< '}Back</BackButton>
         <Wrapper>
           {loadingDetails ? (
             <Spinner width={60} height={60} color='#000' />
@@ -95,7 +189,42 @@ const AddPatientDataScreen = () => {
             <Alert error message={errorDetails} />
           ) : (
             <>
-              <h1>{patient.name}</h1>
+              <FirstColumn>
+                <FirstContainer>
+                  <AvatarImage src={avatarImageUrl} />
+                  <ProfileName>{patient.name}</ProfileName>
+                </FirstContainer>
+                <SecondContainer>
+                  <ContainerHeading>Information:</ContainerHeading>
+                  <InfoField>
+                    <InfoFieldLabel>Age:</InfoFieldLabel>
+                    <InfoFieldData>{patient.age}</InfoFieldData>
+                  </InfoField>
+                  <InfoField>
+                    <InfoFieldLabel>Date of Birth:</InfoFieldLabel>
+                    <InfoFieldData>
+                      {toDate(patient.dob).toLocaleDateString('en-UK')}
+                    </InfoFieldData>
+                  </InfoField>
+                  <InfoField>
+                    <InfoFieldLabel>Gender:</InfoFieldLabel>
+                    <InfoFieldData>{patient.gender}</InfoFieldData>
+                  </InfoField>
+                  <InfoField>
+                    <InfoFieldLabel>Blood Group:</InfoFieldLabel>
+                    <InfoFieldData>{patient.bloodGroup}</InfoFieldData>
+                  </InfoField>
+                  <InfoField>
+                    <InfoFieldLabel>Aadhar Number:</InfoFieldLabel>
+                    <InfoFieldData>
+                      XXXX-XXXX-X
+                      {patient.aadharNumber &&
+                        patient.aadharNumber.toString().substring(9)}
+                    </InfoFieldData>
+                  </InfoField>
+                </SecondContainer>
+              </FirstColumn>
+              <SecondColumn>Add new data</SecondColumn>
             </>
           )}
         </Wrapper>

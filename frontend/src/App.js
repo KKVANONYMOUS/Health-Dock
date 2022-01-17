@@ -16,7 +16,7 @@ function App() {
       <GlobalStyle />
       <main>
         <Routes>
-          <Route path='/' element={<HomeScreen />} />
+          <Route exact path='/' element={<HomeScreen />} />
           <Route path='/user/auth' element={<UserAuthScreen />} />
           <Route path='/user/dashboard' element={<UserDashboardScreen />} />
           <Route
@@ -30,6 +30,7 @@ function App() {
             element={<HospitalRegisterScreen />}
           />
           <Route
+            exact
             path='/hospital/dashboard'
             element={<HospitalDashboardScreen />}
           />
