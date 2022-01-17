@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import AddPatientDataScreen from './screens/AddPatientDataScreen'
 import EditPatientScreen from './screens/EditPatientScreen'
 import HomeScreen from './screens/HomeScreen'
 import HospitalDashboardScreen from './screens/HospitalDashboardScreen'
@@ -31,6 +32,10 @@ function App() {
           <Route
             path='/hospital/dashboard'
             element={<HospitalDashboardScreen />}
+          />
+          <Route
+            path='/hospital/dashboard/:aadharNumber/new'
+            element={<AddPatientDataScreen />}
           />
         </Routes>
       </main>
