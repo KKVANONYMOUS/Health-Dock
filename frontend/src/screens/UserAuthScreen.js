@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { sendOtp, userSendOtpReset, verifyOtp } from '../redux/user/userActions'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
+import UserAuthImage from '../images/UserAuthImage.png'
 
 const Container = styled.div`
   height: 100vh;
@@ -230,7 +231,7 @@ const UserAuthScreen = () => {
   return (
     <Container>
       <AuthCard>
-        <AuthCardImage src='../../images/CardImage.png' />
+        <AuthCardImage src={UserAuthImage} />
         <AuthCardInfo>
           {userSendOtpError && (
             <Alert error width='85%' message={'Invalid Mobile Number'} />

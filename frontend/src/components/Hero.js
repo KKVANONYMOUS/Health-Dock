@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import DownArrow from './DownArrow'
+import HeroImg from '../images/HeroImage.png'
 
 const Container = styled.div`
   position: relative;
@@ -155,7 +156,7 @@ const Hero = () => {
             </HeroButton>
           </HeroButtonContainer>
         </HeroContentContainer>
-        <HeroImage src='./images/HeroImage.png' />
+        <HeroImage src={HeroImg} />
       </HeroContainer>
       <Link to='/'>
         <DownArrow />

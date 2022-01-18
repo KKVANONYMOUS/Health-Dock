@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
 import { loginHospital } from '../redux/hospital/hospitalActions'
+import HospitalLoginImage from '../images/HospitalLoginImage.png'
 
 const Container = styled.div`
   height: 100vh;
@@ -251,7 +252,7 @@ const HospitalLoginScreen = () => {
           </AuthCardCopyright>
           <BackButton to='/'>{'< '}Back</BackButton>
         </AuthCardInfo>
-        <AuthCardImage src='../../images/HospitalLoginImage.png' />
+        <AuthCardImage src={HospitalLoginImage} />
       </AuthCard>
     </Container>
   )
