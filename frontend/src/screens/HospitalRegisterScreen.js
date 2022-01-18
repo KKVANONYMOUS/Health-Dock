@@ -346,7 +346,10 @@ const HospitalRegisterScreen = () => {
           </AuthCardCopyright>
           <BackButton to='/'>{'< '}Back</BackButton>
         </AuthCardInfo>
-        <AuthCardImage src={HospitalRegisterImage} />
+        <AuthCardImage
+          src={HospitalRegisterImage}
+          alt='Hospital Register Image'
+        />
       </AuthCard>
     </Container>
   )

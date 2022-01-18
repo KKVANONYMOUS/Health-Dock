@@ -231,7 +231,7 @@ const UserAuthScreen = () => {
   return (
     <Container>
       <AuthCard>
-        <AuthCardImage src={UserAuthImage} />
+        <AuthCardImage src={UserAuthImage} alt='User Auth Image' />
         <AuthCardInfo>
           {userSendOtpError && (
             <Alert error width='85%' message={'Invalid Mobile Number'} />

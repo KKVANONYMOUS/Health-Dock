@@ -21,6 +21,7 @@ const Container = styled.div`
   justify-content: start;
   height: 90vh;
   width: 100%;
+  background-color: #fff;
 
   @media (max-width: 767px) {
     padding-left: 15px;

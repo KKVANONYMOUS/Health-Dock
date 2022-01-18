@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
 import { UilMultiply } from '@iconscout/react-unicons'
-import AddMemberImage from './AddMemberImage.png'
+import AddMemberImage from '../images/AddMemberImage.png'
 import {
   createPatient,
   resetCreatePatient,
-} from '../../redux/patient/patientActions'
-import Spinner from '../Spinner'
+} from '../redux/patient/patientActions'
+import Spinner from './Spinner'
 import { useNavigate } from 'react-router-dom'
-import Alert from '../Alert'
+import Alert from './Alert'
 
 const Background = styled.div`
   width: 100%;

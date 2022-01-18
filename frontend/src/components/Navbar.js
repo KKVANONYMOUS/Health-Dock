@@ -122,7 +122,7 @@ const Navbar = () => {
   return (
     <Nav>
       <NavContainer>
-        <NavLogo to='/'>
+        <NavLogo to='/' aria-label='Health Dock'>
           <Logo />
         </NavLogo>
         <NavListIcon onClick={handleNavToggle}>

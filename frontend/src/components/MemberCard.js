@@ -123,7 +123,7 @@ const MemberCard = ({
   }, [fullName, image])
   return (
     <CardContainer>
-      <AvatarImage src={avatarImageUrl} />
+      <AvatarImage src={avatarImageUrl} alt='Avatar Image' />
       <CardInfo>
         <Name>{fullName}</Name>
         <CardField>

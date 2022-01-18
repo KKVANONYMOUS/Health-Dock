@@ -176,6 +176,7 @@ const PatientDetailsScreen = () => {
                     }
                     width={90}
                     height={90}
+                    alt='Patient Profile Image'
                   />
 
                   <ProfileInfo>

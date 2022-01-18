@@ -11,7 +11,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  //background-color: cyan;
+  background-color: #fff;
   height: 90vh;
   width: 100%;
 
@@ -156,7 +156,7 @@ const Hero = () => {
             </HeroButton>
           </HeroButtonContainer>
         </HeroContentContainer>
-        <HeroImage src={HeroImg} />
+        <HeroImage src={HeroImg} alt='Hero Image' />
       </HeroContainer>
       <Link to='/'>
         <DownArrow />

@@ -191,7 +191,7 @@ const AddPatientDataScreen = () => {
             <>
               <FirstColumn>
                 <FirstContainer>
-                  <AvatarImage src={avatarImageUrl} />
+                  <AvatarImage src={avatarImageUrl} alt='Avatar Image' />
                   <ProfileName>{patient.name}</ProfileName>
                 </FirstContainer>
                 <SecondContainer>
