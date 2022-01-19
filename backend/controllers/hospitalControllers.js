@@ -95,9 +95,39 @@ const getPatientDetailsThroughHospital = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc   Add new patient record
+// @route  POST /api/hospital/dashboard/:aadharNumber
+// @access Private
+const addPatientRecordThroughHospital = asyncHandler(async (req, res) => {
+  const { description, attendedBy, date, report, hospital } = req.body
+
+  const patient = await Patient.findOne({
+    aadharNumber: req.params.aadharNumber,
+  })
+
+  if (patient) {
+    const reportData = {
+      description,
+      attendedBy,
+      date,
+      hospital,
+      report,
+    }
+
+    await patient.reports.push(reportData)
+
+    await patient.save()
+    res.status(201).json({ message: 'Report added successfully' })
+  } else {
+    res.status(404)
+    res.json('Patient not found')
+  }
+})
+
 export {
   registerHospital,
   loginHospital,
   getHospitalDashboard,
   getPatientDetailsThroughHospital,
+  addPatientRecordThroughHospital,
 }

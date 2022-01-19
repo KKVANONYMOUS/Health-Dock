@@ -3,17 +3,13 @@ import mongoose from 'mongoose'
 const reportSchema = mongoose.Schema(
   {
     description: { type: String, required: true },
-    attendedBy: { type: Number, required: true },
+    attendedBy: { type: String, required: true },
     date: { type: Date, required: true },
     report: {
       type: String,
       required: true,
     },
-    hospital: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'Hospital',
-    },
+    hospital: { type: String, required: true },
   },
   {
     timestamps: true,

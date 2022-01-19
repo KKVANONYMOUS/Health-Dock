@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import {
+  addPatientRecordThroughHospital,
   getHospitalDashboard,
   getPatientDetailsThroughHospital,
   loginHospital,
@@ -14,5 +15,6 @@ router.route('/dashboard').get(checkHospitalAuth, getHospitalDashboard)
 router
   .route('/dashboard/:aadharNumber')
   .get(checkHospitalAuth, getPatientDetailsThroughHospital)
+  .post(checkHospitalAuth, addPatientRecordThroughHospital)
 
 export default router
