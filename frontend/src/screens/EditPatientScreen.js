@@ -244,7 +244,7 @@ const EditPatientScreen = () => {
         },
       }
 
-      const { data } = await axios.post('/api/upload', formData, config)
+      const { data } = await axios.post('/api/upload/image', formData, config)
 
       setImage(data)
       setUploading(false)
