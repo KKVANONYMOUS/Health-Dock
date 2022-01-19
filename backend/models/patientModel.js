@@ -1,5 +1,25 @@
 import mongoose from 'mongoose'
 
+const reportSchema = mongoose.Schema(
+  {
+    description: { type: String, required: true },
+    attendedBy: { type: Number, required: true },
+    date: { type: Date, required: true },
+    report: {
+      type: String,
+      required: true,
+    },
+    hospital: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Hospital',
+    },
+  },
+  {
+    timestamps: true,
+  }
+)
+
 const PatientSchema = mongoose.Schema(
   {
     aadharNumber: {
@@ -31,6 +51,7 @@ const PatientSchema = mongoose.Schema(
       type: String,
       default: '',
     },
+    reports: [reportSchema],
   },
   {
     timestamps: true,
