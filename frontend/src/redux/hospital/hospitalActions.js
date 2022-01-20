@@ -220,3 +220,9 @@ export const addhospitalPatientRecord =
       dispatch(addHospitalPatientRecordFailure(errMsg))
     }
   }
+
+export const logoutHospital = () => (dispatch) => {
+  localStorage.removeItem('hospitalInfo')
+  dispatch(hospitalLogout())
+  document.location.href = '/hospital/login'
+}

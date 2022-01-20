@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import { UilSignOutAlt } from '@iconscout/react-unicons'
-import { logoutUser } from '../redux/user/userActions'
 import HospitalIcon from '../icons/HospitalIcon.png'
 import InfoIcon from '../icons/InfoIcon.png'
 import ManageProfileIcon from '../icons/ManageProfileIcon.svg'
 import ImportantInstructionsIcon from '../icons/ImportantInstructionsIcon.svg'
-import { fetchHospitalPatientDetails } from '../redux/hospital/hospitalActions'
+import {
+  fetchHospitalPatientDetails,
+  logoutHospital,
+} from '../redux/hospital/hospitalActions'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
 
@@ -345,7 +347,7 @@ const HospitalDashboardScreen = () => {
             </DashboardHeading>
             <DashboardHeadingUnderline />
           </DashboardHeadingContainer>
-          <LogoutButton onClick={() => dispatch(logoutUser())}>
+          <LogoutButton onClick={() => dispatch(logoutHospital())}>
             <UilSignOutAlt size='25' />
             Logout
           </LogoutButton>
