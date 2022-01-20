@@ -289,7 +289,7 @@ const ErrorMessage = styled.h6`
 `
 const HospitalDashboardScreen = () => {
   const [aadharNumber, setAadharNumber] = useState('')
-  const [action, setAction] = useState('New Data')
+  const [action, setAction] = useState('New Record')
   const [errorMessage, setErrorMessage] = useState('')
 
   const navigate = useNavigate()
@@ -321,7 +321,7 @@ const HospitalDashboardScreen = () => {
       navigate('/hospital/login')
     } else {
       if (success) {
-        if (action === 'New Data') {
+        if (action === 'New Record') {
           navigate(`/hospital/dashboard/${aadharNumber}/new`)
         } else {
           navigate(`/hospital/dashboard/${aadharNumber}/edit`)
@@ -410,8 +410,8 @@ const HospitalDashboardScreen = () => {
                   value={action}
                   onChange={(e) => setAction(e.target.value)}
                 >
-                  <option value='New Data'>New Data</option>
-                  <option value='Edit/Delete Data'>Edit/Delete Data</option>
+                  <option value='New Record'>New Record</option>
+                  <option value='Edit/Delete Record'>Edit/Delete Record</option>
                 </FormSelectInput>
               </FormInputContainer>
               {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
