@@ -48,6 +48,10 @@ const PatientSchema = mongoose.Schema(
       default: '',
     },
     reports: [reportSchema],
+    registeredNumber: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

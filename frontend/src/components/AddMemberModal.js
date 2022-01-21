@@ -221,7 +221,17 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
     }
     setErrorMessage('')
 
-    dispatch(createPatient(name, aadharNumber, dob, age, bloodGroup, gender))
+    dispatch(
+      createPatient(
+        name,
+        aadharNumber,
+        dob,
+        age,
+        bloodGroup,
+        gender,
+        userInfo.phoneNumber
+      )
+    )
   }
 
   useEffect(() => {

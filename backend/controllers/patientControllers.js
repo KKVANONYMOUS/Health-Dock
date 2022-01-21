@@ -6,7 +6,15 @@ import User from '../models/userModel.js'
 // @route  POST /api/patient
 // @access Private
 const addPatient = asyncHandler(async (req, res) => {
-  const { aadharNumber, name, gender, age, bloodGroup, dob } = req.body
+  const {
+    phoneNumber: registeredNumber,
+    aadharNumber,
+    name,
+    gender,
+    age,
+    bloodGroup,
+    dob,
+  } = req.body
 
   const aadharNumberExist = await Patient.findOne({ aadharNumber })
 
@@ -23,6 +31,7 @@ const addPatient = asyncHandler(async (req, res) => {
     age,
     bloodGroup,
     dob,
+    registeredNumber,
   })
 
   await patient.save()

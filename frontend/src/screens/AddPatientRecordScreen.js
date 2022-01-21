@@ -412,8 +412,12 @@ const AddPatientRecordScreen = () => {
 
                   <Form onSubmit={handleSubmit}>
                     {errorAddRecord && <Alert error message={errorAddRecord} />}
-                    {successAddRecord && (
-                      <Alert message={'Record added successfully'} />
+                    {!successAddRecord && (
+                      <Alert
+                        message={
+                          'Record added successfully! A SMS notifcation has been sent to the registered mobile number'
+                        }
+                      />
                     )}
                     <FormInputContainer>
                       <FormLabel>DESCRIPTION</FormLabel>

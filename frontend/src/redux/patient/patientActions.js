@@ -149,7 +149,7 @@ export const fetchPatientsList = () => async (dispatch, getState) => {
 }
 
 export const createPatient =
-  (name, aadharNumber, dob, age, bloodGroup, gender) =>
+  (name, aadharNumber, dob, age, bloodGroup, gender, phoneNumber) =>
   async (dispatch, getState) => {
     try {
       dispatch(createPatientRequest())
@@ -167,7 +167,7 @@ export const createPatient =
 
       const { data } = await axios.post(
         '/api/patient',
-        { name, aadharNumber, dob, age, bloodGroup, gender },
+        { phoneNumber, aadharNumber, name, dob, age, bloodGroup, gender },
         config
       )
 
