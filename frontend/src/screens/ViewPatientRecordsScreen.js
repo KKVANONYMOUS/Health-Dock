@@ -6,7 +6,6 @@ import Navbar from '../components/Navbar'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
 import { fetchHospitalPatientDetails } from '../redux/hospital/hospitalActions'
-import RecordTable from '../components/RecordTable'
 
 const Container = styled.div`
   position: relative;
@@ -169,6 +168,105 @@ const RecordTableContainer = styled.div`
   //background-color: orange;
   overflow-y: auto;
 `
+
+const TableContainer = styled.div`
+  max-width: 800px;
+  width: 90%;
+  margin: 0 auto 40px;
+`
+
+const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+`
+
+const TableHeadBox = styled.thead`
+  background-color: transparent;
+
+  @media (max-width: 767px) {
+    display: none;
+  }
+`
+
+const TableRow = styled.tr`
+  background-color: transparent;
+
+  &:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+
+  @media (max-width: 767px) {
+    display: block;
+    margin-bottom: 20px;
+  }
+`
+
+const TableHeading = styled.th`
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 0.9rem;
+
+  @media (max-width: 767px) {
+    display: block;
+    margin-bottom: 5px;
+  }
+`
+
+const TableData = styled.td`
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+  font-family: 'Quicksand';
+  font-weight: 500;
+  font-size: 0.75rem;
+
+  @media (max-width: 767px) {
+    display: block;
+    position: relative;
+    padding-left: 132px;
+    text-align: left;
+    border-bottom: 0;
+    font-size: 0.7rem;
+
+    &:last-child {
+      border-bottom: 1px solid #ddd;
+    }
+
+    &:before {
+      content: attr(data-heading);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 120px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      background-color: #2dd6c1;
+      color: #000;
+      font-weight: 800;
+      font-size: 0.75rem;
+      padding: 0 5px;
+      justify-content: center;
+    }
+  }
+`
+
+const TableBody = styled.tbody``
+
+const Message = styled.div`
+  width: 90%;
+  color: #4b464b;
+  padding: 20px 20px;
+  border: 1px solid #4b464b;
+  background-color: #e2e2e4;
+  font-family: 'Montserrat';
+  font-weight: 500;
+  text-align: center;
+`
+
 const ViewPatientRecordsScreen = () => {
   const { aadharNumber: patientAadharNumber } = useParams()
 
@@ -216,7 +314,15 @@ const ViewPatientRecordsScreen = () => {
     return formatDOB
   }
 
-  const recordsArr = []
+  const headingColumns = [
+    'S.NO',
+    'DESCRIPTION',
+    'ATTENDED BY',
+    'PLACE',
+    'DATE',
+    'REPORT',
+    '',
+  ]
 
   return (
     <>
@@ -268,20 +374,50 @@ const ViewPatientRecordsScreen = () => {
               <SecondColumn>
                 <SecondColumnContainer>
                   <Heading>Patient Records</Heading>
-                  <RecordTableContainer>
-                    <RecordTable
-                      tableData={recordsArr}
-                      headingColumns={[
-                        'S.No',
-                        'DESCRIPTION',
-                        'ATTENDED BY',
-                        'PLACE',
-                        'DATE',
-                        'REPORT',
-                        '',
-                      ]}
-                    />
-                  </RecordTableContainer>
+
+                  {patient.reports.length === 0 ? (
+                    <Message>No records found!</Message>
+                  ) : (
+                    <RecordTableContainer>
+                      <TableContainer>
+                        <Table>
+                          <TableHeadBox>
+                            <TableRow>
+                              {headingColumns.map((col, index) => (
+                                <TableHeading key={index}>{col}</TableHeading>
+                              ))}
+                            </TableRow>
+                          </TableHeadBox>
+                          <TableBody>
+                            {patient.reports.map((record, index) => (
+                              <TableRow>
+                                <TableData data-heading='S.NO'>
+                                  {index + 1}
+                                </TableData>
+                                <TableData data-heading='DESCRIPTION'>
+                                  {record.description}
+                                </TableData>
+                                <TableData data-heading='ATTENDED BY'>
+                                  {record.attendedBy}
+                                </TableData>
+                                <TableData data-heading='PLACE'>
+                                  {record.hospital}
+                                </TableData>
+                                <TableData data-heading='DATE'>
+                                  {toDate(record.date).toLocaleDateString(
+                                    'en-UK'
+                                  )}
+                                </TableData>
+                                <TableData data-heading='REPORT'>
+                                  {record.report}
+                                </TableData>
+                              </TableRow>
+                            ))}
+                          </TableBody>
+                        </Table>
+                      </TableContainer>
+                    </RecordTableContainer>
+                  )}
                 </SecondColumnContainer>
               </SecondColumn>
             </>
