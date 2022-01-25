@@ -13,7 +13,6 @@ import {
   hospitalRegisterReducer,
   hospitalPatientDetailsReducer,
   hospitalAddPatientRecordReducer,
-  hospitalViewPatientRecordsReducer,
 } from './hospital/hospitalReducers'
 
 const reducer = combineReducers({
