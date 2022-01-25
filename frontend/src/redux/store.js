@@ -27,7 +27,6 @@ const reducer = combineReducers({
   hospitalRegister: hospitalRegisterReducer,
   hospitalPatientDetails: hospitalPatientDetailsReducer,
   hospitalAddPatientRecord: hospitalAddPatientRecordReducer,
-  hospitalViewPatientRecords: hospitalViewPatientRecordsReducer,
 })
 
 const userInfoFromStorage = localStorage.getItem('userInfo')

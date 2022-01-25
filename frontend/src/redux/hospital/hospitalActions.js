@@ -101,26 +101,6 @@ const addHospitalPatientRecordFailure = (error) => {
   }
 }
 
-const fetchHospitalPatientRecordsRequest = () => {
-  return {
-    type: HOSPITAL_VIEW_PATIENT_RECORDS_REQUEST,
-  }
-}
-
-const fetchHospitalPatientRecordsSuccess = (data) => {
-  return {
-    type: HOSPITAL_VIEW_PATIENT_RECORDS_SUCCESS,
-    payload: data,
-  }
-}
-
-const fetchHospitalPatientRecordsFailure = (error) => {
-  return {
-    type: HOSPITAL_VIEW_PATIENT_RECORDS_FAILURE,
-    payload: error,
-  }
-}
-
 export const loginHospital =
   (registrationNumber, password) => async (dispatch) => {
     try {
@@ -250,33 +230,3 @@ export const logoutHospital = () => (dispatch) => {
   dispatch(hospitalLogout())
   document.location.href = '/hospital/login'
 }
-
-export const fetchHospitalPatientRecords =
-  (aadharNumber) => async (dispatch, getState) => {
-    try {
-      dispatch(fetchHospitalPatientRecordsRequest())
-
-      const {
-        hospitalLogin: { hospitalInfo },
-      } = getState()
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${hospitalInfo.token}`,
-        },
-      }
-
-      const { data } = await axios.get(
-        `/api/hospital/dashboard/${aadharNumber}/records`,
-        config
-      )
-
-      dispatch(fetchHospitalPatientRecordsSuccess(data))
-    } catch (err) {
-      const errorMsg =
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message
-      dispatch(fetchHospitalPatientRecordsFailure(errorMsg))
-    }
-  }
