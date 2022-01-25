@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
 import { fetchHospitalPatientDetails } from '../redux/hospital/hospitalActions'
+import RecordTable from '../components/RecordTable'
 
 const Container = styled.div`
   position: relative;
@@ -14,8 +15,8 @@ const Container = styled.div`
   width: 100%;
   padding: 20px 75px 20px;
   background-color: #f8f8fa;
-  //  background-color: cyan;
-  height: calc(100vh - 70px);
+  //background-color: cyan;
+  //height: calc(100vh - 70px);
 
   @media (max-width: 767px) {
     padding-left: 15px;
@@ -52,7 +53,7 @@ const BackButton = styled(Link)`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin: 20px 0;
 
   @media (max-width: 1000px) {
     flex-direction: column;
@@ -144,21 +145,30 @@ const InfoFieldData = styled.p`
 const SecondColumnContainer = styled.div`
   background-color: #fff;
   border-radius: 20px;
-  //padding: 40px 20px;
-  height: 100%;
+  padding: 10px 0px;
+  //height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  //background-color: yellow;
 `
 
 const Heading = styled.h1`
   color: #496bf2;
   font-family: 'Poppins';
   font-weight: 800;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  //background-color: yellow;
 `
 
+const RecordTableContainer = styled.div`
+  width: 100%;
+  max-height: 457px;
+  height: 65vh;
+  //background-color: orange;
+  overflow-y: auto;
+`
 const ViewPatientRecordsScreen = () => {
   const { aadharNumber: patientAadharNumber } = useParams()
 
@@ -205,6 +215,8 @@ const ViewPatientRecordsScreen = () => {
     const formatDOB = new Date(dob)
     return formatDOB
   }
+
+  const recordsArr = []
 
   return (
     <>
@@ -256,6 +268,20 @@ const ViewPatientRecordsScreen = () => {
               <SecondColumn>
                 <SecondColumnContainer>
                   <Heading>Patient Records</Heading>
+                  <RecordTableContainer>
+                    <RecordTable
+                      tableData={recordsArr}
+                      headingColumns={[
+                        'S.No',
+                        'DESCRIPTION',
+                        'ATTENDED BY',
+                        'PLACE',
+                        'DATE',
+                        'REPORT',
+                        '',
+                      ]}
+                    />
+                  </RecordTableContainer>
                 </SecondColumnContainer>
               </SecondColumn>
             </>

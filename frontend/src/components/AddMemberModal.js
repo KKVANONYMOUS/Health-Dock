@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback, useState } from 'react'
+import { useRef, useEffect, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useSpring, animated } from 'react-spring'
 import styled from 'styled-components'
