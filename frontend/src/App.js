@@ -17,31 +17,47 @@ function App() {
       <GlobalStyle />
       <main>
         <Routes>
-          <Route exact path='/' element={<HomeScreen />} />
-          <Route path='/user/auth' element={<UserAuthScreen />} />
-          <Route path='/user/dashboard' element={<UserDashboardScreen />} />
+          <Route path='/' element={<HomeScreen />} exact />
+          <Route path='/user/auth' element={<UserAuthScreen />} exact />
+          <Route
+            path='/user/dashboard'
+            element={<UserDashboardScreen />}
+            exact
+          />
           <Route
             path='/user/patient/:id/edit'
             element={<EditPatientScreen />}
+            exact
           />
-          <Route path='/user/patient/:id' element={<PatientDetailsScreen />} />
-          <Route path='/hospital/login' element={<HospitalLoginScreen />} />
+          <Route
+            path='/user/patient/:id'
+            element={<PatientDetailsScreen />}
+            exact
+          />
+          <Route
+            path='/hospital/login'
+            element={<HospitalLoginScreen />}
+            exact
+          />
           <Route
             path='/hospital/register'
             element={<HospitalRegisterScreen />}
+            exact
           />
           <Route
-            exact
             path='/hospital/dashboard'
             element={<HospitalDashboardScreen />}
+            exact
           />
           <Route
             path='/hospital/dashboard/:aadharNumber/new'
             element={<AddPatientRecordScreen />}
+            exact
           />
           <Route
             path='/hospital/dashboard/:aadharNumber/'
             element={<ViewPatientRecordsScreen />}
+            exact
           />
         </Routes>
       </main>
