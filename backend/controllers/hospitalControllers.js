@@ -131,29 +131,10 @@ const addPatientRecordThroughHospital = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc   View patient records
-// @route  GET /api/hospital/dashboard/:aadharNumber/records
-// @access Private
-const viewPatientRecordsThroughHospital = asyncHandler(async (req, res) => {
-  const patient = await Patient.findOne({
-    aadharNumber: req.params.aadharNumber,
-  })
-
-  if (patient) {
-    const reportsArr = patient.reports
-
-    res.json(reportsArr)
-  } else {
-    res.status(404)
-    res.json('Patient not found')
-  }
-})
-
 export {
   registerHospital,
   loginHospital,
   getHospitalDashboard,
   getPatientDetailsThroughHospital,
   addPatientRecordThroughHospital,
-  viewPatientRecordsThroughHospital,
 }
