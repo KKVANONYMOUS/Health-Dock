@@ -324,7 +324,7 @@ const HospitalDashboardScreen = () => {
         if (action === 'New Record') {
           navigate(`/hospital/dashboard/${aadharNumber}/new`)
         } else {
-          navigate(`/hospital/dashboard/${aadharNumber}/edit`)
+          navigate(`/hospital/dashboard/${aadharNumber}/`)
         }
       }
     }
@@ -411,7 +411,7 @@ const HospitalDashboardScreen = () => {
                   onChange={(e) => setAction(e.target.value)}
                 >
                   <option value='New Record'>New Record</option>
-                  <option value='Edit/Delete Record'>Edit/Delete Record</option>
+                  <option value='View Records'>View Records</option>
                 </FormSelectInput>
               </FormInputContainer>
               {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}

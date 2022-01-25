@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler'
 import Hospital from '../models/hospitalModel.js'
 import Patient from '../models/patientModel.js'
 import generateToken from '../utils/generateToken.js'
+import sendSMS from '../utils/sendSMS.js'
 
 // @desc    Register a new hospital
 // @route   POST /api/hospital/register
@@ -117,7 +118,31 @@ const addPatientRecordThroughHospital = asyncHandler(async (req, res) => {
     await patient.reports.push(reportData)
 
     await patient.save()
+
+    sendSMS(
+      `Your record has been successfully added by ${hospital}. If this is not done under your instructions, please visit the concerned hospital \n\nTeam Health Dock`,
+      patient.registeredNumber
+    )
+
     res.status(201).json({ message: 'Report added successfully' })
+  } else {
+    res.status(404)
+    res.json('Patient not found')
+  }
+})
+
+// @desc   View patient records
+// @route  GET /api/hospital/dashboard/:aadharNumber/records
+// @access Private
+const viewPatientRecordsThroughHospital = asyncHandler(async (req, res) => {
+  const patient = await Patient.findOne({
+    aadharNumber: req.params.aadharNumber,
+  })
+
+  if (patient) {
+    const reportsArr = patient.reports
+
+    res.json(reportsArr)
   } else {
     res.status(404)
     res.json('Patient not found')
@@ -130,4 +155,5 @@ export {
   getHospitalDashboard,
   getPatientDetailsThroughHospital,
   addPatientRecordThroughHospital,
+  viewPatientRecordsThroughHospital,
 }

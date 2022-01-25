@@ -58,22 +58,33 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
-  //  height: 100%;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `
 
 const FirstColumn = styled.div`
   width: 30%;
   //  height: 500px;
-  //  background-color: cyan;
+  //background-color: cyan;
   display: flex;
   flex-direction: column;
   padding: 10px;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `
 
 const SecondColumn = styled.div`
   width: 70%;
   //background-color: green;
   padding: 10px;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `
 
 const FirstContainer = styled.div`
@@ -161,6 +172,8 @@ const Form = styled.form`
 
   @media (max-width: 1000px) {
     width: 100%;
+    padding: 0 2rem;
+    margin-bottom: 30px;
   }
 `
 
@@ -276,8 +289,6 @@ const AddPatientRecordScreen = () => {
         setDate('')
         setReport('')
         ref.current.value = ''
-
-        // send SMS notification to patient
       }
       if (
         !patient.aadharNumber ||
@@ -354,7 +365,7 @@ const AddPatientRecordScreen = () => {
         attendedBy,
         date,
         report,
-        `${hospitalInfo.name} ${hospitalInfo.address}`
+        hospitalInfo.name
       )
     )
   }
@@ -409,14 +420,13 @@ const AddPatientRecordScreen = () => {
               <SecondColumn>
                 <SecondColumnContainer>
                   <Heading>Add new record</Heading>
-
                   <Form onSubmit={handleSubmit}>
                     {errorAddRecord && <Alert error message={errorAddRecord} />}
-                    {!successAddRecord && (
+                    {successAddRecord && (
                       <Alert
-                        message={
-                          'Record added successfully! A SMS notifcation has been sent to the registered mobile number'
-                        }
+                        message={`Record added successfully! A SMS notifcation has been sent to the mobile number XXXXX-XX${patient.registeredNumber
+                          .toString()
+                          .substring(7)}`}
                       />
                     )}
                     <FormInputContainer>

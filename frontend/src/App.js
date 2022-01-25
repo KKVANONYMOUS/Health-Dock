@@ -8,6 +8,7 @@ import HospitalRegisterScreen from './screens/HospitalRegisterScreen'
 import PatientDetailsScreen from './screens/PatientDetailsScreen'
 import UserAuthScreen from './screens/UserAuthScreen'
 import UserDashboardScreen from './screens/UserDashboardScreen'
+import ViewPatientRecordsScreen from './screens/ViewPatientRecordsScreen'
 import GlobalStyle from './styles/globalStyle'
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
           <Route
             path='/hospital/dashboard/:aadharNumber/new'
             element={<AddPatientRecordScreen />}
+          />
+          <Route
+            path='/hospital/dashboard/:aadharNumber/'
+            element={<ViewPatientRecordsScreen />}
           />
         </Routes>
       </main>

@@ -21,7 +21,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   const resData = await fast2sms.sendMessage({
     authorization: process.env.FASTSMS_API_KEY,
-    message: `Your OTP to register/login Health Log is ${otp} \n\nTeam Health Log`,
+    message: `Your OTP to register/login Health Log is ${otp} \n\nTeam Health Dock`,
     numbers: [phoneNumber],
   })
 
