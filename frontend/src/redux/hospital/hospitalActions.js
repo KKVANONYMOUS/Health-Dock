@@ -244,11 +244,10 @@ export const addhospitalPatientRecord =
     }
   }
 
-export const deletehospitalPatientRecord =
+export const deleteHospitalPatientRecord =
   (aadharNumber, recordId) => async (dispatch, getState) => {
     try {
       dispatch(deleteHospitalPatientRecordRequest())
-
       const {
         hospitalLogin: { hospitalInfo },
       } = getState()

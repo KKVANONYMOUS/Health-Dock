@@ -5,7 +5,10 @@ import { Link, useNavigate, useParams } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
-import { fetchHospitalPatientDetails } from '../redux/hospital/hospitalActions'
+import {
+  deleteHospitalPatientRecord,
+  fetchHospitalPatientDetails,
+} from '../redux/hospital/hospitalActions'
 import { UilTrashAlt, UilEdit } from '@iconscout/react-unicons'
 
 const Container = styled.div`
@@ -343,9 +346,9 @@ const ViewPatientRecordsScreen = () => {
     '',
   ]
 
-  const deleteHandler = (recordID) => {
+  const deleteHandler = (recordId) => {
     if (window.confirm('Are you sure you want to delete the record?')) {
-      // Delete Record Action
+      dispatch(deleteHospitalPatientRecord(patientAadharNumber, recordId))
     }
   }
   return (
@@ -414,7 +417,7 @@ const ViewPatientRecordsScreen = () => {
                           </TableHeadBox>
                           <TableBody>
                             {patient.reports.map((record, index) => (
-                              <TableRow>
+                              <TableRow key={index}>
                                 <TableData data-heading='S.NO'>
                                   {index + 1}
                                 </TableData>
