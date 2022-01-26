@@ -3,6 +3,9 @@ import {
   HOSPITAL_ADD_PATIENT_RECORD_REQUEST,
   HOSPITAL_ADD_PATIENT_RECORD_RESET,
   HOSPITAL_ADD_PATIENT_RECORD_SUCCESS,
+  HOSPITAL_DELETE_PATIENT_RECORD_FAILURE,
+  HOSPITAL_DELETE_PATIENT_RECORD_REQUEST,
+  HOSPITAL_DELETE_PATIENT_RECORD_SUCCESS,
   HOSPITAL_LOGIN_FAILURE,
   HOSPITAL_LOGIN_REQUEST,
   HOSPITAL_LOGIN_SUCCESS,
@@ -74,6 +77,19 @@ export const hospitalAddPatientRecordReducer = (
       return { loading: false, error: action.payload }
     case HOSPITAL_ADD_PATIENT_RECORD_RESET:
       return { patient: {} }
+    default:
+      return state
+  }
+}
+
+export const hospitalDeletePatientRecordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case HOSPITAL_DELETE_PATIENT_RECORD_REQUEST:
+      return { loading: true }
+    case HOSPITAL_DELETE_PATIENT_RECORD_SUCCESS:
+      return { loading: false, success: true }
+    case HOSPITAL_DELETE_PATIENT_RECORD_FAILURE:
+      return { loading: false, error: action.payload }
     default:
       return state
   }

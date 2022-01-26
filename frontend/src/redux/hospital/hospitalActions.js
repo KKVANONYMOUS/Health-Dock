@@ -3,6 +3,9 @@ import {
   HOSPITAL_ADD_PATIENT_RECORD_FAILURE,
   HOSPITAL_ADD_PATIENT_RECORD_REQUEST,
   HOSPITAL_ADD_PATIENT_RECORD_SUCCESS,
+  HOSPITAL_DELETE_PATIENT_RECORD_FAILURE,
+  HOSPITAL_DELETE_PATIENT_RECORD_REQUEST,
+  HOSPITAL_DELETE_PATIENT_RECORD_SUCCESS,
   HOSPITAL_LOGIN_FAILURE,
   HOSPITAL_LOGIN_REQUEST,
   HOSPITAL_LOGIN_SUCCESS,
@@ -94,6 +97,25 @@ const addHospitalPatientRecordSuccess = (data) => {
 const addHospitalPatientRecordFailure = (error) => {
   return {
     type: HOSPITAL_ADD_PATIENT_RECORD_FAILURE,
+    payload: error,
+  }
+}
+
+const deleteHospitalPatientRecordRequest = () => {
+  return {
+    type: HOSPITAL_DELETE_PATIENT_RECORD_REQUEST,
+  }
+}
+
+const deleteHospitalPatientRecordSuccess = () => {
+  return {
+    type: HOSPITAL_DELETE_PATIENT_RECORD_SUCCESS,
+  }
+}
+
+const deleteHospitalPatientRecordFailure = (error) => {
+  return {
+    type: HOSPITAL_DELETE_PATIENT_RECORD_FAILURE,
     payload: error,
   }
 }
@@ -219,6 +241,37 @@ export const addhospitalPatientRecord =
           ? err.response.data.message
           : err.message
       dispatch(addHospitalPatientRecordFailure(errMsg))
+    }
+  }
+
+export const deletehospitalPatientRecord =
+  (aadharNumber, recordId) => async (dispatch, getState) => {
+    try {
+      dispatch(deleteHospitalPatientRecordRequest())
+
+      const {
+        hospitalLogin: { hospitalInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${hospitalInfo.token}`,
+        },
+      }
+
+      await axios.delete(
+        `/api/hospital/dashboard/${aadharNumber}/record/${recordId}`,
+        config
+      )
+
+      dispatch(deleteHospitalPatientRecordSuccess())
+    } catch (err) {
+      const errMsg =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      dispatch(deleteHospitalPatientRecordFailure(errMsg))
     }
   }
 
