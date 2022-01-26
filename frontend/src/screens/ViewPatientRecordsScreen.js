@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar'
 import Spinner from '../components/Spinner'
 import Alert from '../components/Alert'
 import { fetchHospitalPatientDetails } from '../redux/hospital/hospitalActions'
+import { UilTrashAlt, UilEdit } from '@iconscout/react-unicons'
 
 const Container = styled.div`
   position: relative;
@@ -267,6 +268,24 @@ const Message = styled.div`
   text-align: center;
 `
 
+const ButtonsList = styled.div`
+  display: flex;
+`
+
+const EditButton = styled(Link)`
+  text-decoration: none;
+  background-color: #ffc006;
+  padding: 2.5px 3px;
+`
+
+const DeleteButton = styled.button`
+  background-color: #dc3444;
+  border: none;
+  outline: none;
+  padding: 2.5px 3px;
+  cursor: pointer;
+`
+
 const ViewPatientRecordsScreen = () => {
   const { aadharNumber: patientAadharNumber } = useParams()
 
@@ -324,6 +343,11 @@ const ViewPatientRecordsScreen = () => {
     '',
   ]
 
+  const deleteHandler = (recordID) => {
+    if (window.confirm('Are you sure you want to delete the record?')) {
+      // Delete Record Action
+    }
+  }
   return (
     <>
       <Navbar />
@@ -410,6 +434,20 @@ const ViewPatientRecordsScreen = () => {
                                 </TableData>
                                 <TableData data-heading='REPORT'>
                                   {record.report}
+                                </TableData>
+                                <TableData data-heading=''>
+                                  <ButtonsList>
+                                    <EditButton
+                                      to={`/hospital/dashboard/${patientAadharNumber}/edit`}
+                                    >
+                                      <UilEdit size='18' color='#fff' />
+                                    </EditButton>
+                                    <DeleteButton
+                                      onClick={() => deleteHandler(record._id)}
+                                    >
+                                      <UilTrashAlt size='18' color='#fff' />
+                                    </DeleteButton>
+                                  </ButtonsList>
                                 </TableData>
                               </TableRow>
                             ))}
