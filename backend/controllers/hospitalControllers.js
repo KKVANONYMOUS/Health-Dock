@@ -151,7 +151,33 @@ const deletePatientRecordThroughHospital = asyncHandler(async (req, res) => {
 
     patient.reports = updatedRecordsArr
     await patient.save()
+
     res.json({ message: 'Record removed' })
+  } else {
+    res.status(404)
+    throw new Error('Patient not found')
+  }
+})
+
+// @desc    View patient record
+// @route   GET /api/hospital/dashboard/:aadharNumber/record/:recordId
+// @access  Private
+const viewPatientRecordThroughHospital = asyncHandler(async (req, res) => {
+  const patient = await Patient.findOne({
+    aadharNumber: req.params.aadharNumber,
+  })
+
+  if (patient) {
+    let record = patient.reports.filter((record) =>
+      record._id.equals(req.params.recordId)
+    )
+
+    if (record.length === 0) {
+      res.status(404)
+      throw new Error('Record not found')
+    }
+
+    res.json(record)
   } else {
     res.status(404)
     throw new Error('Patient not found')
@@ -165,4 +191,5 @@ export {
   getPatientDetailsThroughHospital,
   addPatientRecordThroughHospital,
   deletePatientRecordThroughHospital,
+  viewPatientRecordThroughHospital,
 }
