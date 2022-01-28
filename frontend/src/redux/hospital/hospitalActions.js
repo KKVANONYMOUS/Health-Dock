@@ -264,7 +264,7 @@ export const fetchHospitalPatientDetails =
   }
 
 export const addhospitalPatientRecord =
-  (aadharNumber, description, attendedBy, date, report, hospital) =>
+  (aadharNumber, description, attendedBy, date, report, hospitalName) =>
   async (dispatch, getState) => {
     try {
       dispatch(addHospitalPatientRecordRequest())
@@ -280,9 +280,10 @@ export const addhospitalPatientRecord =
         },
       }
 
+      const hospitalId = hospitalInfo._id
       const { data } = await axios.post(
         `/api/hospital/dashboard/${aadharNumber}`,
-        { description, attendedBy, date, report, hospital },
+        { description, attendedBy, date, report, hospitalName, hospitalId },
         config
       )
 

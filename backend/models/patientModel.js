@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 
-const reportSchema = mongoose.Schema(
+const recordSchema = mongoose.Schema(
   {
     description: { type: String, required: true },
     attendedBy: { type: String, required: true },
@@ -9,7 +9,12 @@ const reportSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    hospital: { type: String, required: true },
+    hospitalName: { type: String, required: true },
+    hospitalId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Hospital',
+    },
   },
   {
     timestamps: true,
@@ -47,7 +52,7 @@ const PatientSchema = mongoose.Schema(
       type: String,
       default: '',
     },
-    reports: [reportSchema],
+    records: [recordSchema],
     registeredNumber: {
       type: Number,
       required: true,
