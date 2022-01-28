@@ -184,6 +184,42 @@ const viewPatientRecordThroughHospital = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Edit patient record
+// @route   PUT /api/hospital/dashboard/:aadharNumber/record/:recordId
+// @access  Private
+const editPatientRecordThroughHospital = asyncHandler(async (req, res) => {
+  const { date, description, hospital, attendedBy, report } = req.body
+
+  const patient = await Patient.findOne({
+    aadharNumber: req.params.aadharNumber,
+  })
+
+  if (patient) {
+    let isRecordExist = false
+    patient.reports.forEach((record) => {
+      if (record._id.equals(req.params.recordId)) {
+        isRecordExist = true
+        record.date = date
+        record.description = description
+        record.hospital = hospital
+        record.attendedBy = attendedBy
+        record.report = report
+      }
+    })
+
+    if (!isRecordExist) {
+      res.status(404)
+      throw new Error('Record not found')
+    }
+
+    await patient.save()
+    res.json({ message: 'Record updated successfully' })
+  } else {
+    res.status(404)
+    throw new Error('Patient not found')
+  }
+})
+
 export {
   registerHospital,
   loginHospital,
@@ -192,4 +228,5 @@ export {
   addPatientRecordThroughHospital,
   deletePatientRecordThroughHospital,
   viewPatientRecordThroughHospital,
+  editPatientRecordThroughHospital,
 }

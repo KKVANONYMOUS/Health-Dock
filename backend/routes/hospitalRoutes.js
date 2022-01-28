@@ -7,6 +7,7 @@ import {
   loginHospital,
   registerHospital,
   viewPatientRecordThroughHospital,
+  editPatientRecordThroughHospital,
 } from '../controllers/hospitalControllers.js'
 import { checkHospitalAuth } from '../middleware/authMiddleware.js'
 
@@ -21,6 +22,7 @@ router
 router
   .route('/dashboard/:aadharNumber/record/:recordId')
   .get(checkHospitalAuth, viewPatientRecordThroughHospital)
+  .put(checkHospitalAuth, editPatientRecordThroughHospital)
   .delete(checkHospitalAuth, deletePatientRecordThroughHospital)
 
 export default router
