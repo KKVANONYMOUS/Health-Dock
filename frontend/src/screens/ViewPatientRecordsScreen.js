@@ -315,6 +315,7 @@ const ViewPatientRecordsScreen = () => {
     hospitalDeletePatientRecord
 
   const dispatch = useDispatch()
+  const [filteredRecords, setFilteredRecords] = useState([])
 
   useEffect(() => {
     if (!hospitalInfo) {
@@ -334,6 +335,16 @@ const ViewPatientRecordsScreen = () => {
           `https://ui-avatars.com/api/?name=${patient.name}&background=eee&color=007bff&bold=true&format=svg`
         )
       }
+
+      if (patient.records) {
+        let arr = []
+        patient.records.forEach((record) => {
+          if (record.hospitalId === hospitalInfo._id) {
+            arr.push(record)
+          }
+        })
+        setFilteredRecords(arr)
+      }
     }
 
     if (successDelete) {
@@ -346,6 +357,7 @@ const ViewPatientRecordsScreen = () => {
     patient,
     patientAadharNumber,
     successDelete,
+    filteredRecords,
   ])
 
   const toDate = (dob) => {
@@ -419,7 +431,7 @@ const ViewPatientRecordsScreen = () => {
               <SecondColumn>
                 <SecondColumnContainer>
                   <Heading>Patient Records</Heading>
-                  {patient.reports && patient.reports.length === 0 ? (
+                  {filteredRecords && filteredRecords.length === 0 ? (
                     <Message>No records found!</Message>
                   ) : (
                     <RecordTableContainer>
@@ -433,8 +445,8 @@ const ViewPatientRecordsScreen = () => {
                             </TableRow>
                           </TableHeadBox>
                           <TableBody>
-                            {patient.reports &&
-                              patient.reports.map((record, index) => (
+                            {filteredRecords &&
+                              filteredRecords.map((record, index) => (
                                 <TableRow key={index}>
                                   <TableData data-heading='S.NO'>
                                     {index + 1}
@@ -446,7 +458,7 @@ const ViewPatientRecordsScreen = () => {
                                     {record.attendedBy}
                                   </TableData>
                                   <TableData data-heading='PLACE'>
-                                    {record.hospital}
+                                    {record.hospitalName}
                                   </TableData>
                                   <TableData data-heading='DATE'>
                                     {toDate(record.date).toLocaleDateString(
