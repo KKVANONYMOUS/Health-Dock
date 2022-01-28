@@ -166,7 +166,7 @@ const updateHospitalPatientRecordFailure = (error) => {
   }
 }
 
-export const updateHospitalPatientRecordReset = () => {
+export const resetUpdateHospitalPatientRecord = () => {
   return {
     type: HOSPITAL_UPDATE_PATIENT_RECORD_RESET,
   }

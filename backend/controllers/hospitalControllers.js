@@ -152,6 +152,11 @@ const deletePatientRecordThroughHospital = asyncHandler(async (req, res) => {
     patient.reports = updatedRecordsArr
     await patient.save()
 
+    sendSMS(
+      `Your record has been successfully deleted. If this is not done under your instructions, please visit the concerned hospital \n\nTeam Health Dock`,
+      patient.registeredNumber
+    )
+
     res.json({ message: 'Record removed' })
   } else {
     res.status(404)
@@ -168,16 +173,19 @@ const viewPatientRecordThroughHospital = asyncHandler(async (req, res) => {
   })
 
   if (patient) {
-    let record = patient.reports.filter((record) =>
-      record._id.equals(req.params.recordId)
-    )
+    let foundRecord
+    patient.reports.forEach((record) => {
+      if (record._id.equals(req.params.recordId)) {
+        foundRecord = record
+      }
+    })
 
-    if (record.length === 0) {
+    if (!foundRecord) {
       res.status(404)
       throw new Error('Record not found')
     }
 
-    res.json(record)
+    res.json(foundRecord)
   } else {
     res.status(404)
     throw new Error('Patient not found')
@@ -213,6 +221,12 @@ const editPatientRecordThroughHospital = asyncHandler(async (req, res) => {
     }
 
     await patient.save()
+
+    sendSMS(
+      `Your record has been successfully updated by ${hospital}. If this is not done under your instructions, please visit the concerned hospital \n\nTeam Health Dock`,
+      patient.registeredNumber
+    )
+
     res.json({ message: 'Record updated successfully' })
   } else {
     res.status(404)

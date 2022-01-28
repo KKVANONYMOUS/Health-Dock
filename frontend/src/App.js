@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import AddPatientRecordScreen from './screens/AddPatientRecordScreen'
+import EditPatientRecordScreen from './screens/EditPatientRecordScreen'
 import EditPatientScreen from './screens/EditPatientScreen'
 import HomeScreen from './screens/HomeScreen'
 import HospitalDashboardScreen from './screens/HospitalDashboardScreen'
@@ -57,6 +58,11 @@ function App() {
           <Route
             path='/hospital/dashboard/:aadharNumber/'
             element={<ViewPatientRecordsScreen />}
+            exact
+          />
+          <Route
+            path='/hospital/dashboard/:aadharNumber/record/:recordId/edit'
+            element={<EditPatientRecordScreen />}
             exact
           />
         </Routes>

@@ -308,28 +308,45 @@ const ViewPatientRecordsScreen = () => {
     patient,
   } = hospitalPatientDetails
 
+  const hospitalDeletePatientRecord = useSelector(
+    (state) => state.hospitalDeletePatientRecord
+  )
+  const { error: errorDelete, success: successDelete } =
+    hospitalDeletePatientRecord
+
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (!hospitalInfo) {
       navigate('/hospital/login')
+    }
+
+    if (
+      !patient.aadharNumber ||
+      patient.aadharNumber !== Number(patientAadharNumber)
+    ) {
+      dispatch(fetchHospitalPatientDetails(patientAadharNumber))
     } else {
-      if (
-        !patient.aadharNumber ||
-        patient.aadharNumber !== Number(patientAadharNumber)
-      ) {
-        dispatch(fetchHospitalPatientDetails(patientAadharNumber))
+      if (patient.image) {
+        setAvatarImageUrl(patient.image)
       } else {
-        if (patient.image) {
-          setAvatarImageUrl(patient.image)
-        } else {
-          setAvatarImageUrl(
-            `https://ui-avatars.com/api/?name=${patient.name}&background=eee&color=007bff&bold=true&format=svg`
-          )
-        }
+        setAvatarImageUrl(
+          `https://ui-avatars.com/api/?name=${patient.name}&background=eee&color=007bff&bold=true&format=svg`
+        )
       }
     }
-  }, [hospitalInfo, navigate, dispatch, patient, patientAadharNumber])
+
+    if (successDelete) {
+      navigate(0)
+    }
+  }, [
+    hospitalInfo,
+    navigate,
+    dispatch,
+    patient,
+    patientAadharNumber,
+    successDelete,
+  ])
 
   const toDate = (dob) => {
     const formatDOB = new Date(dob)
@@ -356,6 +373,7 @@ const ViewPatientRecordsScreen = () => {
       <Navbar />
       <Container>
         <BackButton to='/hospital/dashboard'>{'< '}Back</BackButton>
+        {errorDelete && <Alert error message={errorDelete} />}
         <Wrapper>
           {loadingDetails ? (
             <Spinner width={60} height={60} color='#000' />
@@ -401,8 +419,7 @@ const ViewPatientRecordsScreen = () => {
               <SecondColumn>
                 <SecondColumnContainer>
                   <Heading>Patient Records</Heading>
-
-                  {patient.reports.length === 0 ? (
+                  {patient.reports && patient.reports.length === 0 ? (
                     <Message>No records found!</Message>
                   ) : (
                     <RecordTableContainer>
@@ -416,44 +433,47 @@ const ViewPatientRecordsScreen = () => {
                             </TableRow>
                           </TableHeadBox>
                           <TableBody>
-                            {patient.reports.map((record, index) => (
-                              <TableRow key={index}>
-                                <TableData data-heading='S.NO'>
-                                  {index + 1}
-                                </TableData>
-                                <TableData data-heading='DESCRIPTION'>
-                                  {record.description}
-                                </TableData>
-                                <TableData data-heading='ATTENDED BY'>
-                                  {record.attendedBy}
-                                </TableData>
-                                <TableData data-heading='PLACE'>
-                                  {record.hospital}
-                                </TableData>
-                                <TableData data-heading='DATE'>
-                                  {toDate(record.date).toLocaleDateString(
-                                    'en-UK'
-                                  )}
-                                </TableData>
-                                <TableData data-heading='REPORT'>
-                                  {record.report}
-                                </TableData>
-                                <TableData data-heading=''>
-                                  <ButtonsList>
-                                    <EditButton
-                                      to={`/hospital/dashboard/${patientAadharNumber}/edit`}
-                                    >
-                                      <UilEdit size='18' color='#fff' />
-                                    </EditButton>
-                                    <DeleteButton
-                                      onClick={() => deleteHandler(record._id)}
-                                    >
-                                      <UilTrashAlt size='18' color='#fff' />
-                                    </DeleteButton>
-                                  </ButtonsList>
-                                </TableData>
-                              </TableRow>
-                            ))}
+                            {patient.reports &&
+                              patient.reports.map((record, index) => (
+                                <TableRow key={index}>
+                                  <TableData data-heading='S.NO'>
+                                    {index + 1}
+                                  </TableData>
+                                  <TableData data-heading='DESCRIPTION'>
+                                    {record.description}
+                                  </TableData>
+                                  <TableData data-heading='ATTENDED BY'>
+                                    {record.attendedBy}
+                                  </TableData>
+                                  <TableData data-heading='PLACE'>
+                                    {record.hospital}
+                                  </TableData>
+                                  <TableData data-heading='DATE'>
+                                    {toDate(record.date).toLocaleDateString(
+                                      'en-UK'
+                                    )}
+                                  </TableData>
+                                  <TableData data-heading='REPORT'>
+                                    {record.report}
+                                  </TableData>
+                                  <TableData data-heading=''>
+                                    <ButtonsList>
+                                      <EditButton
+                                        to={`/hospital/dashboard/${patientAadharNumber}/record/${record._id}/edit`}
+                                      >
+                                        <UilEdit size='18' color='#fff' />
+                                      </EditButton>
+                                      <DeleteButton
+                                        onClick={() =>
+                                          deleteHandler(record._id)
+                                        }
+                                      >
+                                        <UilTrashAlt size='18' color='#fff' />
+                                      </DeleteButton>
+                                    </ButtonsList>
+                                  </TableData>
+                                </TableRow>
+                              ))}
                           </TableBody>
                         </Table>
                       </TableContainer>

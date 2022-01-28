@@ -105,7 +105,7 @@ export const hospitalViewPatientRecordReducer = (
   }
 }
 
-export const hospitalUpdatetPatientRecordReducer = (
+export const hospitalUpdatePatientRecordReducer = (
   state = { record: {} },
   action
 ) => {
