@@ -16,6 +16,9 @@ import {
   HOSPITAL_REGISTER_FAILURE,
   HOSPITAL_REGISTER_REQUEST,
   HOSPITAL_REGISTER_SUCCESS,
+  HOSPITAL_VIEW_PATIENT_RECORD_FAILURE,
+  HOSPITAL_VIEW_PATIENT_RECORD_REQUEST,
+  HOSPITAL_VIEW_PATIENT_RECORD_SUCCESS,
 } from './hospitalTypes'
 
 const hospitalLoginRequest = () => {
@@ -97,6 +100,26 @@ const addHospitalPatientRecordSuccess = (data) => {
 const addHospitalPatientRecordFailure = (error) => {
   return {
     type: HOSPITAL_ADD_PATIENT_RECORD_FAILURE,
+    payload: error,
+  }
+}
+
+const fetchHospitalPatientRecordRequest = () => {
+  return {
+    type: HOSPITAL_VIEW_PATIENT_RECORD_REQUEST,
+  }
+}
+
+const fetchHospitalPatientRecordSuccess = (data) => {
+  return {
+    type: HOSPITAL_VIEW_PATIENT_RECORD_SUCCESS,
+    payload: data,
+  }
+}
+
+const fetchHospitalPatientRecordFailure = (error) => {
+  return {
+    type: HOSPITAL_VIEW_PATIENT_RECORD_FAILURE,
     payload: error,
   }
 }
@@ -271,6 +294,36 @@ export const deleteHospitalPatientRecord =
           ? err.response.data.message
           : err.message
       dispatch(deleteHospitalPatientRecordFailure(errMsg))
+    }
+  }
+
+export const fetchHospitalPatientRecord =
+  (aadharNumber, recordId) => async (dispatch, getState) => {
+    try {
+      dispatch(fetchHospitalPatientRecordRequest())
+      const {
+        hospitalLogin: { hospitalInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${hospitalInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.get(
+        `/api/hospital/dashboard/${aadharNumber}/record/${recordId}`,
+        config
+      )
+
+      dispatch(fetchHospitalPatientRecordSuccess(data))
+    } catch (err) {
+      const errMsg =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      dispatch(fetchHospitalPatientRecordFailure(errMsg))
     }
   }
 

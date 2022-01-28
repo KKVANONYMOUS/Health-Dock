@@ -14,6 +14,7 @@ import {
   hospitalPatientDetailsReducer,
   hospitalAddPatientRecordReducer,
   hospitalDeletePatientRecordReducer,
+  hospitalViewPatientRecordReducer,
 } from './hospital/hospitalReducers'
 
 const reducer = combineReducers({
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   hospitalRegister: hospitalRegisterReducer,
   hospitalPatientDetails: hospitalPatientDetailsReducer,
   hospitalAddPatientRecord: hospitalAddPatientRecordReducer,
+  hospitalViewPatientRecord: hospitalViewPatientRecordReducer,
   hospitalDeletePatientRecord: hospitalDeletePatientRecordReducer,
 })
 
