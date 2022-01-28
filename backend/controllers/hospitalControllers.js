@@ -176,7 +176,7 @@ const viewPatientRecordThroughHospital = asyncHandler(async (req, res) => {
 
   if (patient) {
     let foundRecord
-    patient.reports.forEach((record) => {
+    patient.records.forEach((record) => {
       if (record._id.equals(req.params.recordId)) {
         foundRecord = record
       }
@@ -185,6 +185,11 @@ const viewPatientRecordThroughHospital = asyncHandler(async (req, res) => {
     if (!foundRecord) {
       res.status(404)
       throw new Error('Record not found')
+    }
+
+    if (foundRecord.hospitalId.toString() != req.user._id.toString()) {
+      res.status(401)
+      throw new Error('Not authorized to view this record')
     }
 
     res.json(foundRecord)

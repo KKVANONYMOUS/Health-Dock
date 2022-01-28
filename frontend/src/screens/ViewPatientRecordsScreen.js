@@ -357,7 +357,6 @@ const ViewPatientRecordsScreen = () => {
     patient,
     patientAadharNumber,
     successDelete,
-    filteredRecords,
   ])
 
   const toDate = (dob) => {
