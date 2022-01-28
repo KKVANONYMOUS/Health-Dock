@@ -16,6 +16,10 @@ import {
   HOSPITAL_REGISTER_FAILURE,
   HOSPITAL_REGISTER_REQUEST,
   HOSPITAL_REGISTER_SUCCESS,
+  HOSPITAL_UPDATE_PATIENT_RECORD_FAILURE,
+  HOSPITAL_UPDATE_PATIENT_RECORD_REQUEST,
+  HOSPITAL_UPDATE_PATIENT_RECORD_RESET,
+  HOSPITAL_UPDATE_PATIENT_RECORD_SUCCESS,
   HOSPITAL_VIEW_PATIENT_RECORD_FAILURE,
   HOSPITAL_VIEW_PATIENT_RECORD_REQUEST,
   HOSPITAL_VIEW_PATIENT_RECORD_SUCCESS,
@@ -140,6 +144,31 @@ const deleteHospitalPatientRecordFailure = (error) => {
   return {
     type: HOSPITAL_DELETE_PATIENT_RECORD_FAILURE,
     payload: error,
+  }
+}
+
+const updateHospitalPatientRecordRequest = () => {
+  return {
+    type: HOSPITAL_UPDATE_PATIENT_RECORD_REQUEST,
+  }
+}
+
+const updateHospitalPatientRecordSuccess = () => {
+  return {
+    type: HOSPITAL_UPDATE_PATIENT_RECORD_SUCCESS,
+  }
+}
+
+const updateHospitalPatientRecordFailure = (error) => {
+  return {
+    type: HOSPITAL_UPDATE_PATIENT_RECORD_FAILURE,
+    payload: error,
+  }
+}
+
+export const updateHospitalPatientRecordReset = () => {
+  return {
+    type: HOSPITAL_UPDATE_PATIENT_RECORD_RESET,
   }
 }
 
@@ -324,6 +353,38 @@ export const fetchHospitalPatientRecord =
           ? err.response.data.message
           : err.message
       dispatch(fetchHospitalPatientRecordFailure(errMsg))
+    }
+  }
+
+export const updateHospitalPatientRecord =
+  (aadharNumber, recordId, date, description, hospital, attendedBy, report) =>
+  async (dispatch, getState) => {
+    try {
+      dispatch(updateHospitalPatientRecordRequest())
+      const {
+        hospitalLogin: { hospitalInfo },
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${hospitalInfo.token}`,
+        },
+      }
+
+      const { data } = await axios.put(
+        `/api/hospital/dashboard/${aadharNumber}/record/${recordId}`,
+        { date, description, hospital, attendedBy, report },
+        config
+      )
+
+      dispatch(updateHospitalPatientRecordSuccess(data))
+    } catch (err) {
+      const errMsg =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      dispatch(updateHospitalPatientRecordFailure(errMsg))
     }
   }
 
