@@ -280,10 +280,9 @@ export const addhospitalPatientRecord =
         },
       }
 
-      const hospitalId = hospitalInfo._id
       const { data } = await axios.post(
         `/api/hospital/dashboard/${aadharNumber}`,
-        { description, attendedBy, date, report, hospitalName, hospitalId },
+        { description, attendedBy, date, report, hospitalName },
         config
       )
 

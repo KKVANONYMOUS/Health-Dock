@@ -100,8 +100,7 @@ const getPatientDetailsThroughHospital = asyncHandler(async (req, res) => {
 // @route  POST /api/hospital/dashboard/:aadharNumber
 // @access Private
 const addPatientRecordThroughHospital = asyncHandler(async (req, res) => {
-  const { description, attendedBy, date, report, hospitalName, hospitalId } =
-    req.body
+  const { description, attendedBy, date, report, hospitalName } = req.body
 
   const patient = await Patient.findOne({
     aadharNumber: req.params.aadharNumber,
@@ -114,7 +113,7 @@ const addPatientRecordThroughHospital = asyncHandler(async (req, res) => {
       date,
       hospitalName,
       report,
-      hospitalId,
+      hospitalId: req.user._id,
     }
 
     await patient.records.push(recordData)
