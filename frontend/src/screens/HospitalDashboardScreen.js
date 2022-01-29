@@ -366,19 +366,19 @@ const HospitalDashboardScreen = () => {
             <HospitalInfoItem>
               <HospitalInfoLabel>REGISTRATION NUMBER</HospitalInfoLabel>
               <HospitalInfoFieldOutput>
-                {hospitalInfo.registrationNumber}
+                {hospitalInfo && hospitalInfo.registrationNumber}
               </HospitalInfoFieldOutput>
             </HospitalInfoItem>
             <HospitalInfoItem>
               <HospitalInfoLabel>NewRESS</HospitalInfoLabel>
               <HospitalInfoFieldOutput>
-                {hospitalInfo.address}
+                {hospitalInfo && hospitalInfo.address}
               </HospitalInfoFieldOutput>
             </HospitalInfoItem>
             <HospitalInfoItem>
               <HospitalInfoLabel>PHONE NUMBER</HospitalInfoLabel>
               <HospitalInfoFieldOutput>
-                {hospitalInfo.phoneNumber}
+                {hospitalInfo && hospitalInfo.phoneNumber}
               </HospitalInfoFieldOutput>
             </HospitalInfoItem>
           </HospitalInfoContainer>
