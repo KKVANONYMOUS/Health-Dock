@@ -141,16 +141,24 @@ const deletePatientRecordThroughHospital = asyncHandler(async (req, res) => {
   })
 
   if (patient) {
-    let updatedRecordsArr = patient.reports.filter(
-      (record) => record._id != req.params.recordId
-    )
+    let updatedRecordsArr = []
+    patient.records.forEach((record) => {
+      if (record._id.equals(req.params.recordId)) {
+        if (record.hospitalId.toString() != req.user._id.toString()) {
+          res.status(401)
+          throw new Error('Not authorized to view this record')
+        }
+      } else {
+        updatedRecordsArr.push(record)
+      }
+    })
 
-    if (updatedRecordsArr.length === patient.reports.length) {
+    if (updatedRecordsArr.length === patient.records.length) {
       res.status(404)
       throw new Error('Record not found')
     }
 
-    patient.reports = updatedRecordsArr
+    patient.records = updatedRecordsArr
     await patient.save()
 
     sendSMS(
