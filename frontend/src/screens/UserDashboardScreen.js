@@ -18,8 +18,9 @@ const DashboardContainer = styled.div`
   //height: 100%;
   width: 100%;
   padding: 20px 75px 20px;
-  background-color: #fff;
+  background-color: #f8f8fa;
   //background-color: cyan;
+  height: calc(100vh - 70px);
 
   @media (max-width: 767px) {
     padding-left: 15px;
@@ -39,6 +40,7 @@ const DashboardContainer = styled.div`
     padding-right: 15px;
   }
 `
+
 const DashboardContainerFirstRow = styled.div`
   display: flex;
   flex-direction: row;
@@ -60,6 +62,7 @@ const DashboardHeadingContainer = styled.div`
     margin-bottom: 10px;
   }
 `
+
 const DashboardHeading = styled.h1`
   color: #496bf2;
   font-family: 'Poppins';
@@ -67,6 +70,7 @@ const DashboardHeading = styled.h1`
   font-size: 2.6rem;
   //background-color: violet;
 `
+
 const DashboardHeadingUnderline = styled.hr`
   height: 6px;
   border-width: 0;
@@ -89,7 +93,7 @@ const LogoutButton = styled.button`
   justify-content: center;
   align-items: center;
   font-family: 'Quicksand';
-  background-color: transparent;
+  background-color: #fff;
   color: #2d2d3a;
   border: 2px solid #2d2d3a;
   outline: none;
@@ -108,6 +112,7 @@ const LogoutButton = styled.button`
     font-size: 12px;
   }
 `
+
 const DashboardUserPhone = styled.h4`
   font-family: 'Montserrat';
   color: #000;
@@ -160,6 +165,7 @@ const AddMemberButton = styled.button`
     background-color: transparent;
   }
 `
+
 const UtilityContainer = styled.div`
   width: 100%;
   text-align: center;
@@ -175,6 +181,7 @@ const Message = styled.div`
   font-weight: 500;
   text-align: center;
 `
+
 const UserDashboardScreen = () => {
   const [showModal, setShowModal] = useState(false)
 

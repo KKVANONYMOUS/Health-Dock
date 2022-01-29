@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const CardContainer = styled.div`
   width: 48%;
-  border: 2px solid #54586a;
+  border-radius: 30px;
   padding: 5px;
   margin: 10px 5px;
   display: flex;
@@ -23,6 +23,7 @@ const CardContainer = styled.div`
 
 const AvatarImage = styled.img`
   width: 45%;
+  border-radius: 30px 0 0 30px;
 
   @media (max-width: 1000px) {
     width: auto;

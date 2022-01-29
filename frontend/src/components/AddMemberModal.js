@@ -104,7 +104,8 @@ const FormInputContainer = styled.div`
 `
 
 const FormInput = styled.input`
-  border: 1px solid #ccc;
+  border: none;
+  border-bottom: 3px solid #2dd6c1;
   outline: none;
   width: 100%;
   height: 30px;

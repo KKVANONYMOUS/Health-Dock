@@ -232,7 +232,6 @@ const FormSubmitButton = styled.button`
   width: 100%;
   padding: 10px 20px;
   border: none;
-  border-radius: 10px;
   outline: none;
   margin-top: ${({ errorMessage }) => (errorMessage ? '5px' : '20px')};
 `

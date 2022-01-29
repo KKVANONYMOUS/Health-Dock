@@ -17,10 +17,10 @@ const Container = styled.div`
   position: relative;
   top: 70px;
   left: 0;
-  //height: 100%;
+  height: calc(100vh - 70px);
   width: 100%;
   padding: 20px 75px 20px;
-  background-color: #fff;
+  background-color: #f8f8fa;
   //background-color: cyan;
 
   @media (max-width: 767px) {
@@ -45,7 +45,7 @@ const Container = styled.div`
 const Heading = styled.h1`
   font-family: 'Poppins';
   font-weight: 700;
-  color: #54586a;
+  color: #496bf2;
   margin-bottom: 10px;
 `
 
@@ -91,7 +91,8 @@ const FormInputContainer = styled.div`
 `
 
 const FormInput = styled.input`
-  border: 1px solid #ccc;
+  border: none;
+  border-bottom: 3px solid #2dd6c1;
   outline: none;
   width: 100%;
   height: 30px;
