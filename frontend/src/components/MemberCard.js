@@ -28,6 +28,7 @@ const AvatarImage = styled.img`
   @media (max-width: 1000px) {
     width: auto;
     margin: 0 20px;
+    border-radius: 30px;
   }
 `
 

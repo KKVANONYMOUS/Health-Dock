@@ -25,6 +25,8 @@ const DashboardContainer = styled.div`
   @media (max-width: 767px) {
     padding-left: 15px;
     padding-right: 15px;
+    min-height: calc(100vh - 70px);
+    height: inherit;
   }
 
   @media (width: 768px) and (height: 1024px) {
@@ -32,12 +34,16 @@ const DashboardContainer = styled.div`
     height: 55vh;
     padding-left: 15px;
     padding-right: 15px;
+    min-height: calc(100vh - 70px);
+    height: inherit;
   }
 
   @media (min-width: 768px) and (max-width: 1024px) {
     justify-content: center;
     padding-left: 15px;
     padding-right: 15px;
+    min-height: calc(100vh - 70px);
+    height: inherit;
   }
 `
 
