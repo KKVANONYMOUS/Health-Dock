@@ -202,7 +202,7 @@ const viewPatientRecordThroughHospital = asyncHandler(async (req, res) => {
 // @route   PUT /api/hospital/dashboard/:aadharNumber/record/:recordId
 // @access  Private
 const editPatientRecordThroughHospital = asyncHandler(async (req, res) => {
-  const { date, description, hospital, attendedBy, report } = req.body
+  const { date, description, hospitalName, attendedBy, report } = req.body
 
   const patient = await Patient.findOne({
     aadharNumber: req.params.aadharNumber,
@@ -210,12 +210,17 @@ const editPatientRecordThroughHospital = asyncHandler(async (req, res) => {
 
   if (patient) {
     let isRecordExist = false
-    patient.reports.forEach((record) => {
+    patient.records.forEach((record) => {
       if (record._id.equals(req.params.recordId)) {
+        if (record.hospitalId.toString() != req.user._id.toString()) {
+          res.status(401)
+          throw new Error('Not authorized to view this record')
+        }
+
         isRecordExist = true
         record.date = date
         record.description = description
-        record.hospital = hospital
+        record.hospitalName = hospitalName
         record.attendedBy = attendedBy
         record.report = report
       }
@@ -229,7 +234,7 @@ const editPatientRecordThroughHospital = asyncHandler(async (req, res) => {
     await patient.save()
 
     sendSMS(
-      `Your record has been successfully updated by ${hospital}. If this is not done under your instructions, please visit the concerned hospital \n\nTeam Health Dock`,
+      `Your record has been successfully updated by ${hospitalName}. If this is not done under your instructions, please visit the concerned hospital \n\nTeam Health Dock`,
       patient.registeredNumber
     )
 
