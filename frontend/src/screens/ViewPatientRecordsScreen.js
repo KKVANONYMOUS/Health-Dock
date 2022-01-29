@@ -56,7 +56,7 @@ const BackButton = styled(Link)`
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 5px 0;
 
   @media (max-width: 1000px) {
     flex-direction: column;
