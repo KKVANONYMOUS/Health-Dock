@@ -253,6 +253,20 @@ const editPatientRecordThroughHospital = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Fetch aadhar number list
+// @route   GET /api/hospital/dashboard/aadharNumbers
+// @access  Private
+const fetchAadharNumberList = asyncHandler(async (req, res) => {
+  const patients = await Patient.find({})
+
+  let aadharNumberList = []
+  patients.forEach((patient) =>
+    aadharNumberList.push(patient.aadharNumber.toString())
+  )
+
+  res.json(aadharNumberList)
+})
+
 export {
   registerHospital,
   loginHospital,
@@ -262,4 +276,5 @@ export {
   deletePatientRecordThroughHospital,
   viewPatientRecordThroughHospital,
   editPatientRecordThroughHospital,
+  fetchAadharNumberList,
 }
