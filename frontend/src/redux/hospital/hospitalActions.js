@@ -1,5 +1,8 @@
 import axios from 'axios'
 import {
+  FETCH_AADHAR_NUMBER_LIST_FAILURE,
+  FETCH_AADHAR_NUMBER_LIST_REQUEST,
+  FETCH_AADHAR_NUMBER_LIST_SUCCESS,
   HOSPITAL_ADD_PATIENT_RECORD_FAILURE,
   HOSPITAL_ADD_PATIENT_RECORD_REQUEST,
   HOSPITAL_ADD_PATIENT_RECORD_SUCCESS,
@@ -169,6 +172,26 @@ const updateHospitalPatientRecordFailure = (error) => {
 export const resetUpdateHospitalPatientRecord = () => {
   return {
     type: HOSPITAL_UPDATE_PATIENT_RECORD_RESET,
+  }
+}
+
+const fetchAadharNumberListRequest = () => {
+  return {
+    type: FETCH_AADHAR_NUMBER_LIST_REQUEST,
+  }
+}
+
+const fetchAadharNumberListSuccess = (data) => {
+  return {
+    type: FETCH_AADHAR_NUMBER_LIST_SUCCESS,
+    payload: data,
+  }
+}
+
+const fetchAadharNumberListFailure = (error) => {
+  return {
+    type: FETCH_AADHAR_NUMBER_LIST_FAILURE,
+    payload: error,
   }
 }
 
@@ -400,4 +423,33 @@ export const logoutHospital = () => (dispatch) => {
   localStorage.removeItem('hospitalInfo')
   dispatch(hospitalLogout())
   document.location.href = '/hospital/login'
+}
+
+export const fetchAadharNumberList = () => async (dispatch, getState) => {
+  try {
+    dispatch(fetchAadharNumberListRequest())
+    const {
+      hospitalLogin: { hospitalInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${hospitalInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(
+      '/api/hospital/dashboard/aadharNumbers',
+      config
+    )
+
+    dispatch(fetchAadharNumberListSuccess(data))
+  } catch (err) {
+    const errMsg =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message
+    dispatch(fetchAadharNumberListFailure(errMsg))
+  }
 }

@@ -23,6 +23,9 @@ import {
   HOSPITAL_VIEW_PATIENT_RECORD_FAILURE,
   HOSPITAL_VIEW_PATIENT_RECORD_REQUEST,
   HOSPITAL_VIEW_PATIENT_RECORD_SUCCESS,
+  FETCH_AADHAR_NUMBER_LIST_REQUEST,
+  FETCH_AADHAR_NUMBER_LIST_SUCCESS,
+  FETCH_AADHAR_NUMBER_LIST_FAILURE,
 } from './hospitalTypes'
 
 export const hospitalLoginReducer = (state = {}, action) => {
@@ -130,6 +133,22 @@ export const hospitalDeletePatientRecordReducer = (state = {}, action) => {
     case HOSPITAL_DELETE_PATIENT_RECORD_SUCCESS:
       return { loading: false, success: true }
     case HOSPITAL_DELETE_PATIENT_RECORD_FAILURE:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const aadharNumberListReducer = (
+  state = { aadharNumbers: {} },
+  action
+) => {
+  switch (action.type) {
+    case FETCH_AADHAR_NUMBER_LIST_REQUEST:
+      return { loading: true }
+    case FETCH_AADHAR_NUMBER_LIST_SUCCESS:
+      return { loading: false, aadharNumbers: action.payload }
+    case FETCH_AADHAR_NUMBER_LIST_FAILURE:
       return { loading: false, error: action.payload }
     default:
       return state
