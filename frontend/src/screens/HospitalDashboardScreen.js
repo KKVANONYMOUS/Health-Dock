@@ -9,7 +9,7 @@ import InfoIcon from '../icons/InfoIcon.png'
 import ManageProfileIcon from '../icons/ManageProfileIcon.svg'
 import ImportantInstructionsIcon from '../icons/ImportantInstructionsIcon.svg'
 import {
-  fetchHospitalPatientDetails,
+  fetchAadharNumberList,
   logoutHospital,
 } from '../redux/hospital/hospitalActions'
 import Spinner from '../components/Spinner'
@@ -299,7 +299,10 @@ const HospitalDashboardScreen = () => {
   const hospitalPatientDetails = useSelector(
     (state) => state.hospitalPatientDetails
   )
-  const { error, loading, success } = hospitalPatientDetails
+  const { error, loading } = hospitalPatientDetails
+
+  const aadharNumberList = useSelector((state) => state.aadharNumberList)
+  const { aadharNumbers: aadharNumbersArr } = aadharNumberList
 
   const dispatch = useDispatch()
 
@@ -313,22 +316,31 @@ const HospitalDashboardScreen = () => {
     }
 
     setErrorMessage('')
-    dispatch(fetchHospitalPatientDetails(aadharNumber))
+    let isAadharExist = false
+    if (aadharNumbersArr) {
+      aadharNumbersArr.forEach((element) => {
+        if (aadharNumber === element) {
+          isAadharExist = true
+        }
+      })
+    }
+
+    if (isAadharExist) {
+      if (action === 'New Record') {
+        navigate(`/hospital/dashboard/${aadharNumber}/new`)
+      } else {
+        navigate(`/hospital/dashboard/${aadharNumber}/`)
+      }
+    }
   }
 
   useEffect(() => {
     if (!hospitalInfo) {
       navigate('/hospital/login')
     } else {
-      if (success) {
-        if (action === 'New Record') {
-          navigate(`/hospital/dashboard/${aadharNumber}/new`)
-        } else {
-          navigate(`/hospital/dashboard/${aadharNumber}/`)
-        }
-      }
+      dispatch(fetchAadharNumberList())
     }
-  }, [hospitalInfo, navigate, success, action, aadharNumber])
+  }, [hospitalInfo, navigate, action, dispatch])
 
   return (
     <>
