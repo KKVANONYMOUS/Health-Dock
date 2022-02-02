@@ -95,13 +95,15 @@ const FirstContainer = styled.div`
 `
 
 const AvatarImage = styled.img`
+  max-width: 200px;
+  max-height: 140px;
   width: 45%;
-  border-radius: 20px;
+  border-radius: 15px;
   margin-bottom: 15px;
 
   @media (max-width: 1000px) {
     width: auto;
-    margin: 0 20px;
+    margin: 0 15px;
   }
 `
 
@@ -331,9 +333,13 @@ const ViewPatientRecordsScreen = () => {
       if (patient.image) {
         setAvatarImageUrl(patient.image)
       } else {
-        setAvatarImageUrl(
-          `https://ui-avatars.com/api/?name=${patient.name}&background=eee&color=007bff&bold=true&format=svg`
-        )
+        if (patient.aadharNumber) {
+          setAvatarImageUrl(
+            `https://res.cloudinary.com/healthdockcloud/image/upload/v1643823830/identicon-${
+              ((patient.aadharNumber % 10) % 5) + 1
+            }.png`
+          )
+        }
       }
 
       if (patient.records) {

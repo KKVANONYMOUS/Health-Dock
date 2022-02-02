@@ -21,14 +21,29 @@ const CardContainer = styled.div`
   }
 `
 
-const AvatarImage = styled.img`
-  width: 45%;
-  border-radius: 30px 0 0 30px;
+//const AvatarImage = styled.img`
+//  width: 45%;
+//  border-radius: 30px 0 0 30px;
+//
+//  @media (max-width: 1000px) {
+//    width: auto;
+//    margin: 0 20px;
+//    border-radius: 30px;
+//  }
+//`
+
+const AvatarImage = styled.div`
+  background-image: url(${({ background }) => background});
+  border-radius: 15px 0 0 15px;
+  background-size: cover;
+  background-position: center;
+  width: 30%;
+  height: initial;
 
   @media (max-width: 1000px) {
-    width: auto;
-    margin: 0 20px;
-    border-radius: 30px;
+    border-radius: 15px 15px 0 0;
+    width: 100%;
+    height: 200px;
   }
 `
 
@@ -116,16 +131,17 @@ const MemberCard = ({
   useEffect(() => {
     if (image) setAvatarImageUrl(image)
     else {
-      if (fullName) {
-        setAvatarImageUrl(
-          `https://ui-avatars.com/api/?name=${fullName}&background=eee&color=007bff&bold=true&format=svg`
-        )
-      }
+      setAvatarImageUrl(
+        `https://res.cloudinary.com/healthdockcloud/image/upload/v1643823830/identicon-${
+          (Number(aadharNum[11]) % 5) + 1
+        }.png`
+      )
     }
-  }, [fullName, image])
+  }, [aadharNum, image])
   return (
     <CardContainer>
-      <AvatarImage src={avatarImageUrl} alt='Avatar Image' />
+      {/*<AvatarImage src={avatarImageUrl} alt='Avatar Image' />*/}
+      <AvatarImage background={avatarImageUrl} />
       <CardInfo>
         <Name>{fullName}</Name>
         <CardField>

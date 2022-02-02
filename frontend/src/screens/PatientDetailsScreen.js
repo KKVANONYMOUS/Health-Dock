@@ -16,7 +16,7 @@ const Container = styled.div`
   padding: 20px 75px 20px;
   background-color: #f8f8fa;
   //background-color: cyan;
-  //height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px);
 
   @media (max-width: 767px) {
     padding-left: 15px;
@@ -87,28 +87,35 @@ const FirstContainer = styled.div`
   background-color: #fff;
   border-radius: 20px;
   padding: 40px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin-bottom: 20px;
 `
 
 const AvatarImage = styled.img`
+  max-width: 200px;
+  max-height: 140px;
   width: 45%;
-  border-radius: 20px;
+  border-radius: 15px;
   margin-bottom: 15px;
 
   @media (max-width: 1000px) {
     width: auto;
-    margin: 0 20px;
+    margin: 0 15px;
   }
 `
 
-const ProfileName = styled.h2`
+const ProfileName = styled.h3`
   color: #496bf2;
   font-family: 'Montserrat';
   font-weight: 800;
 `
 
-const SecondContainer = styled(FirstContainer)`
+const SecondContainer = styled.div`
+  background-color: #fff;
+  border-radius: 20px;
   text-align: left;
   padding: 20px;
   margin-bottom: 0;
@@ -296,9 +303,13 @@ const PatientDetailsScreen = () => {
         if (patient.image) {
           setAvatarImageUrl(patient.image)
         } else {
-          setAvatarImageUrl(
-            `https://ui-avatars.com/api/?name=${patient.name}&background=eee&color=007bff&bold=true&format=svg`
-          )
+          if (patient.aadharNumber) {
+            setAvatarImageUrl(
+              `https://res.cloudinary.com/healthdockcloud/image/upload/v1643823830/identicon-${
+                ((patient.aadharNumber % 10) % 5) + 1
+              }.png`
+            )
+          }
         }
       }
     }
