@@ -291,6 +291,13 @@ const DeleteButton = styled.button`
   cursor: pointer;
 `
 
+const ReportLink = styled.a`
+  text-decoration: none;
+  color: #496bf2;
+  font-family: 'Quicksand';
+  font-weight: 600;
+`
+
 const ViewPatientRecordsScreen = () => {
   const { aadharNumber: patientAadharNumber } = useParams()
 
@@ -471,7 +478,13 @@ const ViewPatientRecordsScreen = () => {
                                     )}
                                   </TableData>
                                   <TableData data-heading='REPORT'>
-                                    {record.report}
+                                    <ReportLink
+                                      href={record.report}
+                                      target='_blank'
+                                      referrerPolicy='no-referrer'
+                                    >
+                                      View Report
+                                    </ReportLink>
                                   </TableData>
                                   <TableData data-heading=''>
                                     <ButtonsList>

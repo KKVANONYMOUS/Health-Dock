@@ -275,6 +275,13 @@ const Message = styled.div`
   text-align: center;
 `
 
+const ReportLink = styled.a`
+  text-decoration: none;
+  color: #496bf2;
+  font-family: 'Quicksand';
+  font-weight: 600;
+`
+
 const PatientDetailsScreen = () => {
   const { id: patientId } = useParams()
 
@@ -413,7 +420,13 @@ const PatientDetailsScreen = () => {
                                     )}
                                   </TableData>
                                   <TableData data-heading='REPORT'>
-                                    {record.report}
+                                    <ReportLink
+                                      href={record.report}
+                                      target='_blank'
+                                      referrerPolicy='no-referrer'
+                                    >
+                                      View Report
+                                    </ReportLink>
                                   </TableData>
                                 </TableRow>
                               ))}
