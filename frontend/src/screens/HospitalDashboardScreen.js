@@ -453,7 +453,7 @@ const HospitalDashboardScreen = () => {
               Patient's Aadhar number must be registered on Health Dock through
               a valid phone number
             </ListItem>
-            <ListItem>Documents must be in .png or .pdf format</ListItem>
+            <ListItem>Documents must be in .png, .jpeg or .jpg format</ListItem>
             <ListItem>
               Document will not be recovered if once edited or deleted
             </ListItem>
