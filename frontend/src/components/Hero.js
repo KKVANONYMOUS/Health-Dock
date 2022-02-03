@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import DownArrow from './DownArrow'
 import HeroImg from '../images/HeroImage.png'
 
-const Container = styled.div`
+const Container = styled.section`
   position: relative;
   top: 70px;
   left: 0;
@@ -134,7 +134,7 @@ const HeroButton = styled(Link)`
 
 const Hero = () => {
   return (
-    <Container>
+    <Container id='home'>
       <HeroContainer>
         <HeroContentContainer>
           <HeroTitle>Health Dock.</HeroTitle>

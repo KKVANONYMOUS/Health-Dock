@@ -14,7 +14,7 @@ const UpperContainer = styled.div`
   }
 `
 
-const Container = styled.div`
+const Container = styled.section`
   margin-top: 10vh;
   display: flex;
   flex-direction: column;
@@ -144,7 +144,7 @@ const UnderLine = styled.u`
 
 const About = () => {
   return (
-    <Container>
+    <Container id='about'>
       <UpperContainer>
         <UpperTitle>Who are we?</UpperTitle>
         <AboutSlogan>

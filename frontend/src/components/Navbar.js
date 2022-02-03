@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+//import { Link } from 'react-router-dom'
+import { Link } from 'react-scroll'
 import Logo from '../icons/Logo.js'
 import { UilMultiply, UilBars } from '@iconscout/react-unicons'
 
@@ -103,6 +104,7 @@ const NavLink = styled(Link)`
   font-size: 1.2rem;
   color: #000;
   padding: 1rem 2rem;
+  cursor: pointer;
   //height: 32px;
   //background-color: grey;
 
@@ -131,17 +133,32 @@ const Navbar = () => {
 
         <NavList onClick={handleNavToggle} toggleNav={toggleNav}>
           <NavListItem>
-            <NavLink onClick={handleCloseNav} to='/'>
+            <NavLink
+              onClick={handleCloseNav}
+              to='home'
+              smooth={true}
+              duration={1000}
+            >
               Home
             </NavLink>
           </NavListItem>
           <NavListItem>
-            <NavLink onClick={handleCloseNav} to='/about'>
+            <NavLink
+              onClick={handleCloseNav}
+              to='about'
+              smooth={true}
+              duration={1000}
+            >
               About
             </NavLink>
           </NavListItem>
           <NavListItem>
-            <NavLink onClick={handleCloseNav} to='/contact'>
+            <NavLink
+              onClick={handleCloseNav}
+              to='contact'
+              smooth={true}
+              duration={1000}
+            >
               Contact
             </NavLink>
           </NavListItem>

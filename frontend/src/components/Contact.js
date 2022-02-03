@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import ContactImage from '../images/ContactImage.png'
 import Spinner from './Spinner'
 
-const Container = styled.div`
+const Container = styled.section`
   //margin-top: 10vh;
   //display: flex;
   //flex-direction: column;
@@ -219,7 +219,7 @@ const Contact = () => {
   }
 
   return (
-    <Container>
+    <Container id='contact'>
       <InnerContainer>
         <Image src={ContactImage} alt='Contact Image' />
         <InnerContentContainer>
