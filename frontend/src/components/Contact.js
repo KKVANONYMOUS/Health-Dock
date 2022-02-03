@@ -41,10 +41,6 @@ const InnerContainer = styled.div`
   justify-content: center;
   //background-color: #f8f8fa;
   //margin-bottom: 50px;
-
-  @media (max-width: 1000px) {
-    //align-items: start;
-  }
 `
 const InnerContentContainer = styled.div`
   display: flex;
@@ -55,11 +51,12 @@ const InnerContentContainer = styled.div`
   //height: 70%;
   //width: 50%;
   //padding-left: 80px;
+  margin-left: 80px;
 
   @media (max-width: 1000px) {
     height: 100%;
     width: 100%;
-    padding-left: 0;
+    margin-left: 0;
   }
 `
 
