@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-//import { Link } from 'react-router-dom'
-import { Link } from 'react-scroll'
+import { Link } from 'react-router-dom'
+import { Link as ScrollLink } from 'react-scroll'
 import Logo from '../icons/Logo.js'
 import { UilMultiply, UilBars } from '@iconscout/react-unicons'
 
@@ -92,7 +92,7 @@ const NavListItem = styled.li`
     }
   }
 `
-const NavLink = styled(Link)`
+const NavLink = styled(ScrollLink)`
   display: flex;
   flex-direction: column;
   outline: none;

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { Link as ScrollLink } from 'react-scroll'
 import DownArrow from './DownArrow'
 import HeroImg from '../images/HeroImage.png'
 
@@ -132,6 +133,9 @@ const HeroButton = styled(Link)`
   }
 `
 
+const ArrowLink = styled(ScrollLink)`
+  cursor: pointer;
+`
 const Hero = () => {
   return (
     <Container id='home'>
@@ -158,9 +162,9 @@ const Hero = () => {
         </HeroContentContainer>
         <HeroImage src={HeroImg} alt='Hero Image' />
       </HeroContainer>
-      <Link to='/'>
+      <ArrowLink to='about' smooth={true} duration={1000}>
         <DownArrow />
-      </Link>
+      </ArrowLink>
     </Container>
   )
 }
