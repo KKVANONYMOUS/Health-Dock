@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import Logo from '../icons/Logo.js'
 
 const FooterContainer = styled.div`
+  position: relative;
+  top: 10vh;
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: center;

@@ -5,52 +5,30 @@ import ContactImage from '../images/ContactImage.png'
 import Spinner from './Spinner'
 
 const Container = styled.section`
-  //margin-top: 10vh;
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: start;
-  //height: 90vh;
-  //height: calc(100vh - 70px);
+  position: relative;
+  top: 10vh;
+  left: 0;
   width: 100%;
-  //padding: 0px 75px 0px;
-  padding: 0 75px;
-  margin-bottom: 50px;
-  background-color: #fff;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #f8f8fa;
 
-  @media (max-width: 767px) {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  @media (width: 768px) and (height: 1024px) {
-    //background-color: red;
-    height: 55vh;
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  @media (min-width: 768px) and (max-width: 1024px) {
-    justify-content: center;
-    padding-left: 15px;
-    padding-right: 15px;
+  @media (max-width: 1000px) {
+    align-items: center;
   }
 `
 const InnerContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  //background-color: #f8f8fa;
-  //margin-bottom: 50px;
 `
 const InnerContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  //background-color: yellow;
-  //height: 70%;
-  //width: 50%;
-  //padding-left: 80px;
   margin-left: 80px;
 
   @media (max-width: 1000px) {
@@ -72,9 +50,8 @@ const Title = styled.p`
   font-family: 'Poppins';
   font-weight: 800;
   width: 100%;
-  color: #496bf2;
+  color: #2d2d3a;
   font-size: 3.5rem;
-  //background-color: pink;
 
   @media (max-width: 1000px) {
     font-size: 2.2rem;
@@ -82,7 +59,6 @@ const Title = styled.p`
 `
 const SubHeadingContainer = styled.div`
   width: 100%;
-  //background-color: green;
 `
 
 const SubHeading = styled.p`
@@ -95,8 +71,6 @@ const SubHeading = styled.p`
 
 const Form = styled.form`
   width: 100%;
-  //margin-bottom: 50px;
-  //background-color: orange;
 `
 
 const FormLabel = styled.h3`
@@ -111,7 +85,6 @@ const FormInputContainer = styled.div`
   flex-direction: column;
   justify-content: start;
   align-items: start;
-  //background-color: cyan;
   margin-bottom: 25px;
 `
 
