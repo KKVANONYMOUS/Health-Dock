@@ -1,43 +1,28 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { Link as ScrollLink } from 'react-scroll'
-import DownArrow from './DownArrow'
 import HeroImg from '../images/HeroImage.png'
 
 const Container = styled.section`
   position: relative;
-  top: 70px;
+  top: 10vh;
   left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
-  background-color: #fff;
+  justify-content: center;
+  background-color: #f8f8fa;
   height: 90vh;
   width: 100%;
-
-  @media (max-width: 767px) {
-    padding-top: 50px;
-  }
-
-  @media (width: 768px) and (height: 1024px) {
-    //background-color: red;
-    height: 55vh;
-  }
-
-  @media (min-width: 768px) and (max-width: 1024px) {
-    justify-content: center;
-  }
 `
 const HeroContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  //background-color: grey;
+  width: 100%;
   margin-bottom: 50px;
 
   @media (max-width: 1000px) {
-    //align-items: start;
+    height: 100%;
   }
 `
 const HeroContentContainer = styled.div`
@@ -45,7 +30,6 @@ const HeroContentContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  //background-color: yellow;
   height: 70%;
   width: 50%;
   padding-left: 80px;
@@ -70,7 +54,6 @@ const HeroTitle = styled.h1`
   color: #2d2d3a;
   font-size: 3.5rem;
   margin-bottom: 0;
-  //background-color: pink;
 
   @media (max-width: 1000px) {
     font-size: 2.5rem;
@@ -78,7 +61,6 @@ const HeroTitle = styled.h1`
 `
 const HeroSloganContainer = styled.div`
   width: 50%;
-  //background-color: green;
 `
 
 const HeroSlogan = styled.h3`
@@ -133,9 +115,6 @@ const HeroButton = styled(Link)`
   }
 `
 
-const ArrowLink = styled(ScrollLink)`
-  cursor: pointer;
-`
 const Hero = () => {
   return (
     <Container id='home'>
@@ -162,9 +141,6 @@ const Hero = () => {
         </HeroContentContainer>
         <HeroImage src={HeroImg} alt='Hero Image' />
       </HeroContainer>
-      <ArrowLink to='about' smooth={true} duration={1000}>
-        <DownArrow />
-      </ArrowLink>
     </Container>
   )
 }

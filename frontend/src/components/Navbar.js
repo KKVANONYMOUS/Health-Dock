@@ -23,7 +23,6 @@ const NavContainer = styled.div`
   align-items: center;
   height: 10vh;
   width: 100%;
-  //background-color: red;
   padding: 0 50px;
 
   @media (max-width: 1000px) {
@@ -34,9 +33,8 @@ const NavContainer = styled.div`
 const NavLogo = styled(Link)`
   text-decoration: none;
   outline: none;
-  //background-color: orange;
   width: 220px;
-  //height: 100px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,16 +48,12 @@ const NavListIcon = styled.div`
     top: 0;
     right: 0;
     transform: translate(-20%, 0%);
-    //font-size: 2rem;
     cursor: pointer;
-    //background-color: yellow;
   }
 `
 const NavList = styled.ul`
   display: flex;
   align-items: center;
-  //justify-content: center;
-  //background-color: green;
   height: 10vh;
   padding: 0 20px;
 
@@ -68,9 +62,9 @@ const NavList = styled.ul`
     width: 100%;
     height: 100vh;
     position: absolute;
-    padding: 0;
-    top: 65px;
+    top: 10vh;
     left: ${({ toggleNav }) => (toggleNav ? '0' : '-150%')};
+    padding: 0;
     background-color: rgba(0, 0, 0, 0.9);
     transition: 0.5s ease-in-out;
   }
@@ -79,11 +73,9 @@ const NavList = styled.ul`
 const NavListItem = styled.li`
   list-style: none;
   height: 64px;
-  //background-color: cyan;
-  //margin-right: 2rem;
+  margin-right: 0.5rem;
 
   @media (max-width: 1000px) {
-    //background-color: pink;
     width: 100%;
     height: 10vh;
     margin-bottom: 2px;
@@ -96,7 +88,6 @@ const NavLink = styled(ScrollLink)`
   display: flex;
   flex-direction: column;
   outline: none;
-  //justify-content: space-between;
   align-items: center;
   text-decoration: none;
   font-family: 'Poppins';
@@ -105,14 +96,8 @@ const NavLink = styled(ScrollLink)`
   color: #000;
   padding: 1rem 2rem;
   cursor: pointer;
-  //height: 32px;
-  //background-color: grey;
 
   @media (max-width: 1000px) {
-    //height: 100px;
-    //display: block;
-    //align-items: center;
-    //text-align: center;
     color: #ccc;
     padding: 1.5rem;
   }
