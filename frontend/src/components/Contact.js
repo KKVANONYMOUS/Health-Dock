@@ -16,6 +16,7 @@ const Container = styled.section`
   background-color: #f8f8fa;
 
   @media (max-width: 1000px) {
+    padding: 20px 30px;
     align-items: center;
   }
 `
