@@ -424,6 +424,7 @@ const PatientDetailsScreen = () => {
                                       href={record.report}
                                       target='_blank'
                                       referrerPolicy='no-referrer'
+                                      rel='noopener'
                                     >
                                       View Report
                                     </ReportLink>
