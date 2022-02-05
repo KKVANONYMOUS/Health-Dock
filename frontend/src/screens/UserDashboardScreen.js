@@ -20,7 +20,7 @@ const DashboardContainer = styled.div`
   padding: 20px 75px 20px;
   background-color: #f8f8fa;
   //background-color: cyan;
-  height: calc(100vh - 70px);
+  min-height: calc(100vh - 70px);
 
   @media (max-width: 767px) {
     padding-left: 15px;
