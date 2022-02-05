@@ -1,1 +1,0 @@
-All image uploads go in this directory
