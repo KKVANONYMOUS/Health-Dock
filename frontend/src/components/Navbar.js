@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Link as ScrollLink } from 'react-scroll'
 import Logo from '../icons/Logo.js'
 import { UilMultiply, UilBars } from '@iconscout/react-unicons'
@@ -103,6 +103,8 @@ const NavLink = styled(ScrollLink)`
   }
 `
 const Navbar = () => {
+  const location = useLocation()
+
   const [toggleNav, setToggleNav] = useState(false)
   const handleNavToggle = () => setToggleNav(!toggleNav)
   const handleCloseNav = () => setToggleNav(false)
@@ -112,42 +114,46 @@ const Navbar = () => {
         <NavLogo to='/' aria-label='Health Dock'>
           <Logo />
         </NavLogo>
-        <NavListIcon onClick={handleNavToggle}>
-          {toggleNav ? <UilMultiply size='32' /> : <UilBars size='32' />}
-        </NavListIcon>
+        {location.pathname === '/' && (
+          <>
+            <NavListIcon onClick={handleNavToggle}>
+              {toggleNav ? <UilMultiply size='32' /> : <UilBars size='32' />}
+            </NavListIcon>
 
-        <NavList onClick={handleNavToggle} toggleNav={toggleNav}>
-          <NavListItem>
-            <NavLink
-              onClick={handleCloseNav}
-              to='home'
-              smooth={true}
-              duration={1000}
-            >
-              Home
-            </NavLink>
-          </NavListItem>
-          <NavListItem>
-            <NavLink
-              onClick={handleCloseNav}
-              to='about'
-              smooth={true}
-              duration={1000}
-            >
-              About
-            </NavLink>
-          </NavListItem>
-          <NavListItem>
-            <NavLink
-              onClick={handleCloseNav}
-              to='contact'
-              smooth={true}
-              duration={1000}
-            >
-              Contact
-            </NavLink>
-          </NavListItem>
-        </NavList>
+            <NavList onClick={handleNavToggle} toggleNav={toggleNav}>
+              <NavListItem>
+                <NavLink
+                  onClick={handleCloseNav}
+                  to='home'
+                  smooth={true}
+                  duration={1000}
+                >
+                  Home
+                </NavLink>
+              </NavListItem>
+              <NavListItem>
+                <NavLink
+                  onClick={handleCloseNav}
+                  to='about'
+                  smooth={true}
+                  duration={1000}
+                >
+                  About
+                </NavLink>
+              </NavListItem>
+              <NavListItem>
+                <NavLink
+                  onClick={handleCloseNav}
+                  to='contact'
+                  smooth={true}
+                  duration={1000}
+                >
+                  Contact
+                </NavLink>
+              </NavListItem>
+            </NavList>
+          </>
+        )}
       </NavContainer>
     </Nav>
   )
