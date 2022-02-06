@@ -1,13 +1,15 @@
 {
-  "name": "health-log",
+  "name": "health-dock",
   "version": "1.0.0",
-  "description": "A web app to log health stats",
+  "description": "A web app to maintain health records",
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "start": "node backend/server",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"yarn server\" \"yarn client\""
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "author": "kkvanonymous",
   "license": "MIT",
