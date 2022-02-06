@@ -1,6 +1,5 @@
 import { useRef, useEffect, useCallback, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useSpring, animated } from 'react-spring'
 import { useNavigate } from 'react-router-dom'
 import AddMemberImage from '../../images/AddMemberImage.png'
 import {
@@ -44,14 +43,6 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
   const { loading, error, success } = patientCreate
 
   const modalRef = useRef()
-
-  const animation = useSpring({
-    config: {
-      duration: 250,
-    },
-    opacity: showModal ? 1 : 0,
-    transform: showModal ? `translateY(0%)` : `translateY(-100%)`,
-  })
 
   const closeModal = (e) => {
     if (modalRef.current === e.target) {
@@ -121,95 +112,89 @@ const AddMemberModal = ({ showModal, setShowModal }) => {
       {showModal ? (
         <Background onClick={closeModal} ref={modalRef}>
           {success && setShowModal(false)}
-          <animated.div style={animation}>
-            <ModalWrapper showModal={showModal}>
-              <ModalImg src={AddMemberImage} alt='Add Member Image' />
-              <ModalContent>
-                {error && <Alert error width='85%' message={error} />}
-                <Form onSubmit={handleSubmit}>
-                  <FormInputContainer>
-                    <FormLabel>FULL NAME</FormLabel>
+          <ModalWrapper showModal={showModal}>
+            <ModalImg src={AddMemberImage} alt='Add Member Image' />
+            <ModalContent>
+              {error && <Alert error width='85%' message={error} />}
+              <Form onSubmit={handleSubmit}>
+                <FormInputContainer>
+                  <FormLabel>FULL NAME</FormLabel>
+                  <FormInput
+                    type='text'
+                    placeholder='Enter full name'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </FormInputContainer>
+
+                <FormInputContainer>
+                  <FormLabel>AADHAR NUMBER</FormLabel>
+                  <FormInput
+                    type='number'
+                    placeholder='Enter aadhar number'
+                    value={aadharNumber}
+                    onChange={(e) => setAadharNumber(e.target.value)}
+                  />
+                </FormInputContainer>
+                <UtilityContainer>
+                  <FormInputContainer className='rightMargin'>
+                    <FormLabel>DOB</FormLabel>
                     <FormInput
-                      type='text'
-                      placeholder='Enter full name'
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      type='date'
+                      value={dob}
+                      onChange={(e) => setDob(e.target.value)}
                     />
                   </FormInputContainer>
 
                   <FormInputContainer>
-                    <FormLabel>AADHAR NUMBER</FormLabel>
+                    <FormLabel>AGE</FormLabel>
                     <FormInput
                       type='number'
-                      placeholder='Enter aadhar number'
-                      value={aadharNumber}
-                      onChange={(e) => setAadharNumber(e.target.value)}
+                      placeholder='Enter age'
+                      value={age}
+                      onChange={(e) => setAge(e.target.value)}
                     />
                   </FormInputContainer>
-                  <UtilityContainer>
-                    <FormInputContainer className='rightMargin'>
-                      <FormLabel>DOB</FormLabel>
-                      <FormInput
-                        type='date'
-                        value={dob}
-                        onChange={(e) => setDob(e.target.value)}
-                      />
-                    </FormInputContainer>
+                </UtilityContainer>
+                <UtilityContainer>
+                  <FormInputContainer className='rightMargin'>
+                    <FormLabel>GENDER</FormLabel>
+                    <FormSelectInput
+                      name='Gender'
+                      value={gender}
+                      onChange={(e) => setGender(e.target.value)}
+                    >
+                      <option value='Male'>Male</option>
+                      <option value='Female'>Female</option>
+                      <option value='Other'>Other</option>
+                    </FormSelectInput>
+                  </FormInputContainer>
 
-                    <FormInputContainer>
-                      <FormLabel>AGE</FormLabel>
-                      <FormInput
-                        type='number'
-                        placeholder='Enter age'
-                        value={age}
-                        onChange={(e) => setAge(e.target.value)}
-                      />
-                    </FormInputContainer>
-                  </UtilityContainer>
-                  <UtilityContainer>
-                    <FormInputContainer className='rightMargin'>
-                      <FormLabel>GENDER</FormLabel>
-                      <FormSelectInput
-                        name='Gender'
-                        value={gender}
-                        onChange={(e) => setGender(e.target.value)}
-                      >
-                        <option value='Male'>Male</option>
-                        <option value='Female'>Female</option>
-                        <option value='Other'>Other</option>
-                      </FormSelectInput>
-                    </FormInputContainer>
-
-                    <FormInputContainer>
-                      <FormLabel>BLOOD GROUP</FormLabel>
-                      <FormInput
-                        type='text'
-                        placeholder='Enter blood group'
-                        value={bloodGroup}
-                        onChange={(e) => setBloodGroup(e.target.value)}
-                      />
-                    </FormInputContainer>
-                  </UtilityContainer>
-                  {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-                  <FormSubmitButton
-                    disabled={loading}
-                    errorMessage={errorMessage}
-                    type='submit'
-                  >
-                    {loading ? (
-                      <Spinner width={18} height={18} />
-                    ) : (
-                      'Add Member'
-                    )}
-                  </FormSubmitButton>
-                </Form>
-              </ModalContent>
-              <CloseModalButton
-                aria-label='Close modal'
-                onClick={() => setShowModal((prev) => !prev)}
-              />
-            </ModalWrapper>
-          </animated.div>
+                  <FormInputContainer>
+                    <FormLabel>BLOOD GROUP</FormLabel>
+                    <FormInput
+                      type='text'
+                      placeholder='Enter blood group'
+                      value={bloodGroup}
+                      onChange={(e) => setBloodGroup(e.target.value)}
+                    />
+                  </FormInputContainer>
+                </UtilityContainer>
+                {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+                <FormSubmitButton
+                  disabled={loading}
+                  errorMessage={errorMessage}
+                  type='submit'
+                >
+                  {loading ? <Spinner width={18} height={18} /> : 'Add Member'}
+                </FormSubmitButton>
+              </Form>
+            </ModalContent>
+            <CloseModalButton
+              aria-label='Close modal'
+              onClick={() => setShowModal((prev) => !prev)}
+            />
+          </ModalWrapper>
         </Background>
       ) : null}
     </>
