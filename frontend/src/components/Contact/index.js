@@ -57,10 +57,10 @@ const Contact = () => {
 
     emailjs
       .send(
-        process.env.REACT_APP_SERVICE_ID,
-        process.env.REACT_APP_TEMPLATE_ID,
+        'gmail',
+        'contact_template',
         mailConfig,
-        process.env.REACT_APP_EMAILJS_USER_ID
+        'user_ymcElLtthdLPTj7MMvIsi'
       )
       .then(
         (result) => {
