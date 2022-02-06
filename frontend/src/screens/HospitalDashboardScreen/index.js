@@ -92,6 +92,8 @@ const HospitalDashboardScreen = () => {
       } else {
         navigate(`/hospital/dashboard/${aadharNumber}/`)
       }
+    } else {
+      alert('Aadhar Number does not exist!')
     }
   }
 
