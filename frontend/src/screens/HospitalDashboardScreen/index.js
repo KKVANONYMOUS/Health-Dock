@@ -143,7 +143,7 @@ const HospitalDashboardScreen = () => {
               </HospitalInfoFieldOutput>
             </HospitalInfoItem>
             <HospitalInfoItem>
-              <HospitalInfoLabel>NewRESS</HospitalInfoLabel>
+              <HospitalInfoLabel>ADDRESS</HospitalInfoLabel>
               <HospitalInfoFieldOutput>
                 {hospitalInfo && hospitalInfo.address}
               </HospitalInfoFieldOutput>
