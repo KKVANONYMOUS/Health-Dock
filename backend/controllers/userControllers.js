@@ -29,7 +29,6 @@ const authUser = asyncHandler(async (req, res) => {
     user.phoneOtp = otp
     await user.save()
     res.status(200).json({
-      otp: otp,
       userId: user._id,
     })
   } else {
